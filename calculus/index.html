@@ -186,7 +186,7 @@ html { scroll-behavior: smooth; }
     <div class="eyebrow">微分積分 ／ 第1〜5週</div>
     <h1>微分積分<br><span class="mk">テスト対策ノート</span></h1>
     <p class="lead">演習問題5回分から、使う公式・全問の解答と解き方・よく出る型をまとめた。解答は「＋解答」で開閉できるから、まず自力で解いてから確認しよう。</p>
-    <div class="scope"><span>導関数・高階導関数</span><span>テイラー展開</span><span>極限</span><span>増減表と極値</span><span>ロピタルの定理</span><span>グラフの概形</span></div>
+    <div class="scope"><span>導関数・高階導関数</span><span>テイラー展開</span><span>極限</span><span>増減表と極値</span><span>ロピタルの定理</span><span>グラフの概形</span><span>偏微分・ヤコビアン</span></div>
   </div>
 </header>
 
@@ -198,6 +198,7 @@ html { scroll-behavior: smooth; }
     <a href="#w3">第3週</a>
     <a href="#w4">第4週</a>
     <a href="#w5">第5週</a>
+    <a href="#mid">中間演習</a>
     <a href="#mock">模試</a>
     <a href="#patterns">頻出パターン</a>
     <a href="#practice">練習問題</a>
@@ -585,6 +586,73 @@ html { scroll-behavior: smooth; }
   </div>
 </section>
 
+<!-- ===================== 中間演習 6〜8 ===================== -->
+<section id="mid">
+  <h2><span class="wk">MIDTERM EXERCISE</span>中間演習 □6〜□8：偏微分・ヤコビアン・グラフ</h2>
+  <p class="sec-lead">10/28 の中間演習プリントの後半。□6・□7 は2変数関数の新しい内容、□8 は第4・5週の総まとめ。</p>
+
+  <div class="grid2">
+    <div class="box">
+      <h4>偏微分</h4>
+      <p>\(f_x\) は <span class="mk">\(y\) を定数とみて \(x\) で微分</span>、\(f_y\) は \(x\) を定数とみて \(y\) で微分。</p>
+      <p class="note">積・合成の微分のルールは1変数と同じ。例：\(\dfrac{\partial}{\partial x}e^{xy} = y\,e^{xy}\)、\(\dfrac{\partial}{\partial y}e^{xy} = x\,e^{xy}\)</p>
+    </div>
+    <div class="box">
+      <h4>ヤコビアン</h4>
+      <div class="math-scroll">\[ J(u,v) = \begin{vmatrix} x_u & x_v \\ y_u & y_v \end{vmatrix} = x_u\,y_v - x_v\,y_u \]</div>
+      <p class="note">上の行が \(x\)、下の行が \(y\)。左の列が \(u\)、右の列が \(v\) で微分。</p>
+    </div>
+  </div>
+
+  <div class="toolbar" style="margin-top:18px"><button type="button" data-toggle="mid">解答を全部開く</button></div>
+
+  <div class="qhead"><span class="n">6.</span><span class="t">次の2変数関数について \(f_x(x,y)\) と \(f_y(x,y)\) を計算せよ</span></div>
+  <div class="plist">
+    <div class="prob"><div class="q"><span class="no">(1)</span><span class="ex">\(f(x,y) = x^3 - 3x^2y + 4xy^2 + 2y^3\)</span></div>
+      <details><summary>解答</summary><div class="sol">
+        <p>\(y\) を定数とみて \(x\) で微分：\(3x^2 - 6xy + 4y^2\)</p>
+        <p>\(x\) を定数とみて \(y\) で微分：\(-3x^2 + 8xy + 6y^2\)</p>
+        <p class="ans">\(f_x = 3x^2 - 6xy + 4y^2,\quad f_y = -3x^2 + 8xy + 6y^2\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(2)</span><span class="ex">\(f(x,y) = e^{xy}\sin(3x + 2y^2)\)</span></div>
+      <details><summary>解答</summary><div class="sol">
+        <p>積の微分。\(\dfrac{\partial}{\partial x}e^{xy} = ye^{xy}\)、\(\dfrac{\partial}{\partial x}\sin(3x+2y^2) = 3\cos(3x+2y^2)\)</p>
+        <p>\(\dfrac{\partial}{\partial y}e^{xy} = xe^{xy}\)、\(\dfrac{\partial}{\partial y}\sin(3x+2y^2) = 4y\cos(3x+2y^2)\)</p>
+        <p class="ans">\(f_x = e^{xy}\{y\sin(3x+2y^2) + 3\cos(3x+2y^2)\}\)</p>
+        <p class="ans">\(f_y = e^{xy}\{x\sin(3x+2y^2) + 4y\cos(3x+2y^2)\}\)</p>
+        <p class="note">中身 \(3x+2y^2\) の偏微分（\(x\) なら 3、\(y\) なら \(4y\)）を掛け忘れやすい。</p></div></details></div>
+  </div>
+
+  <div class="qhead"><span class="n">7.</span><span class="t">変数変換 \(x = \log(u+2v),\ y = 3u - v\) に関するヤコビアン \(J(u,v)\) を計算せよ</span></div>
+  <div class="plist">
+    <div class="prob"><div class="q"><span class="no">　</span><span class="ex">4つの偏微分を出して行列式を計算</span></div>
+      <details><summary>解答</summary><div class="sol">
+        <p>\(x_u = \dfrac{1}{u+2v},\quad x_v = \dfrac{2}{u+2v},\quad y_u = 3,\quad y_v = -1\)</p>
+        <div class="math-scroll">\[ J = \begin{vmatrix} \frac{1}{u+2v} & \frac{2}{u+2v} \\ 3 & -1 \end{vmatrix} = \frac{1}{u+2v}\cdot(-1) - \frac{2}{u+2v}\cdot 3 \]</div>
+        <p class="ans">\(J(u,v) = -\dfrac{7}{u+2v}\)</p>
+        <p class="note">\(x_v\) は \(\log\) の中身 \(u+2v\) を \(v\) で微分した 2 が前に出る。</p></div></details></div>
+  </div>
+
+  <div class="qhead"><span class="n">8.</span><span class="t">関数 \(f(x) = (x^2 + 4x + 4)e^{-x}\) について</span></div>
+  <div class="plist">
+    <div class="prob"><div class="q"><span class="no">(1)</span><span class="ex">\(f'(x)\) を求め、\(f(x)\) の極値を求めよ（極大か極小か、極値を与える \(x\) も）</span></div>
+      <details><summary>解答</summary><div class="sol">
+        <p>\(f(x) = (x+2)^2e^{-x}\) と見ると楽。</p>
+        <p>\(f'(x) = 2(x+2)e^{-x} - (x+2)^2e^{-x} = (x+2)(2 - x - 2)e^{-x}\)</p>
+        <p class="ans">\(f'(x) = -x(x+2)e^{-x}\)</p>
+        <p>\(e^{-x} \gt 0\) なので符号は \(-x(x+2)\) で決まる。</p>
+        <div class="tbl-scroll"><table class="zt"><tr><th>x</th><td>…</td><td>−2</td><td>…</td><td>0</td><td>…</td></tr><tr><th>f′</th><td>−</td><td>0</td><td>+</td><td>0</td><td>−</td></tr><tr><th>f</th><td>↘</td><td>0</td><td>↗</td><td>4</td><td>↘</td></tr></table></div>
+        <p class="ans">極小値 0（\(x=-2\)）、極大値 4（\(x=0\)）</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(2)</span><span class="ex">\(\displaystyle\lim_{x\to\infty}f(x)\) を求め、\(y = f(x)\) のグラフの概形を描け</span></div>
+      <details><summary>解答</summary><div class="sol">
+        <p>\(\dfrac{x^2+4x+4}{e^x}\) は \(\frac\infty\infty\) 型。ロピタル2回：\(\dfrac{2x+4}{e^x} \to \dfrac{2}{e^x} \to 0\)</p>
+        <p class="ans">\(\displaystyle\lim_{x\to\infty}f(x) = 0\)</p>
+        <p>\(x\to-\infty\) では \((x+2)^2\to\infty,\ e^{-x}\to\infty\) なので \(f(x)\to\infty\)。</p>
+        <p>グラフの形をはっきりさせるなら：\(f''(x) = (x^2-2)e^{-x}\) より \(x = \pm\sqrt2\) が変曲点。</p>
+        <p class="note">ポイント：\(f(x) \ge 0\) で、x軸に \(x=-2\) で接する。\(x=0\) で山（高さ4）を越えたあとは x軸に近づいていく。赤＝極値、緑＝変曲点。</p>
+        <div class="plot" data-plot="mid-8"></div></div></details></div>
+  </div>
+</section>
+
 <!-- ===================== 模試 ===================== -->
 <section id="mock">
   <h2>模試</h2>
@@ -886,6 +954,7 @@ html { scroll-behavior: smooth; }
     <label><input type="checkbox" id="c7"><span>テイラー展開の最初の非ゼロ項で x=0 の極値を判定できる</span></label>
     <label><input type="checkbox" id="c8"><span>n 階導関数の一般形を予想して書ける</span></label>
     <label><input type="checkbox" id="c9"><span>log x / x² のグラフを極限・増減・凹凸から描ける</span></label>
+    <label><input type="checkbox" id="c10"><span>偏微分 \(f_x, f_y\) とヤコビアンを計算できる</span></label>
   </div>
 
   <footer>演習問題（第1〜5週）の内容をもとに作成。解答は自作なので、授業で配られた解答と食い違ったら授業の方を優先してね。</footer>
@@ -1022,6 +1091,11 @@ html { scroll-behavior: smooth; }
     'w5-3': { label: 'y=log x / x^2', f: function (x) { return Math.log(x) / (x * x); }, x: [0, 6], y: [-0.6, 0.26], dom: [0.05, 6],
       gx: range(1, 6, 1), gy: [-0.5, -0.25, 0.25], tx: [[1, '1'], [Math.E, 'e'], [5, '5']], ty: [[0.25, '0.25'], [-0.25, '−0.25'], [-0.5, '−0.5']],
       pts: [{ x: Math.sqrt(Math.E), y: 1 / (2 * Math.E), t: '極大 1/(2e)', dy: -8 }, { x: Math.exp(5 / 6), y: (5 / 6) / Math.exp(5 / 3), t: '変曲点', ip: true, dx: 6, dy: 14, anchor: 'start' }] },
+    'mid-8': { label: 'y=(x^2+4x+4) e^{-x}', f: function (x) { return (x + 2) * (x + 2) * Math.exp(-x); }, x: [-3.5, 6.5], y: [-0.8, 6],
+      gx: range(-3, 6, 1), gy: range(1, 6, 1), tx: [[2, '2'], [4, '4'], [6, '6']], ty: [[2, '2']],
+      pts: [{ x: -2, y: 0, t: '極小 (−2, 0)', dy: 16 }, { x: 0, y: 4, t: '極大 (0, 4)', dx: 6, dy: -8, anchor: 'start' },
+        { x: -Math.SQRT2, y: (6 - 4 * Math.SQRT2) * Math.exp(Math.SQRT2), t: '', ip: true },
+        { x: Math.SQRT2, y: (6 + 4 * Math.SQRT2) * Math.exp(-Math.SQRT2), t: '変曲点', ip: true, dx: 6, dy: -6, anchor: 'start' }] },
     'm1-6a': { label: 'y=x^4-4x^3+4x^2', f: function (x) { return x*x*(x-2)*(x-2); }, x: [-0.8, 2.8], y: [-0.5, 2.2],
       gx: range(-0.5, 2.5, 0.5), gy: range(0.5, 2, 0.5), tx: [[1, '1'], [2, '2']], ty: [[1, '1'], [2, '2']],
       pts: [{ x: 0, y: 0, t: '(0, 0)', dx: -4, dy: 16, anchor: 'end' }, { x: 1, y: 1, t: '(1, 1)' }, { x: 2, y: 0, t: '(2, 0)', dx: 4, dy: 16, anchor: 'start' }] },
