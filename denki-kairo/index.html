@@ -1,0 +1,839 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>電気回路 中間対策ノート</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=M+PLUS+1+Code:wght@400;600&display=swap">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
+<style>
+/* 配線図ノート風：ダークネイビーの見出し帯＋銅色アクセント。1タブ1章で表示 */
+:root {
+  --bg: #f3f4f1;
+  --card: #ffffff;
+  --ink: #1b2230;
+  --muted: #5d6676;
+  --line: #d8dcd6;
+  --accent: #b5521b;
+  --accent-soft: #fbeee5;
+  --navy: #1d2a44;
+  --navy-ink: #f2f4f8;
+  --key: #fff3c4;
+  --good: #22764a;
+  --good-soft: #e5f4ec;
+  --bad: #b3332b;
+  --bad-soft: #fbe9e7;
+  --wire: #1b2230;
+  --cur: #b5521b;
+  --f-body: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  --f-code: "M PLUS 1 Code", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12151b; --card: #1a1f28; --ink: #e6e9ef; --muted: #a0a8b6; --line: #2d3440;
+    --accent: #f0915a; --accent-soft: #33251d; --navy: #0c1220; --navy-ink: #e6e9ef;
+    --key: #3d3410; --good: #6fd39f; --good-soft: #17301f; --bad: #ff8b80; --bad-soft: #3a1d1a;
+    --wire: #e6e9ef; --cur: #f0915a; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12151b; --card: #1a1f28; --ink: #e6e9ef; --muted: #a0a8b6; --line: #2d3440;
+  --accent: #f0915a; --accent-soft: #33251d; --navy: #0c1220; --navy-ink: #e6e9ef;
+  --key: #3d3410; --good: #6fd39f; --good-soft: #17301f; --bad: #ff8b80; --bad-soft: #3a1d1a;
+  --wire: #e6e9ef; --cur: #f0915a; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15.5px; line-height: 1.8; }
+.wrap { max-width: 880px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+a { color: var(--accent); }
+
+.top { background: var(--navy); color: var(--navy-ink); }
+.top .wrap { padding-block: 14px 26px; }
+.back { color: var(--navy-ink); opacity: .8; font-size: 14px; text-decoration: none; }
+.back:hover { opacity: 1; text-decoration: underline; }
+.top h1 { font-weight: 900; font-size: clamp(26px, 5vw, 38px); line-height: 1.25; margin: 14px 0 8px; letter-spacing: .01em; }
+.top h1 span { color: var(--accent); }
+.top p { margin: 0; opacity: .85; max-width: 60ch; }
+
+nav.tabs { position: sticky; top: 0; z-index: 5; background: var(--card); border-bottom: 1px solid var(--line); }
+nav.tabs .wrap { display: flex; gap: 6px; overflow-x: auto; padding-block: 8px; scrollbar-width: thin; }
+nav.tabs button { flex: none; font: inherit; font-size: 13.5px; font-weight: 700; color: var(--muted); background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; cursor: pointer; white-space: nowrap; }
+nav.tabs button:hover { color: var(--ink); border-color: var(--ink); }
+nav.tabs button[aria-selected="true"] { background: var(--navy); color: var(--navy-ink); border-color: var(--navy); }
+nav.tabs button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+nav.tabs button .src { font-weight: 400; opacity: .75; font-size: 11.5px; margin-left: 4px; }
+
+main { padding-block: 24px 60px; }
+section.tab > h2 { font-weight: 900; font-size: 26px; line-height: 1.35; margin: 0 0 4px; }
+.srcline { color: var(--muted); font-size: 13.5px; margin: 0 0 18px; }
+h3 { font-weight: 900; font-size: 19px; margin: 34px 0 10px; padding-left: 10px; border-left: 5px solid var(--accent); line-height: 1.4; }
+h4 { font-weight: 700; font-size: 16px; margin: 22px 0 6px; }
+p { margin: 0 0 12px; }
+ul, ol { margin: 0 0 12px; padding-left: 1.4em; }
+li { margin-bottom: 4px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; margin: 0 0 14px; }
+.key { background: var(--key); border-radius: 10px; padding: 12px 16px; margin: 0 0 14px; }
+.key b:first-child { display: block; font-size: 13px; letter-spacing: .05em; margin-bottom: 2px; }
+.warn { background: var(--bad-soft); border-left: 4px solid var(--bad); border-radius: 6px; padding: 10px 14px; margin: 0 0 14px; font-size: 14.5px; }
+.warn b:first-child { color: var(--bad); }
+.tip { background: var(--good-soft); border-left: 4px solid var(--good); border-radius: 6px; padding: 10px 14px; margin: 0 0 14px; font-size: 14.5px; }
+.tip b:first-child { color: var(--good); }
+.mx { overflow-x: auto; overflow-y: hidden; }
+mjx-container:not([display]) { display: inline-block; max-width: 100%; overflow-x: auto; overflow-y: hidden; vertical-align: middle; }
+mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; max-width: 100%; padding: 2px 0; }
+table { border-collapse: collapse; width: 100%; font-size: 14.5px; margin: 0 0 14px; }
+.tw { overflow-x: auto; }
+th, td { border: 1px solid var(--line); padding: 6px 10px; text-align: left; vertical-align: top; }
+th { background: var(--accent-soft); font-weight: 700; }
+.ex { border: 1px solid var(--line); border-radius: 12px; background: var(--card); margin: 0 0 16px; overflow: hidden; }
+.ex > .q { padding: 14px 18px 6px; }
+.ex > .q .no { display: inline-block; font-weight: 900; color: var(--accent); margin-right: 6px; }
+.ex details { border-top: 1px dashed var(--line); }
+.ex summary { cursor: pointer; padding: 10px 18px; font-weight: 700; color: var(--accent); list-style: none; }
+.ex summary::-webkit-details-marker { display: none; }
+.ex summary::before { content: "▶ "; font-size: 12px; }
+.ex details[open] summary::before { content: "▼ "; }
+.ex .a { padding: 0 18px 14px; }
+.ans { display: inline-block; background: var(--key); font-weight: 700; padding: 0 6px; border-radius: 4px; }
+figure { margin: 6px 0 14px; text-align: center; }
+figure figcaption { font-size: 12.5px; color: var(--muted); }
+svg.circ { width: 100%; max-width: 440px; height: auto; display: block; margin: 0 auto; }
+svg.circ line, svg.circ polyline, svg.circ path, svg.circ rect, svg.circ circle { stroke: var(--wire); stroke-width: 2; fill: none; }
+svg.circ rect.part, svg.circ circle.part { fill: var(--card); }
+svg.circ .thick { stroke-width: 4; }
+svg.circ circle.dot { fill: var(--wire); stroke: none; }
+svg.circ circle.term { fill: var(--card); }
+svg.circ text { fill: var(--ink); stroke: none; font-size: 14px; font-family: var(--f-body); }
+svg.circ text.pm { font-size: 13px; font-weight: 700; fill: var(--accent); }
+svg.circ text.curl { fill: var(--cur); font-weight: 700; }
+svg.circ text.loop { font-size: 18px; font-weight: 900; fill: var(--muted); }
+svg.circ line.cur { stroke: var(--cur); }
+svg.circ .ahp { fill: var(--wire); stroke: none; }
+svg.circ .ahcp { fill: var(--cur); stroke: none; }
+svg.wave { width: 100%; max-width: 640px; height: auto; display: block; margin: 0 auto; }
+svg.wave text { fill: var(--ink); font-size: 12px; font-family: var(--f-body); }
+svg.wave .grid { stroke: var(--line); stroke-width: 1; }
+svg.wave .axis { stroke: var(--muted); stroke-width: 1.4; }
+svg.wave .v { stroke: var(--ink); stroke-width: 2.4; fill: none; }
+svg.wave .i { stroke: var(--accent); stroke-width: 2.4; fill: none; stroke-dasharray: 7 4; }
+.pager { display: flex; justify-content: space-between; gap: 10px; margin-top: 36px; }
+.pager button { font: inherit; font-size: 14px; font-weight: 700; background: var(--card); color: var(--ink); border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; cursor: pointer; max-width: 48%; text-align: left; }
+.pager button:hover { border-color: var(--ink); }
+.pager button[hidden] { visibility: hidden; display: block !important; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 12px; margin-bottom: 14px; }
+.grid2 .card { margin: 0; }
+.pill { display: inline-block; font-size: 12px; font-weight: 700; padding: 0 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); margin-right: 4px; }
+.pill.after { background: var(--line); color: var(--muted); }
+.timer { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.timer .tm { font-family: var(--f-code); font-size: 28px; font-weight: 600; min-width: 5ch; }
+.timer.over .tm { color: var(--bad); }
+.timer button { font: inherit; font-size: 14px; font-weight: 700; padding: 4px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
+#checks label { display: flex; gap: 8px; align-items: flex-start; padding: 4px 0; cursor: pointer; }
+#checks label.done span { color: var(--muted); text-decoration: line-through; }
+#checks input { margin-top: 6px; accent-color: var(--accent); }
+.prog { font-weight: 700; color: var(--accent); }
+table.sheet { table-layout: fixed; }
+table.sheet td:first-child, table.sheet th:first-child { width: 6.5em; }
+@media (max-width: 520px) { mjx-container[display="true"] { font-size: 86%; } .card, .ex > .q, .ex .a { padding-left: 12px; padding-right: 12px; } }
+@media print { nav.tabs, .pager { display: none; } section.tab[hidden] { display: block !important; } .ex details { display: block; } }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="back" href="../">← 講義一覧</a>
+    <h1>電気回路及び演習 Ⅰ<br><span>中間対策ノート</span></h1>
+    <p>試験範囲の講義スライド ec1〜ec6 と演習問題1〜5をまとめたノート。例題・演習の数値は全部計算し直して確認済み。</p>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="章の切り替え">
+  <div class="wrap" role="tablist" id="tablist"></div>
+</nav>
+
+<main class="wrap">
+
+<!-- ================= はじめに ================= -->
+<section class="tab" id="home" data-title="中間対策" data-short="中間対策">
+  <h2>中間試験の概要と攻略</h2>
+  <p class="srcline">出典：コース告知「中間試験について」（2026-10-23）</p>
+
+  <div class="grid2">
+    <div class="card">
+      <b>試験の形式</b>
+      <ul>
+        <li>第7回の講義で実施</li>
+        <li><b>演習問題と同様の記述式を4題</b></li>
+        <li>解答時間 <b>1時間</b></li>
+        <li>資料の参照不可・<b>電卓不可</b></li>
+        <li>「教科書の内容と演習問題をよく復習」</li>
+      </ul>
+    </div>
+    <div class="card">
+      <b>このノートの範囲</b>
+      <ul>
+        <li>スライド ec1〜ec6（回路素子と直流回路、正弦波交流、インピーダンスとアドミタンス、フェーザ）</li>
+        <li>演習問題 1〜5（全問解答つき）</li>
+      </ul>
+      <p style="font-size:13.5px;color:var(--muted);margin:0">試験範囲は ec6 まで。複素数表示（ec8）以降は範囲外なので載せていない。</p>
+    </div>
+  </div>
+
+  
+
+  <h3>演習1〜5の出題パターン（＝試験に出やすい型）</h3>
+  <div class="tw"><table>
+    <tr><th>型</th><th>演習での出題</th><th>押さえる道具</th></tr>
+    <tr><td>用語の説明</td><td>演習1 問1・問2</td><td>電気回路・線形素子・受動素子・直流・交流の定義（<a href="#c1" data-go="c1">回路素子と直流</a>）</td></tr>
+    <tr><td>L・C の電圧と電流</td><td>演習1 問3・問4</td><td>\(v=L\frac{\Delta i}{\Delta t}\)、\(i=C\frac{\Delta v}{\Delta t}\)、向きの符号</td></tr>
+    <tr><td>合成・分圧・分流</td><td>演習2 全問</td><td>直列・並列の合成、コンデンサは逆、分流の式の導出</td></tr>
+    <tr><td>直流回路の定理</td><td>演習3 全問、演習4 問4</td><td>キルヒホッフ、ブリッジの平衡、重ね合わせ、テブナン</td></tr>
+    <tr><td>瞬時値の計算</td><td>演習4 問1〜3</td><td>\(v_L=L\frac{di}{dt}\)、\(i_C=C\frac{dv}{dt}\)、位相 \(\pm\frac{\pi}{2}\)、波形を描く</td></tr>
+    <tr><td>インピーダンス・アドミタンス</td><td>演習5 全問</td><td>\(Z=\sqrt{R^2+X^2}\)、\(\phi=\tan^{-1}\frac{X}{R}\)、直列共振 \(f_0=\frac{1}{2\pi\sqrt{LC}}\)、並列のアドミタンス</td></tr>
+  </table></div>
+
+  <h3>電卓なしで解くための数値</h3>
+  <div class="tw"><table>
+    <tr><th>覚える値</th><th>近似値</th><th>覚える値</th><th>近似値</th></tr>
+    <tr><td>\(\sqrt2\)</td><td>1.414</td><td>\(\tan^{-1}\frac34\)</td><td>36.9°（0.64 rad）</td></tr>
+    <tr><td>\(\sqrt3\)</td><td>1.732</td><td>\(\tan^{-1}\frac43\)</td><td>53.1°（0.93 rad）</td></tr>
+    <tr><td>\(\sqrt5\)</td><td>2.236</td><td>\(\tan^{-1}\frac12\)</td><td>26.6°（0.464 rad）</td></tr>
+    <tr><td>\(\sqrt{10}\)</td><td>3.162</td><td>\(\tan^{-1}1\)</td><td>45°（\(\frac{\pi}{4}\)）</td></tr>
+    <tr><td>\(\pi\)</td><td>3.1416</td><td>\(\tan^{-1}\sqrt3\)</td><td>60°（\(\frac{\pi}{3}\)）</td></tr>
+    <tr><td>\(\frac{1}{2\pi}\)</td><td>0.159</td><td>3:4:5、5:12:13、8:15:17</td><td>よく出る直角三角形</td></tr>
+  </table></div>
+  <p>授業の数値例はほぼ全部「3:4:5」か「1:2」の三角形になるように作られてる。\(\sqrt{a^2+b^2}\) がきれいに割り切れたら計算が合ってるサイン。</p>
+
+  <h3>解答の書き方のコツ（記述式）</h3>
+  <ul>
+    <li>式を立てる前に、<b>電流の向き・電圧の向き・基準点</b>を図か文章で宣言する。</li>
+    <li>答えには<b>単位</b>を付ける（Ω, S, A, V, W, H, F, rad, °）。位相差は「どちらがどちらより何度進む／遅れる」まで書く。</li>
+    <li>「向きも答えよ」は必ず言葉で答える（例：「下から上へ 0.2 A」）。符号だけで終わらせない。</li>
+    <li>有効数字・小数点以下の桁の指定があればそれに合わせる。</li>
+  </ul>
+
+  <h3>直前チェックリスト</h3>
+  <div class="card" id="checks">
+    <p class="prog" id="prog"></p>
+    <label><input type="checkbox" id="k1"><span>線形素子・受動素子・直流・交流を一文で説明できる</span></label>
+    <label><input type="checkbox" id="k2"><span>\(v=L\frac{di}{dt}\)、\(i=C\frac{dv}{dt}\) で数値を出して、向き（符号）も言える</span></label>
+    <label><input type="checkbox" id="k3"><span>コンデンサの直列・並列が抵抗と逆になる理由を説明できる</span></label>
+    <label><input type="checkbox" id="k4"><span>2抵抗の分流 \(i_1=\frac{R_2}{R_1+R_2}i\) を合成抵抗から導ける</span></label>
+    <label><input type="checkbox" id="k5"><span>キルヒホッフの電流則・電圧則で式を立てて連立を解ける</span></label>
+    <label><input type="checkbox" id="k6"><span>「B点を基準にしたA点の電位」を正しく出せる（引き算の向き）</span></label>
+    <label><input type="checkbox" id="k7"><span>重ね合わせの理で、電圧源は短絡・電流源は開放にして足せる</span></label>
+    <label><input type="checkbox" id="k8"><span>テブナンの定理で \(V_0\)（開放電圧）と \(R_0\)（電源短絡で見た抵抗）を出せる</span></label>
+    <label><input type="checkbox" id="k9"><span>実効値と最大値の関係 \(V_m=\sqrt2V\) を使い分けられる</span></label>
+    <label><input type="checkbox" id="k10"><span>R・L・C で電圧と電流の位相がどうずれるか即答できる</span></label>
+    <label><input type="checkbox" id="k11"><span>位相が \(\frac{\pi}{6}\) 進んだ正弦波を正しい向きにずらして描ける</span></label>
+    <label><input type="checkbox" id="k12"><span>RLC直列の \(Z\) と位相差、RLC並列の \(Y\) を出せる</span></label>
+    <label><input type="checkbox" id="k13"><span>直列共振周波数 \(f_0=\frac{1}{2\pi\sqrt{LC}}\) を電卓なしで計算できる</span></label>
+    <label><input type="checkbox" id="k14"><span>周波数が2倍になると \(\omega L\) は2倍、\(\frac{1}{\omega C}\) は半分になる</span></label>
+    <label><input type="checkbox" id="k15"><span>模擬試験を60分で解いた</span></label>
+  </div>
+</section>
+
+<!-- ================= 第1章 ================= -->
+<section class="tab" id="c1" data-title="回路素子と直流回路" data-short="1. 素子と直流" data-src="ec1〜3">
+  <h2>1. 回路素子と直流回路</h2>
+  <p class="srcline">スライド ec1（1.1〜1.2）・ec2（1.3〜1.4.2）・ec3（1.4.3〜1.4.8）／演習1〜3、演習4 問4</p>
+
+  <h3>1.1 電気回路と回路素子</h3>
+  <div class="key"><b>用語の定義（演習1 問1 で出題）</b>
+    <ul style="margin:0">
+      <li><b>電気回路</b>：いくつかの回路素子を導線で結びつけたもの。回路・回路網（network）とも呼ぶ。素子に加わる電圧・流れる電流によって、電気エネルギーや電気信号を伝達・増幅・変換・蓄積・演算する。</li>
+      <li><b>線形素子</b>：素子の値が、その素子にかかる電圧や流れる電流で変化しないもの（R, C, L, 変成器 M）。</li>
+      <li><b>非線形素子</b>：素子の値が電圧や電流によって変化するもの（電球、ダイオード、鉄心入りの変成器、トランジスタ）。</li>
+      <li><b>受動素子</b>：動作に電源の要素を含まないもの（R, C, L, M, ダイオードなど）。</li>
+      <li><b>能動素子</b>：動作に電源の要素を含むもの（トランジスタ、FET など）。</li>
+      <li><b>直流（DC）</b>：常に一定方向に同じ大きさで流れる電流。</li>
+      <li><b>交流（AC）</b>：電流の大きさと流れる方向が周期的に変化するもの。1周期の平均値は 0。基本は正弦波。</li>
+    </ul>
+  </div>
+  <ul>
+    <li><b>電源</b>：電池・発電機・発振器など。理想化した素子として電圧源（voltage source）と電流源（current source）を使う。</li>
+    <li><b>集中定数素子</b>：大きさを無視して扱える素子（ほとんどの素子）。<b>分布定数素子</b>：大きさを無視できない素子（送電線、伝送線）。</li>
+    <li><b>二端子素子</b>（R, L, C）と<b>四端子素子</b>（変成器 M）。</li>
+    <li>回路の状態：<b>定常的</b>（安定して変わらない）／<b>過渡的</b>（ある状態から別の状態へ移る途中）。</li>
+    <li>脈流：大きさは周期的に変わるが向きは一定なので直流の仲間（ただし普通「直流」は平流を指す）。</li>
+    <li>電圧・電流が直流の回路が直流回路、交流の回路が交流回路（単相回路・多相回路→三相回路）。</li>
+  </ul>
+
+  <h3>1.2 R・L・C の電圧と電流</h3>
+  <div class="grid2">
+    <div class="card"><b>抵抗 R［Ω］</b>
+      \[v(t)=R\,i(t)\]
+      オームの法則。電圧と電流は比例する。
+    </div>
+    <div class="card"><b>コイル L［H］＝［Wb/A］</b>
+      \[v(t)=L\frac{di(t)}{dt}\]
+      電流の<b>変化</b>に比例した電圧が出る。
+    </div>
+    <div class="card"><b>コンデンサ C［F］＝［C/V］</b>
+      \[i(t)=C\frac{dv(t)}{dt},\quad v(t)=\frac1C\int i(t)\,dt\]
+      電圧の<b>変化</b>に比例した電流が流れる。
+    </div>
+  </div>
+  <h4>コイル（インダクタンス）の考え方</h4>
+  <p>N回巻きコイルに電流 \(i(t)\) が流れると磁束 \(\Phi(t)\) ができる。磁束が変化すると電磁誘導で起電力 \(e(t)=-N\frac{d\Phi}{dt}\) が発生する（レンツの法則：磁束の変化を妨げる向き）。\(v+e=0\) より \(v=N\frac{\Delta\Phi}{\Delta t}\)。</p>
+  <p>\(N\Phi\) は \(i\) に比例するので \(N\Phi=Li\)。この比例定数 \(L=\frac{N\Phi}{i}\) がインダクタンスで、<b>単位電流あたりどれだけの磁束が鎖交しているか</b>を表す。\(N\Delta\Phi=L\Delta i\) より \(v=L\frac{\Delta i}{\Delta t}\)、\(\Delta t\to0\) で \(v=L\frac{di}{dt}\)。</p>
+  <h4>コンデンサ（静電容量）の考え方</h4>
+  <p>蓄える電気量は電圧に比例：\(Q=CV\)。\(C=\frac{Q}{V}\) は<b>単位電圧あたりに蓄える電気量</b>。電流は1秒あたりに通過する電気量 \(i=\frac{\Delta Q}{\Delta t}\)、\(\Delta Q=C\Delta v\) なので \(i=C\frac{\Delta v}{\Delta t}\)。</p>
+  <div class="key"><b>直流のときの L と C（よく問われる）</b>
+    直流では電流・電圧が一定で変化分がゼロ。<br>
+    ・コイル：\(\Delta i=0\) なので \(v=0\) → <b>ただの導線（短絡）</b><br>
+    ・コンデンサ：\(\Delta v=0\) なので \(i=0\) → <b>つながっていない（開放）</b>
+  </div>
+  <div class="warn"><b>符号に注意：</b>「0.15 A から 0.14 A に変化」なら \(\Delta i=0.14-0.15=-0.01\) A。<b>後 − 前</b>で計算して、マイナスなら「正と決めた向きと逆」と答える（<a href="#ex" data-go="ex">演習1 問4</a>）。</div>
+
+  <h3>1.3 直列接続と並列接続</h3>
+  <div class="tw"><table>
+    <tr><th></th><th>直列</th><th>並列</th></tr>
+    <tr><td>抵抗</td><td>\(R=R_1+R_2+R_3\)</td><td>\(\frac1R=\frac1{R_1}+\frac1{R_2}+\frac1{R_3}\)</td></tr>
+    <tr><td>コイル</td><td>\(L=L_1+L_2+L_3\)</td><td>\(\frac1L=\frac1{L_1}+\frac1{L_2}+\frac1{L_3}\)</td></tr>
+    <tr><td>コンデンサ</td><td>\(\frac1C=\frac1{C_1}+\frac1{C_2}+\frac1{C_3}\)</td><td>\(C=C_1+C_2+C_3\)</td></tr>
+  </table></div>
+  <p>合成インダクタンスは直列・並列とも合成抵抗と同じ形。<b>合成静電容量だけ逆の形</b>になる。</p>
+
+  <h4>分圧則と分流則</h4>
+  <p>直列（電流 \(i\) が共通）：\(v_k=R_ki=\frac{R_k}{R}v\)。全電圧が抵抗の大きさに比例して分配される（<b>分圧則</b>）。</p>
+  <p>並列（電圧 \(v\) が共通）：\(i_k=\frac{v}{R_k}=\frac{R}{R_k}i\)。全電流が抵抗の逆数に比例して分配される（<b>分流則</b>）。</p>
+  <div class="key"><b>2個の並列抵抗の分流（演習2 問4 で導出が出た）</b>
+    \[R=\frac{R_1R_2}{R_1+R_2}\ \Rightarrow\ v=Ri=\frac{R_1R_2}{R_1+R_2}i\ \Rightarrow\ i_1=\frac{v}{R_1}=\frac{R_2}{R_1+R_2}i,\quad i_2=\frac{v}{R_2}=\frac{R_1}{R_1+R_2}i\]
+    相手側の抵抗が分子に来る。合成抵抗を出して終わりにせず、\(v=Ri\) を経由して \(i_1, i_2\) まで書き切ること。
+  </div>
+
+  <h4>導出の流れ（演習2 問3：コイルの直列）</h4>
+  <p>直列では同じ電流 \(i\) が流れ、\(v=-(e_1+e_2+e_3)\)。各コイルの起電力 \(e_k=-L_k\frac{\Delta i}{\Delta t}\) を代入すると</p>
+  \[v=-\left(-L_1\frac{\Delta i}{\Delta t}-L_2\frac{\Delta i}{\Delta t}-L_3\frac{\Delta i}{\Delta t}\right)=(L_1+L_2+L_3)\frac{\Delta i}{\Delta t}\]
+  <p>ひとつのコイル \(v=L\frac{\Delta i}{\Delta t}\) と比べて \(L=L_1+L_2+L_3\)。</p>
+  <p><b>コイルの並列</b>：\(i=i_1+i_2+i_3\) より \(\frac{\Delta i}{\Delta t}=\frac{v}{L_1}+\frac{v}{L_2}+\frac{v}{L_3}\)、これが \(\frac{v}{L}\) なので \(\frac1L=\sum\frac1{L_k}\)。</p>
+  <p><b>コンデンサの直列</b>：同じ電流 \(i=C_k\frac{\Delta v_k}{\Delta t}\)、\(v=v_1+v_2+v_3\) より \(\frac{\Delta v}{\Delta t}=i\left(\frac1{C_1}+\frac1{C_2}+\frac1{C_3}\right)\)、これが \(\frac{i}{C}\)。<b>並列</b>：どのコンデンサにも同じ \(v\)、\(i=\sum C_k\frac{\Delta v}{\Delta t}\) より \(C=\sum C_k\)。</p>
+
+  <h3>1.4 直流回路の基本法則</h3>
+  <h4>オームの法則とコンダクタンス</h4>
+  <p>\(V=RI\)、\(I=GV\)。\(G=\frac1R\) はコンダクタンス［S（ジーメンス）］で電流の流れやすさ、\(R\) は流れにくさ［Ω］。</p>
+  <h4>起電力・電圧降下</h4>
+  <p>抵抗に一定の電流を流し続けるには電位差を保つ必要がある。この能力が<b>起電力</b>、起電力をもつものが<b>電源</b>。抵抗 \(R\) に電流 \(I\) が流れると、電流の上流側 A から見て下流側 B は \(RI\) だけ電位が下がる（<b>電圧降下</b>）：\(V_A-V_B=RI\)。電源 \(V\) と抵抗だけの回路なら \(V-RI=0\)（<b>電圧平衡式</b>）。</p>
+
+  <h4>電池の等価回路（電圧源・電流源）</h4>
+  <p>実際の電池は起電力 \(V_0\) と内部抵抗 \(r\) の直列で表せて、端子電圧は \(V=-rI+V_0\)（電流を増やすと端子電圧が下がる）。</p>
+  <div class="grid2">
+    <div class="card"><b>定電圧源等価回路</b><br>\(V_0\) と \(r\) の直列。\(r=0\) なら理想電圧源（定電圧源）。</div>
+    <div class="card"><b>定電流源等価回路</b><br>\(I_0=\frac{V_0}{r}\) と \(r\) の並列。\(r=\infty\) なら理想電流源（定電流源）。</div>
+  </div>
+  <p>相互変換：\(I_0=\frac{V_0}{r}\)、\(V_0=rI_0\)（\(r\) はそのまま）。</p>
+
+  <h4>キルヒホッフの法則</h4>
+  <div class="key"><b>第1法則（電流則, KCL）</b>任意の接続点で、流入する電流と流出する電流の総和はゼロ（流入を正、流出を負）：\(\displaystyle\sum_{k=1}^{n}I_k=0\)。例：\(I_1+(-I_2)+(-I_3)=0\)</div>
+  <div class="key"><b>第2法則（電圧則, KVL）</b>任意の閉路で、起電力と電圧降下の総和はゼロ。たどる向きと同じ向きの起電力・電圧降下を正、逆向きを負にとる。たどる向きはどちらでもよい。<br>
+  実際は「<b>たどる向きの起電力の和 ＝ たどる向きの電圧降下の和</b>」と立てるとミスが少ない。</div>
+
+  <h4>重ね合わせの理</h4>
+  <p>電源が複数ある回路の任意の枝の電流や2点間の電位差は、<b>それぞれの電源が単独にある場合の値の代数和</b>に等しい。</p>
+  <div class="key"><b>電源を取り除くとき</b>電圧源 → <b>短絡</b>（導線に置き換え）／電流源 → <b>開放</b>（取り外す）</div>
+
+  <h4>テブナンの定理</h4>
+  <p>回路網の任意の2端子 ab から \(R_L\) を取り除いたときの ab 間の電圧（開放電圧）を \(V_0\)、端子 ab から回路網を見た合成抵抗を \(R_0\) とすると、\(R_L\) に流れる電流は</p>
+  \[I=\frac{V_0}{R_L+R_0}\]
+  <p>\(R_0\) を求めるときは電圧源を短絡する（電流源は開放）。</p>
+
+  <h4>ブリッジ回路（ホイートストンブリッジ）</h4>
+  <p>検流計 G の電流がゼロなら、R₁とR₂の電圧降下が等しく、R₃とR₄の電圧降下も等しい：\(R_1I_1=R_2I_2\)、\(R_3I_1=R_4I_2\)。辺々割って</p>
+  \[R_1R_4=R_2R_3\quad\text{（ブリッジの平衡条件）}\]
+  <p>ここで R₁とR₃は同じ電流 \(I_1\) の経路、R₂とR₄は \(I_2\) の経路。<b>向かい合う辺の積が等しい</b>と覚える。平衡していれば G の両端は同電位（<a href="#ex" data-go="ex">演習3 問2(d)</a>）。</p>
+
+  <h4>ジュールの法則・電力・電力量</h4>
+  <ul>
+    <li>ジュール熱：\(Q=RI^2t\)［J］</li>
+    <li>電力量：\(W=VIt\)［J］＝［W·s］</li>
+    <li>電力（消費電力）：\(P=\frac{W}{t}=VI=RI^2=\frac{V^2}{R}\)［W］＝［J/s］</li>
+  </ul>
+</section>
+
+<!-- ================= 第2章 正弦波交流 ================= -->
+<section class="tab" id="c2" data-title="正弦波交流と瞬時値計算" data-short="2. 正弦波交流" data-src="ec4">
+  <h2>2. 正弦波交流と瞬時値による計算</h2>
+  <p class="srcline">スライド ec4（1.5〜2.1）／演習4 問1〜3</p>
+
+  <h3>1.5 正弦波と角周波数</h3>
+  <p>電源としては、電圧の大きさを簡単に変えられる交流が現在よく使われる。正弦波は弧度法の角度 \(\theta\)［rad］で \(v(\theta)=V_m\sin\theta\) と表し、これを時間の関数にしたのが</p>
+  \[v(t)=V_m\sin\omega t,\qquad \theta=\omega t\]
+  <ul>
+    <li>\(V_m\)：振幅（最大値）</li>
+    <li>\(\omega\)［rad/s］：角周波数。1秒あたりに何 rad 進むかを表す角速度。</li>
+    <li>周期 \(T\)［s］、周波数 \(f=\frac1T\)［Hz］、\(\omega=\frac{2\pi}{T}=2\pi f\)</li>
+    <li>度とラジアン：\(\theta[°]=\frac{180}{\pi}\theta[\mathrm{rad}]\)</li>
+  </ul>
+  <h4>位相</h4>
+  <p>\(v_2(t)=V_m\sin(\omega t+\phi)\) は \(v_1=V_m\sin\omega t\) より位相が \(\phi\) ずれている。</p>
+  <div class="key"><b>位相の進み・遅れ</b>
+    \(+\phi\)：位相が<b>進む</b>（グラフは<b>左</b>にずれる）／\(-\phi\)：位相が<b>遅れる</b>（グラフは<b>右</b>にずれる）<br>
+    位相差［rad］＝ \(\dfrac{\text{ずれた時間[s]}}{\text{周期 }T\text{[s]}}\times2\pi\)
+  </div>
+
+  <h3>1.5.3 最大値と実効値</h3>
+  <p>直流電圧 \(V\) を抵抗 \(R\) に加えたときの電力 \(P_{DC}=\frac{V^2}{R}\)。交流 \(v=V_m\sin\omega t\) の電力は</p>
+  \[P_{AC}=\frac{v^2}{R}=\frac{V_m^2}{R}\sin^2\omega t=\frac{V_m^2}{2R}(1-\cos2\omega t)\ \Rightarrow\ \text{平均値}\ \frac{V_m^2}{2R}\]
+  <p>両者が等しくなる条件 \(\frac{V^2}{R}=\frac{V_m^2}{2R}\) から</p>
+  <div class="key"><b>実効値（rms：二乗平均平方根）</b>\[V=\frac{V_m}{\sqrt2},\qquad V_m=\sqrt2V\]
+  家庭用 100 V は実効値で、最大値は約 141.4 V。以降、\(V, I\) は実効値、\(V_m, I_m\) は最大値。</div>
+
+  <h3>1.7 R・L・C に正弦波を加えたとき</h3>
+  <div class="tw"><table>
+    <tr><th>素子</th><th>電圧と電流</th><th>位相</th><th>\(\frac{V_m}{I_m}=\frac{V}{I}\)</th></tr>
+    <tr><td>抵抗 R</td><td>\(v=\sqrt2V\sin\omega t,\ i=\sqrt2I\sin\omega t\)</td><td>ずれなし</td><td>\(R\)［Ω］</td></tr>
+    <tr><td>コイル L</td><td>\(i=I_m\sin\omega t\) なら<br>\(v=L\frac{di}{dt}=\omega LI_m\cos\omega t=V_m\sin(\omega t+\frac{\pi}{2})\)</td><td><b>電圧が電流より \(\frac{\pi}{2}\) 進む</b></td><td>\(\omega L\)［Ω］誘導性リアクタンス</td></tr>
+    <tr><td>コンデンサ C</td><td>\(v=V_m\sin\omega t\) なら<br>\(i=C\frac{dv}{dt}=\omega CV_m\cos\omega t=\omega CV_m\sin(\omega t+\frac{\pi}{2})\)</td><td><b>電流が電圧より \(\frac{\pi}{2}\) 進む</b></td><td>\(\frac{1}{\omega C}\)［Ω］容量性リアクタンス</td></tr>
+  </table></div>
+  <div class="tip"><b>覚え方：</b>微分すると sin が cos になり、\(\cos x=\sin(x+\frac{\pi}{2})\)。「微分された側（L なら電圧、C なら電流）が \(\frac{\pi}{2}\) 進む」。</div>
+
+  <h3>2.1 瞬時値を使う計算（未定係数法）</h3>
+  <p>手順：①各素子の電流（または電圧）を瞬時値で書く → ②足し合わせて \(a\sin\omega t+b\cos\omega t\) の形にする → ③答えを \(\sqrt2I\sin(\omega t+\phi)\) とおき、加法定理で \(\sqrt2I(\sin\omega t\cos\phi+\cos\omega t\sin\phi)\) に展開して係数比較 → ④二乗して足すと \(I\)、割ると \(\tan\phi\)。<b>三角関数同士の和は必ず三角関数になる</b>のがポイント。</p>
+
+  <div class="ex"><div class="q"><span class="no">例</span><b>RC並列回路</b>：\(v(t)=120\sqrt2\sin\omega t\)［V］、\(R=20\)［Ω］、\(X_C=\frac1{\omega C}=15\)［Ω］。全電流 \(i(t)\) は？</div>
+    <details open><summary>解き方</summary><div class="a">
+      \[i_R=\frac{v}{R}=6\sqrt2\sin\omega t\ \text{（位相変わらず）},\quad i_C=\frac{120\sqrt2}{15}\sin\!\left(\omega t+\frac{\pi}{2}\right)=8\sqrt2\cos\omega t\ \text{（}\tfrac{\pi}{2}\text{進む）}\]
+      \[i=i_R+i_C=6\sqrt2\sin\omega t+8\sqrt2\cos\omega t\]
+      <p>係数比較で \(I\cos\phi=6,\ I\sin\phi=8\)。二乗して足すと \(I^2=36+64=100\)、\(I=10\)［A］。\(\tan\phi=\frac86=\frac43\)。</p>
+      <p><span class="ans">\(i(t)=10\sqrt2\sin(\omega t+\tan^{-1}\frac43)=10\sqrt2\sin(\omega t+53.1°)\)［A］</span>（電流は電圧より 53.1° 進む）</p>
+      <p>電源に初期位相がある場合（\(v=120\sqrt2\sin(\omega t-\frac{\pi}{3})\)）も計算すると \(i=10\sqrt2\sin(\omega t-6.871°)\) となり、<b>位相差は同じ 53.1°</b>。→ 電流を求めるときは電源の初期位相を無視して計算し、後で初期位相分を足せばいい。</p>
+    </div></details></div>
+
+  <div class="ex"><div class="q"><span class="no">例</span><b>RL直列回路</b>：\(v(t)=100\sqrt2\sin\omega t\)［V］、\(R=40\)［Ω］、\(\omega L=30\)［Ω］。電流は？</div>
+    <details><summary>解き方</summary><div class="a">
+      <p>\(i=\sqrt2I\sin(\omega t+\phi)\) とおくと \(v_R=40\sqrt2I\sin(\omega t+\phi)\)、\(v_L=30\sqrt2I\cos(\omega t+\phi)\)（\(\frac{\pi}{2}\)進む）。\(v=v_R+v_L\) を展開して係数比較：</p>
+      \[40I\cos\phi-30I\sin\phi=100,\qquad 40I\sin\phi+30I\cos\phi=0\]
+      <p>二乗して足すと \((40^2+30^2)I^2=100^2\)、\(2500I^2=10000\)、\(I=2\)［A］。2式目から \(\tan\phi=-\frac34\)、\(\phi=-36.9°\)。</p>
+      <p><span class="ans">\(i(t)=2\sqrt2\sin(\omega t-36.9°)\)［A］</span>：電流は電圧より 36.9° 遅れる。</p>
+    </div></details></div>
+
+  <div class="ex"><div class="q"><span class="no">例題2.1</span><b>RLC直列</b>：\(i(t)=3\sqrt2\sin\omega t\)［A］、\(R=20\)、\(\omega L=30\)、\(\frac1{\omega C}=40\)［Ω］のとき \(v(t)\) は？</div>
+    <details><summary>解き方</summary><div class="a">
+      \[v_R=60\sqrt2\sin\omega t,\quad v_L=90\sqrt2\cos\omega t\ (\tfrac{\pi}{2}\text{進む}),\quad v_C=-120\sqrt2\cos\omega t\ (\tfrac{\pi}{2}\text{遅れる})\]
+      \[v=60\sqrt2\sin\omega t-30\sqrt2\cos\omega t\]
+      <p>\(V\cos\phi=60,\ V\sin\phi=-30\) より \(V^2=4500\)、\(V=30\sqrt5\)［V］、\(\tan\phi=-\frac12\)、\(\phi=-26.6°\)。</p>
+      <p><span class="ans">\(v(t)=30\sqrt{10}\sin(\omega t-26.6°)\)［V］</span>（\(\sqrt2\cdot30\sqrt5=30\sqrt{10}\)）。容量性が勝っているので電圧が電流より遅れる。</p>
+    </div></details></div>
+</section>
+
+<!-- ================= 第3章 インピーダンス ================= -->
+<section class="tab" id="c3" data-title="インピーダンスとアドミタンス" data-short="3. Z と Y" data-src="ec5">
+  <h2>3. インピーダンスとアドミタンス</h2>
+  <p class="srcline">スライド ec5（2.2〜2.3）／演習5</p>
+
+  <h3>2.2.1 RLC直列回路のインピーダンス</h3>
+  <p>\(v=\sqrt2V\sin\omega t\)、\(i=\sqrt2I\sin(\omega t+\phi)\) とおいて未定係数法で解くと</p>
+  \[I=\frac{V}{\sqrt{R^2+\left(\omega L-\frac1{\omega C}\right)^2}}\]
+  \[\phi=-\tan^{-1}\frac{\omega L-\frac1{\omega C}}{R}\]
+  <div class="key"><b>インピーダンス Z［Ω］</b>\[Z=\frac VI=\sqrt{R^2+\left(\omega L-\frac1{\omega C}\right)^2}\]
+  \(R\)：レジスタンス、\(X=\omega L-\frac1{\omega C}\)：リアクタンス（誘導性＋容量性）。<br>
+  \(\omega L>\frac1{\omega C}\)：電流は電圧より<b>遅れる</b>（誘導性）／\(\omega L\lt\frac1{\omega C}\)：電流は電圧より<b>進む</b>（容量性）</div>
+  <p>まとめると</p>
+  \[\begin{aligned}i(t)&=\frac{\sqrt2V}{\sqrt{R^2+(\omega L-\frac1{\omega C})^2}}\\&\quad\times\sin\!\left(\omega t-\tan^{-1}\frac{\omega L-\frac1{\omega C}}{R}\right)\end{aligned}\]
+
+  <div class="ex"><div class="q"><span class="no">例題2.2</span>\(v=100\sqrt2\sin\omega t\)［V］、\(R=6\)［Ω］、\(\omega L=8\)［Ω］（RL直列）。\(i(t)\) とインピーダンスは？</div>
+    <details><summary>解き方</summary><div class="a">
+      <p>\(Z=\sqrt{6^2+8^2}=10\)［Ω］、\(I=\frac{100}{10}=10\)［A］、\(\phi=-\tan^{-1}\frac86=-\tan^{-1}\frac43=-53.1°\)。</p>
+      <p><span class="ans">\(i(t)=10\sqrt2\sin(\omega t-53.1°)\)［A］、\(Z=10\)［Ω］</span></p>
+    </div></details></div>
+
+  <h3>名前の整理</h3>
+  <div class="grid2">
+    <div class="card"><b>\(Z=R+jX\)：インピーダンス［Ω］</b><br>R：レジスタンス（抵抗）<br>X：リアクタンス（誘導性＋容量性）<br>電流の流れにくさ</div>
+    <div class="card"><b>\(Y=G+jB\)：アドミタンス［S］</b><br>G：コンダクタンス<br>B：サセプタンス<br>電流の流れやすさ。\(Y=\frac1Z\)</div>
+  </div>
+
+  <h3>2.2.2 RLC並列回路のアドミタンス</h3>
+  <p>各素子に同じ \(v=\sqrt2V\sin\omega t\) がかかる：\(i_R=\sqrt2\frac VR\sin\omega t\)、\(i_L=-\sqrt2\frac{V}{\omega L}\cos\omega t\)、\(i_C=\sqrt2\omega CV\cos\omega t\)。</p>
+  \[i=\sqrt2V\left\{\frac1R\sin\omega t+\left(\omega C-\frac1{\omega L}\right)\cos\omega t\right\}\]
+  <div class="key"><b>アドミタンス Y［S］</b>\[Y=\frac IV=\sqrt{\frac1{R^2}+\left(\omega C-\frac1{\omega L}\right)^2},\qquad \phi=\tan^{-1}R\left(\omega C-\frac1{\omega L}\right)\]
+  \(\phi\) は電流の電圧に対する進み。\(\omega C>\frac1{\omega L}\)（容量性）なら電流が進む。</div>
+
+  <h3>2.3 直並列回路</h3>
+  <p>2つの枝の電流 \(i_1=\sqrt2I_1\sin(\omega t+\phi_1)\)、\(i_2=\sqrt2I_2\sin(\omega t+\phi_2)\) の和は、sin 成分と cos 成分ごとに足して</p>
+  \[I=\sqrt{(I_1\cos\phi_1+I_2\cos\phi_2)^2+(I_1\sin\phi_1+I_2\sin\phi_2)^2},\quad \phi=\tan^{-1}\frac{I_1\sin\phi_1+I_2\sin\phi_2}{I_1\cos\phi_1+I_2\cos\phi_2}\]
+  <p>「横成分（cos）同士、縦成分（sin）同士を足す」＝ベクトルの和。これが次のフェーザにつながる。</p>
+
+  <h3>直列共振（演習5 問3 で出題）</h3>
+  <p>RLC直列で角周波数を調整してリアクタンス \(\omega L-\frac1{\omega C}\) をゼロにすると、合成インピーダンスが最小（\(Z=R\)）になって電流が最も流れやすくなる。これが<b>直列共振</b>。</p>
+  \[\omega_0L=\frac1{\omega_0C}\ \Rightarrow\ \omega_0=\frac1{\sqrt{LC}},\qquad f_0=\frac1{2\pi\sqrt{LC}}\]
+  <p>共振時は \(Z=R\)、電圧と電流の位相差 \(\phi=0\)。</p>
+  <div class="tip"><b>電卓なしの \(\sqrt{LC}\)：</b>指数を偶数にそろえる。例 \(LC=10^{-3}\times10^{-10}=10^{-13}=10\times10^{-14}\) → \(\sqrt{LC}=\sqrt{10}\times10^{-7}\approx3.162\times10^{-7}\)。</div>
+  <div class="tip"><b>周波数を変えたとき：</b>\(f\) が \(k\) 倍 → \(\omega L\) は \(k\) 倍、\(\frac1{\omega C}\) は \(\frac1k\) 倍、R は変わらない（演習5 問4）。</div>
+</section>
+
+<!-- ================= 第4章 フェーザ ================= -->
+<section class="tab" id="c4" data-title="フェーザによる計算" data-short="4. フェーザ" data-src="ec6">
+  <h2>4. フェーザを用いる計算</h2>
+  <p class="srcline">スライド ec6（2.4）</p>
+
+  <h3>2.4.1 フェーザ表示</h3>
+  <p>正弦波の<b>大きさ（実効値）と位相角だけ</b>で計算する方法。瞬時値の代わりに円周上の線分（ベクトル）を使う。</p>
+  \[\dot V=V\angle\omega t,\qquad \text{基準をとって}\ \dot V=V\angle0\]
+  <p>ドット（・）は「大きさと位相角をもつ量」の印。フェーザ（phase vector：位相ベクトル）では大きさと位相差だけを問題にするので、ある量（電源電圧など）を基準 \(\angle0\) にとると便利。</p>
+
+  <h3>RC並列をフェーザで（ec4 と同じ問題）</h3>
+  <p>\(\dot V=120\angle0\)、\(\dot I_R=6\angle0\)、\(\dot I_C=8\angle90°\)。直角に足すので</p>
+  \[I=\sqrt{I_R^2+I_C^2}=\sqrt{36+64}=10\ [\mathrm A],\quad \phi=\tan^{-1}\frac{I_C}{I_R}=\tan^{-1}\frac43=53.1°\]
+  <p>→ \(\dot I=10\angle53.1°\)、\(i(t)=10\sqrt2\sin(\omega t+53.1°)\)。瞬時値計算と同じ結果がずっと短く出る。</p>
+
+  <h3>2.4.2 RL直列（電流を基準に）</h3>
+  <p>直列は電流が共通なので<b>電流を基準</b>にする。\(\dot V_R\) は電流と同相、\(\dot V_L\) は 90° 進む：</p>
+  \[V=\sqrt{V_R^2+V_L^2}=\sqrt{R^2+(\omega L)^2}\,I\]
+  <p>数値例（\(R=40,\ \omega L=30,\ V=100\)）：\(V=\sqrt{1600+900}I=50I\) より \(I=2\)［A］、\(\phi=-\tan^{-1}\frac{V_L}{V_R}=-\tan^{-1}\frac34=-36.9°\)。</p>
+
+  <h3>2.4.3 RLC直列・並列</h3>
+  <div class="grid2">
+    <div class="card"><b>直列（電流基準）</b>
+      \[V^2=V_R^2+(V_L-V_C)^2=\left\{R^2+\left(\omega L-\tfrac1{\omega C}\right)^2\right\}I^2\]
+      \(\phi=-\tan^{-1}\dfrac{V_L-V_C}{V_R}\)
+    </div>
+    <div class="card"><b>並列（電圧基準）</b>
+      \[I=\sqrt{I_R^2+(I_C-I_L)^2}=\sqrt{\tfrac1{R^2}+\left(\omega C-\tfrac1{\omega L}\right)^2}\,V\]
+      \(\phi=\tan^{-1}\dfrac{I_C-I_L}{I_R}\)
+    </div>
+  </div>
+  <div class="ex"><div class="q"><span class="no">例題2.3</span>RLC直列、\(i=3\sqrt2\sin\omega t\)［A］、\(R=20,\ \omega L=30,\ \frac1{\omega C}=40\)［Ω］。\(v(t)\) は？（例題2.1 をフェーザで）</div>
+    <details><summary>解き方</summary><div class="a">
+      <p>\(V_R=IR=60\)、\(V_L=I\omega L=90\)、\(V_C=\frac{I}{\omega C}=120\)。</p>
+      \[V=\sqrt{60^2+(120-90)^2}=\sqrt{3600+900}=30\sqrt5,\quad \phi=-\tan^{-1}\frac{30}{60}=-26.6°\]
+      <p><span class="ans">\(v(t)=30\sqrt{10}\sin(\omega t-26.6°)\)［V］</span></p>
+    </div></details></div>
+
+  <h3>2.4.4 直並列回路</h3>
+  <p>各枝のフェーザ \(\dot I_1=I_1\angle\phi_1\)、\(\dot I_2=I_2\angle\phi_2\) を、横成分 \(I_k\cos\phi_k\) と縦成分 \(I_k\sin\phi_k\) に分けて足す。結果は <a href="#c3" data-go="c3">2.3 直並列回路</a> の式と一致する（教科書 p.51）。</p>
+</section>
+
+<!-- ================= 演習 ================= -->
+<section class="tab" id="ex" data-title="演習問題1〜5 解答" data-short="演習1〜5 解答" data-src="演習">
+  <h2>演習問題 1〜5 の解答</h2>
+  <p class="srcline">「演習問題と同様の記述式を4題」なので最重要。まず自分で解いてから解答を開く。数値は全部計算し直して確認済み。</p>
+
+  <h3>演習問題 1（回路素子）</h3>
+  <div class="ex"><div class="q"><span class="no">問1</span>以下の語について説明せよ。(a) 電気回路 (b) 線形素子 (c) 受動素子 (d) 直流 (e) 交流</div>
+    <details><summary>解答</summary><div class="a">
+      <ul>
+        <li>(a) いくつかの回路素子を導線で結びつけたもの（回路・回路網とも呼ぶ）。</li>
+        <li>(b) 素子の値が、その素子にかかる電圧や流れる電流で変化しないもの（R, L, C, M など）。</li>
+        <li>(c) 動作に電源の要素を含まないもの（R, C, L, M, ダイオードなど）。</li>
+        <li>(d) 常に一定方向に同じ大きさで流れる電流。</li>
+        <li>(e) 電流の大きさと流れる方向が周期的に変化するもの（1周期の平均値は 0）。</li>
+      </ul>
+      <p>対になる用語（非線形素子・能動素子）や例も添えると丁寧。</p>
+    </div></details></div>
+  <div class="ex"><div class="q"><span class="no">問2</span>基本回路素子のひとつである抵抗について、講義内容に即して説明せよ。</div>
+    <details><summary>解答例</summary><div class="a">
+      <p>抵抗器（抵抗 R、単位 Ω）は電流の流れにくさを表す線形・受動の二端子素子。電流 \(i(t)\) と電圧 \(v(t)\) の間に<b>オームの法則</b> \(v(t)=Ri(t)\) が成り立ち、交流でも電圧と電流の位相はずれない。逆数 \(G=\frac1R\) はコンダクタンス［S］。電流が流れるとジュール熱 \(Q=RI^2t\) を発生し、消費電力は \(P=VI=RI^2=\frac{V^2}{R}\)。</p>
+    </div></details></div>
+  <div class="ex"><div class="q"><span class="no">問3</span>コイルに電流を流し、0.0050 s 間に 0.15 A から 0.14 A に変化させたときにコイルの両端には 3.0 mV の電圧が発生した。インダクタンスを有効数字2桁で求めよ。</div>
+    <details><summary>解答</summary><div class="a">
+      \[|v|=L\left|\frac{\Delta i}{\Delta t}\right|\ \Rightarrow\ L=\frac{3.0\times10^{-3}}{\frac{0.01}{0.0050}}=\frac{3.0\times10^{-3}}{2.0}=1.5\times10^{-3}\ [\mathrm H]\]
+      <p><span class="ans">L = 1.5×10⁻³ H（1.5 mH）</span></p>
+    </div></details></div>
+  <div class="ex"><div class="q"><span class="no">問4</span>静電容量 10 μF のコンデンサの電圧を 0.2 s 間に 100 V から 80 V に変化させると、電圧の高い側から低い側への向きを正としたとき、コンデンサにはどちらの向きに、どれだけの電流が流れるか（有効数字1桁）。</div>
+    <details><summary>解答</summary><div class="a">
+      \[i=C\frac{\Delta v}{\Delta t}=10\times10^{-6}\times\frac{80-100}{0.2}=10\times10^{-6}\times(-100)=-1\times10^{-3}\ [\mathrm A]\]
+      <p><span class="ans">負の向き（電圧の低い側から高い側へ）に 1×10⁻³ A（1 mA）</span>。電圧が下がる＝コンデンサが放電する向き。</p>
+      <div class="warn"><b>よくあるミス：</b>\(10\,\mu\mathrm F=10\times10^{-6}=1.0\times10^{-5}\) F。\(1.0\times10^{-6}\) と書くと答えが1桁ずれる。また \(\Delta v\) は「後 − 前」なので負になり、向きは<b>正と逆</b>。</div>
+    </div></details></div>
+
+  <h3>演習問題 2（合成と分流）</h3>
+  <div class="ex"><div class="q"><span class="no">問1</span>コンデンサ C₁〜C₅ を図のように接続したとき、回路全体の合成静電容量を小数点以下第1位まで求めよ。</div>
+    <figure><svg class="circ" viewBox="0 0 470 210" role="img" aria-label="コンデンサC1〜C5の接続"><defs><marker id="c1ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahp"/></marker><marker id="c1ahc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahcp"/></marker></defs><circle cx="20" cy="30" r="3.6" class="term"/><circle cx="20" cy="180" r="3.6" class="term"/><polyline points="20,30 380,30" fill="none"/><polyline points="20,180 380,180" fill="none"/><line x1="110" y1="30" x2="110" y2="100.0"/><line x1="110" y1="110.0" x2="110" y2="180"/><line x1="96" y1="100.0" x2="124" y2="100.0" class="thick"/><line x1="96" y1="110.0" x2="124" y2="110.0" class="thick"/><text x="130" y="110.0" text-anchor="start">C₁ 2.0 F</text><polyline points="230,30 230,40" fill="none"/><line x1="230" y1="40" x2="230" y2="55.0"/><line x1="230" y1="65.0" x2="230" y2="80"/><line x1="216" y1="55.0" x2="244" y2="55.0" class="thick"/><line x1="216" y1="65.0" x2="244" y2="65.0" class="thick"/><text x="250" y="65.0" text-anchor="start">C₂ 3.0 F</text><line x1="230" y1="80" x2="230" y2="100.0"/><line x1="230" y1="110.0" x2="230" y2="130"/><line x1="216" y1="100.0" x2="244" y2="100.0" class="thick"/><line x1="216" y1="110.0" x2="244" y2="110.0" class="thick"/><text x="250" y="110.0" text-anchor="start">C₃ 4.0 F</text><line x1="230" y1="130" x2="230" y2="150.0"/><line x1="230" y1="160.0" x2="230" y2="180"/><line x1="216" y1="150.0" x2="244" y2="150.0" class="thick"/><line x1="216" y1="160.0" x2="244" y2="160.0" class="thick"/><text x="250" y="160.0" text-anchor="start">C₄ 5.0 F</text><line x1="380" y1="30" x2="380" y2="100.0"/><line x1="380" y1="110.0" x2="380" y2="180"/><line x1="366" y1="100.0" x2="394" y2="100.0" class="thick"/><line x1="366" y1="110.0" x2="394" y2="110.0" class="thick"/><text x="400" y="110.0" text-anchor="start">C₅ 1.0 F</text><circle cx="110" cy="30" r="3.2" class="dot"/><circle cx="110" cy="180" r="3.2" class="dot"/><circle cx="230" cy="30" r="3.2" class="dot"/><circle cx="230" cy="180" r="3.2" class="dot"/></svg></figure>
+    <details><summary>解答</summary><div class="a">
+      <p>C₂〜C₄ は直列：\(\frac1{C_{234}}=\frac13+\frac14+\frac15=\frac{20+15+12}{60}=\frac{47}{60}\)、\(C_{234}=\frac{60}{47}\approx1.28\) F。これと C₁, C₅ が並列なので</p>
+      \[C=C_1+C_{234}+C_5=2.0+\frac{60}{47}+1.0=\frac{201}{47}\approx4.28\]
+      <p><span class="ans">C ≈ 4.3 F</span></p>
+    </div></details></div>
+  <div class="ex"><div class="q"><span class="no">問2</span>図の回路で R₁〜R₄ に流れる電流 i₁〜i₄ と両端の電圧 v₁〜v₄ を小数点以下第1位まで求めよ。</div>
+    <figure><svg class="circ" viewBox="0 0 440 220" role="img" aria-label="抵抗R1〜R4と24V電源"><defs><marker id="c2ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahp"/></marker><marker id="c2ahc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahcp"/></marker></defs><line x1="40" y1="30" x2="40" y2="106.0"/><line x1="40" y1="114.0" x2="40" y2="190"/><line x1="24" y1="106.0" x2="56" y2="106.0"/><line x1="32" y1="114.0" x2="48" y2="114.0" class="thick"/><text x="20" y="104.0" text-anchor="end" class="pm">+</text><text x="62" y="115.0" text-anchor="start">24.0 V</text><polyline points="40,30 60,30" fill="none"/><line x1="60" y1="30" x2="110.0" y2="30"/><line x1="150.0" y1="30" x2="200" y2="30"/><rect x="110.0" y="22" width="40" height="16" class="part"/><text x="130.0" y="16" text-anchor="middle">R₁ 8.0 Ω</text><polyline points="200,30 380,30" fill="none"/><line x1="240" y1="30" x2="240" y2="50.0"/><line x1="240" y1="90.0" x2="240" y2="110"/><rect x="232" y="50.0" width="16" height="40" class="part"/><text x="254" y="75.0" text-anchor="start">R₂ 4.0 Ω</text><line x1="240" y1="110" x2="240" y2="130.0"/><line x1="240" y1="170.0" x2="240" y2="190"/><rect x="232" y="130.0" width="16" height="40" class="part"/><text x="254" y="155.0" text-anchor="start">R₃ 2.0 Ω</text><line x1="380" y1="30" x2="380" y2="90.0"/><line x1="380" y1="130.0" x2="380" y2="190"/><rect x="372" y="90.0" width="16" height="40" class="part"/><text x="366" y="115.0" text-anchor="end">R₄ 3.0 Ω</text><polyline points="40,190 380,190" fill="none"/><circle cx="240" cy="30" r="3.2" class="dot"/><circle cx="240" cy="190" r="3.2" class="dot"/></svg></figure>
+    <details><summary>解答</summary><div class="a">
+      <p>R₂＋R₃＝6 Ω、これと R₄＝3 Ω の並列：\(\frac{6\times3}{6+3}=2\) Ω。全体 \(8+2=10\) Ω、\(i_1=\frac{24}{10}=2.4\) A。</p>
+      <p>\(v_1=8\times2.4=19.2\) V、並列部分の電圧 \(24-19.2=4.8\) V。分流比 6:3 の逆で \(i_2=i_3=\frac{4.8}{6}=0.8\) A、\(i_4=\frac{4.8}{3}=1.6\) A。</p>
+      <div class="tw"><table>
+        <tr><th></th><th>R₁</th><th>R₂</th><th>R₃</th><th>R₄</th></tr>
+        <tr><td>電流 [A]</td><td>2.4</td><td>0.8</td><td>0.8</td><td>1.6</td></tr>
+        <tr><td>電圧 [V]</td><td>19.2</td><td>3.2</td><td>1.6</td><td>4.8</td></tr>
+      </table></div>
+      <p>チェック：\(v_2+v_3=v_4=4.8\)、\(i_2+i_4=i_1\)。</p>
+    </div></details></div>
+  <div class="ex"><div class="q"><span class="no">問3</span>3個の異なるインダクタンスを持つコイルを直列接続した場合の合成インダクタンスを、講義での説明に倣って導け。</div>
+    <details><summary>解答</summary><div class="a">
+      <p>直列では各コイルに同じ電流 \(i\) が流れ、電源電圧は \(v=-(e_1+e_2+e_3)\)。各コイルの起電力 \(e_k=-L_k\frac{\Delta i}{\Delta t}\)（k=1,2,3）を代入して</p>
+      \[v=-\left(-L_1\frac{\Delta i}{\Delta t}-L_2\frac{\Delta i}{\Delta t}-L_3\frac{\Delta i}{\Delta t}\right)=(L_1+L_2+L_3)\frac{\Delta i}{\Delta t}\]
+      <p>直列コイルをひとつのコイル \(L\) とみなすと \(v=L\frac{\Delta i}{\Delta t}\) なので <span class="ans">\(L=L_1+L_2+L_3\)</span>。</p>
+    </div></details></div>
+  <div class="ex"><div class="q"><span class="no">問4</span>2個の抵抗 R₁, R₂ を並列に接続した場合、全体の電流 i は \(i_1=\frac{R_2}{R_1+R_2}i\)、\(i_2=\frac{R_1}{R_1+R_2}i\) に分かれることを合成抵抗の式から導け。</div>
+    <details><summary>解答</summary><div class="a">
+      <p>合成抵抗 \(\frac1R=\frac1{R_1}+\frac1{R_2}\) より \(R=\frac{R_1R_2}{R_1+R_2}\)。両端の電圧は \(v=Ri=\frac{R_1R_2}{R_1+R_2}i\)。並列では各抵抗に同じ \(v\) がかかるので</p>
+      \[i_1=\frac{v}{R_1}=\frac{R_2}{R_1+R_2}i,\qquad i_2=\frac{v}{R_2}=\frac{R_1}{R_1+R_2}i\]
+      <div class="warn"><b>減点ポイント：</b>合成抵抗 \(R=\frac{R_1R_2}{R_1+R_2}\) を出したところで止めると不十分。\(v=Ri\) を経由して \(i_1,i_2\) まで導くこと。</div>
+    </div></details></div>
+
+  <h3>演習問題 3（キルヒホッフ・ブリッジ・重ね合わせ）</h3>
+  <div class="ex"><div class="q"><span class="no">問1</span>(a) 接続点 a における電流 I₁, I₂, I₃ の関係式 (b) 閉路 X と Y の電圧平衡式 (c) V=100 V、R₁=8 Ω、R₂=30 Ω、R₃=20 Ω のときの I₁, I₂, I₃</div>
+    <figure><svg class="circ" viewBox="0 0 440 220" role="img" aria-label="キルヒホッフの法則の回路"><defs><marker id="c3ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahp"/></marker><marker id="c3ahc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahcp"/></marker></defs><line x1="40" y1="40" x2="40" y2="111.0"/><line x1="40" y1="119.0" x2="40" y2="190"/><line x1="24" y1="111.0" x2="56" y2="111.0"/><line x1="32" y1="119.0" x2="48" y2="119.0" class="thick"/><text x="20" y="109.0" text-anchor="end" class="pm">+</text><text x="18" y="120.0" text-anchor="end">V</text><polyline points="40,40 70,40" fill="none"/><line x1="70" y1="40" x2="110.0" y2="40"/><line x1="150.0" y1="40" x2="190" y2="40"/><rect x="110.0" y="32" width="40" height="16" class="part"/><text x="130.0" y="26" text-anchor="middle">R₁</text><polyline points="190,40 380,40" fill="none"/><line x1="240" y1="40" x2="240" y2="95.0"/><line x1="240" y1="135.0" x2="240" y2="190"/><rect x="232" y="95.0" width="16" height="40" class="part"/><text x="254" y="120.0" text-anchor="start">R₂</text><line x1="380" y1="40" x2="380" y2="95.0"/><line x1="380" y1="135.0" x2="380" y2="190"/><rect x="372" y="95.0" width="16" height="40" class="part"/><text x="366" y="120.0" text-anchor="end">R₃</text><polyline points="40,190 380,190" fill="none"/><circle cx="240" cy="40" r="3.2" class="dot"/><circle cx="240" cy="190" r="3.2" class="dot"/><text x="240" y="30" text-anchor="middle">a</text><line x1="80" y1="62" x2="120" y2="62" class="cur" marker-end="url(#c3ahc)"/><text x="100.0" y="78.0" text-anchor="middle" class="curl">I₁</text><line x1="256" y1="60" x2="256" y2="90" class="cur" marker-end="url(#c3ahc)"/><text x="270.0" y="79.0" text-anchor="start" class="curl">I₂</text><line x1="396" y1="60" x2="396" y2="90" class="cur" marker-end="url(#c3ahc)"/><text x="406.0" y="79.0" text-anchor="start" class="curl">I₃</text><text x="140" y="125" text-anchor="middle" class="loop">X</text><text x="310" y="125" text-anchor="middle" class="loop">Y</text></svg></figure>
+    <details><summary>解答</summary><div class="a">
+      <p>(a) <span class="ans">\(I_1-I_2-I_3=0\)</span>（流入 I₁、流出 I₂, I₃）</p>
+      <p>(b) 閉路 X：<span class="ans">\(V-R_1I_1-R_2I_2=0\)</span>　閉路 Y：<span class="ans">\(R_2I_2-R_3I_3=0\)</span></p>
+      <p>(c) Y より \(30I_2=20I_3\)、\(I_3=1.5I_2\)。(a) より \(I_1=2.5I_2\)。X に代入：\(100=8\times2.5I_2+30I_2=50I_2\)。</p>
+      <p><span class="ans">I₁ = 5.0 A、I₂ = 2.0 A、I₃ = 3.0 A</span></p>
+    </div></details></div>
+  <div class="ex"><div class="q"><span class="no">問2</span>(a) B点を基準にしたA点の電位 (b) 合成抵抗 (c) 消費電力 (d) B側の 20 Ω を変えて AB 間の電位差をゼロにしたい。抵抗をいくらにすればよいか。</div>
+    <figure><svg class="circ" viewBox="0 0 420 230" role="img" aria-label="ブリッジ形の回路"><defs><marker id="c4ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahp"/></marker><marker id="c4ahc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahcp"/></marker></defs><line x1="40" y1="30" x2="40" y2="111.0"/><line x1="40" y1="119.0" x2="40" y2="200"/><line x1="24" y1="111.0" x2="56" y2="111.0"/><line x1="32" y1="119.0" x2="48" y2="119.0" class="thick"/><text x="20" y="109.0" text-anchor="end" class="pm">+</text><text x="62" y="120.0" text-anchor="start">V=100 V</text><polyline points="40,30 380,30" fill="none"/><polyline points="40,200 380,200" fill="none"/><line x1="220" y1="30" x2="220" y2="52.5"/><line x1="220" y1="92.5" x2="220" y2="115"/><rect x="212" y="52.5" width="16" height="40" class="part"/><text x="206" y="77.5" text-anchor="end">20 Ω</text><line x1="220" y1="115" x2="220" y2="137.5"/><line x1="220" y1="177.5" x2="220" y2="200"/><rect x="212" y="137.5" width="16" height="40" class="part"/><text x="206" y="162.5" text-anchor="end">30 Ω</text><line x1="380" y1="30" x2="380" y2="52.5"/><line x1="380" y1="92.5" x2="380" y2="115"/><rect x="372" y="52.5" width="16" height="40" class="part"/><text x="366" y="77.5" text-anchor="end">30 Ω</text><line x1="380" y1="115" x2="380" y2="137.5"/><line x1="380" y1="177.5" x2="380" y2="200"/><rect x="372" y="137.5" width="16" height="40" class="part"/><text x="366" y="162.5" text-anchor="end">20 Ω</text><circle cx="220" cy="115" r="3.2" class="dot"/><text x="232" y="120" text-anchor="start">A</text><circle cx="380" cy="115" r="3.2" class="dot"/><text x="392" y="120" text-anchor="start">B</text><circle cx="220" cy="30" r="3.2" class="dot"/><circle cx="220" cy="200" r="3.2" class="dot"/></svg><figcaption>電源は上側が＋</figcaption></figure>
+    <details><summary>解答</summary><div class="a">
+      <p>各枝は 50 Ω で、電流はどちらも \(\frac{100}{50}=2\) A。下の導線を 0 V とすると</p>
+      <p>A点：\(100-20\times2=60\) V（＝下側 30 Ω の電圧）。B点：\(100-30\times2=40\) V（＝下側 20 Ω の電圧）。</p>
+      <p>(a) <span class="ans">\(V_A-V_B=60-40=20\) V</span></p>
+      <div class="warn"><b>よくあるミス：</b>「B点を基準にしたA点の電位」は \(V_A-V_B\)。60 V は<b>下の導線（電源の−側）を基準</b>にしたA点の電位なので、そのまま答えると間違い。</div>
+      <p>(b) 50 Ω ∥ 50 Ω：<span class="ans">25 Ω</span>　(c) \(P=\frac{V^2}{R}=\frac{100^2}{25}=\) <span class="ans">400 W</span></p>
+      <p>(d) B点も 60 V にする。下側の抵抗を R とすると分圧で \(100\times\frac{R}{30+R}=60\) → \(0.6(30+R)=R\) → <span class="ans">R = 45 Ω</span>。ブリッジの平衡条件 \(20R=30\times30\) からも \(R=45\) Ω。</p>
+    </div></details></div>
+  <div class="ex"><div class="q"><span class="no">問3</span>重ね合わせの理を用いて R₁〜R₄ に流れる電流 I₁〜I₄ と両端の電圧 V₁〜V₄ を求めよ。</div>
+    <figure><svg class="circ" viewBox="0 0 560 220" role="img" aria-label="重ね合わせの理の回路"><defs><marker id="c5ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahp"/></marker><marker id="c5ahc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahcp"/></marker></defs><line x1="40" y1="40" x2="40" y2="111.0"/><line x1="40" y1="119.0" x2="40" y2="190"/><line x1="24" y1="111.0" x2="56" y2="111.0"/><line x1="32" y1="119.0" x2="48" y2="119.0" class="thick"/><text x="20" y="109.0" text-anchor="end" class="pm">+</text><text x="62" y="120.0" text-anchor="start">V=45 V</text><polyline points="40,40 60,40" fill="none"/><line x1="60" y1="40" x2="105.0" y2="40"/><line x1="145.0" y1="40" x2="190" y2="40"/><rect x="105.0" y="32" width="40" height="16" class="part"/><text x="125.0" y="26" text-anchor="middle">R₁=10 Ω</text><line x1="190" y1="40" x2="240.0" y2="40"/><line x1="280.0" y1="40" x2="330" y2="40"/><rect x="240.0" y="32" width="40" height="16" class="part"/><text x="260.0" y="26" text-anchor="middle">R₃=4 Ω</text><polyline points="330,40 470,40" fill="none"/><line x1="190" y1="40" x2="190" y2="95.0"/><line x1="190" y1="135.0" x2="190" y2="190"/><rect x="182" y="95.0" width="16" height="40" class="part"/><text x="204" y="120.0" text-anchor="start">R₂=10 Ω</text><line x1="330" y1="40" x2="330" y2="95.0"/><line x1="330" y1="135.0" x2="330" y2="190"/><rect x="322" y="95.0" width="16" height="40" class="part"/><text x="344" y="120.0" text-anchor="start">R₄=6 Ω</text><line x1="470" y1="40" x2="470" y2="101.0"/><line x1="470" y1="129.0" x2="470" y2="190"/><circle cx="470" cy="115.0" r="14" class="part"/><line x1="470" y1="123.0" x2="470" y2="109.0" marker-end="url(#c5ah)"/><text x="492" y="120.0" text-anchor="start">I₀=15 A</text><polyline points="40,190 470,190" fill="none"/><circle cx="190" cy="40" r="3.2" class="dot"/><circle cx="330" cy="40" r="3.2" class="dot"/><circle cx="190" cy="190" r="3.2" class="dot"/><circle cx="330" cy="190" r="3.2" class="dot"/><text x="190" y="28" text-anchor="middle">P</text><text x="330" y="28" text-anchor="middle">Q</text></svg><figcaption>電池は上側が＋、電流源は上向き</figcaption></figure>
+    <details><summary>解答</summary><div class="a">
+      <p>向きの約束：I₁ は左→右、I₂・I₄ は下向き、I₃ は P→Q。電圧は電流の向きに見た電圧降下（\(V_k=R_kI_k\)）。</p>
+      <p><b>① 45 V 電源だけ（15 A 電流源は開放）</b>：\(R_3+R_4=10\) Ω、これと \(R_2\) の並列で 5 Ω、全体 15 Ω。</p>
+      <p>\(I_1'=\frac{45}{15}=3\) A、\(V_P'=45-30=15\) V、\(I_2'=1.5\) A、\(I_3'=I_4'=1.5\) A（\(V_Q'=9\) V）。</p>
+      <p><b>② 15 A 電流源だけ（45 V 電圧源は短絡）</b>：\(R_1\parallel R_2=5\) Ω、＋\(R_3\) で 9 Ω、これと \(R_4\) の並列で \(\frac{6\times9}{15}=3.6\) Ω。</p>
+      <p>\(V_Q''=15\times3.6=54\) V、\(I_4''=\frac{54}6=9\) A、R₃ には Q→P に \(\frac{54}9=6\) A（つまり \(I_3''=-6\) A）。\(V_P''=6\times5=30\) V、\(I_2''=3\) A、R₁ には P→左（短絡した電源側）に 3 A（\(I_1''=-3\) A）。</p>
+      <p><b>③ 重ね合わせ</b></p>
+      <div class="tw"><table>
+        <tr><th></th><th>① 電圧源のみ</th><th>② 電流源のみ</th><th>合計</th><th>電圧</th></tr>
+        <tr><td>I₁（左→右）</td><td>3</td><td>−3</td><td><b>0 A</b></td><td><b>V₁ = 0 V</b></td></tr>
+        <tr><td>I₂（下向き）</td><td>1.5</td><td>3</td><td><b>4.5 A</b></td><td><b>V₂ = 45 V</b></td></tr>
+        <tr><td>I₃（P→Q）</td><td>1.5</td><td>−6</td><td><b>−4.5 A</b></td><td><b>V₃ = −18 V</b></td></tr>
+        <tr><td>I₄（下向き）</td><td>1.5</td><td>9</td><td><b>10.5 A</b></td><td><b>V₄ = 63 V</b></td></tr>
+      </table></div>
+      <p>I₃ は「Q→P の向きに 4.5 A」で、R₃ の両端電圧は 18 V（Q 側が高い）。チェック：節点Pの電位は \(V_2=45\) V、節点Qは \(V_4=63\) V、\(63-45=18\) V ✓。節点Qで \(15=4.5+10.5\) ✓。</p>
+      <div class="warn"><b>よくあるミス：</b>②の R₃ の電圧を \(54-30=24\) V と正で足してしまう。I₃ の正の向き（P→Q）で見ると \(V_3''=V_P''-V_Q''=30-54=-24\) V。①の \(V_3'=+6\) V と足して \(-18\) V。V₄ も \(9+54=63\) V。</div>
+    </div></details></div>
+
+  <h3>演習問題 4（瞬時値・波形・テブナン）</h3>
+  <div class="ex"><div class="q"><span class="no">問1</span>R-L直列回路に \(v(t)=\sqrt2V\sin\omega t\) を加えたとき、電流を \(i(t)=\sqrt2I\sin(\omega t+\phi)\) として、\(v_R(t)\) と \(v_L(t)\) を正弦関数で表せ。また回路のインピーダンス \(\frac VI\) を R と ωL で表せ。</div>
+    <details><summary>解答</summary><div class="a">
+      \[v_R(t)=Ri(t)=\sqrt2RI\sin(\omega t+\phi)\]
+      \[v_L(t)=L\frac{di}{dt}=\sqrt2\omega LI\cos(\omega t+\phi)=\sqrt2\omega LI\sin\!\left(\omega t+\phi+\frac{\pi}{2}\right)\]
+      <p>\(v_R\) と \(v_L\) は 90° ずれているので、実効値 \(V_R=RI\)、\(V_L=\omega LI\) を直角に合成して \(V^2=V_R^2+V_L^2=\{R^2+(\omega L)^2\}I^2\)。</p>
+      <p><span class="ans">\(\dfrac VI=\sqrt{R^2+(\omega L)^2}\)</span></p>
+      <p>未定係数法で示すなら：\(V\sin\omega t=RI\sin(\omega t+\phi)+\omega LI\cos(\omega t+\phi)\) を展開し、係数比較の2式を二乗して足す。</p>
+    </div></details></div>
+  <div class="ex"><div class="q"><span class="no">問2</span>\(v(t)=V_m\sin\omega t\)、\(V_m=8\) V の波形を描け（横軸 ωt）。この電圧を加えた回路の電流が電圧より位相にして \(\frac{\pi}{6}\) 進み、振幅が 2 A のとき、これを同図中に重ねて描け。</div>
+    <details><summary>解答</summary><div class="a">
+      <p>電流は \(i(t)=2\sin(\omega t+\frac{\pi}{6})\)。<b>進む＝グラフを左へ \(\frac{\pi}{6}\) ずらす</b>。</p>
+      <figure><svg class="wave" viewBox="0 0 640 310" role="img" aria-label="電圧 8sinωt と電流 2sin(ωt+π/6) の波形"><line class="grid" x1="50.0" y1="32" x2="50.0" y2="270"/><line class="grid" x1="95.0" y1="32" x2="95.0" y2="270"/><line class="grid" x1="140.0" y1="32" x2="140.0" y2="270"/><line class="grid" x1="185.0" y1="32" x2="185.0" y2="270"/><line class="grid" x1="230.0" y1="32" x2="230.0" y2="270"/><line class="grid" x1="275.0" y1="32" x2="275.0" y2="270"/><line class="grid" x1="320.0" y1="32" x2="320.0" y2="270"/><line class="grid" x1="365.0" y1="32" x2="365.0" y2="270"/><line class="grid" x1="410.0" y1="32" x2="410.0" y2="270"/><line class="grid" x1="455.0" y1="32" x2="455.0" y2="270"/><line class="grid" x1="500.0" y1="32" x2="500.0" y2="270"/><line class="grid" x1="545.0" y1="32" x2="545.0" y2="270"/><line class="grid" x1="590.0" y1="32" x2="590.0" y2="270"/><line class="grid" x1="50" y1="270.0" x2="590" y2="270.0"/><line class="grid" x1="50" y1="210.5" x2="590" y2="210.5"/><line class="grid" x1="50" y1="91.5" x2="590" y2="91.5"/><line class="grid" x1="50" y1="32.0" x2="590" y2="32.0"/><line class="axis" x1="50" y1="151.0" x2="590" y2="151.0"/><line class="axis" x1="320.0" y1="32" x2="320.0" y2="270"/><text x="50.0" y="286" text-anchor="middle">−3π</text><text x="140.0" y="286" text-anchor="middle">−2π</text><text x="230.0" y="286" text-anchor="middle">−π</text><text x="320.0" y="286" text-anchor="middle">0</text><text x="410.0" y="286" text-anchor="middle">π</text><text x="500.0" y="286" text-anchor="middle">2π</text><text x="590.0" y="286" text-anchor="middle">3π</text><text x="590" y="302" text-anchor="end">ωt</text><text x="44" y="274.0" text-anchor="end">-10</text><text x="44" y="214.5" text-anchor="end">-5</text><text x="44" y="155.0" text-anchor="end">0</text><text x="44" y="95.5" text-anchor="end">5</text><text x="44" y="36.0" text-anchor="end">10</text><text x="596" y="274.0" text-anchor="start">-4</text><text x="596" y="214.5" text-anchor="start">-2</text><text x="596" y="155.0" text-anchor="start">0</text><text x="596" y="95.5" text-anchor="start">2</text><text x="596" y="36.0" text-anchor="start">4</text><text x="44" y="26" text-anchor="end">v [V]</text><text x="596" y="26" text-anchor="start">i [A]</text><polyline class="v" points="50.0,151.0 50.9,154.0 51.8,157.0 52.7,160.0 53.6,162.9 54.5,165.9 55.4,168.8 56.3,171.8 57.2,174.7 58.1,177.6 59.0,180.4 59.9,183.2 60.8,186.0 61.7,188.8 62.6,191.5 63.5,194.2 64.4,196.9 65.3,199.5 66.2,202.0 67.1,204.5 68.0,207.0 68.9,209.3 69.8,211.7 70.7,214.0 71.6,216.2 72.5,218.3 73.4,220.4 74.3,222.4 75.2,224.4 76.1,226.2 77.0,228.0 77.9,229.7 78.8,231.4 79.7,232.9 80.6,234.4 81.5,235.8 82.4,237.1 83.3,238.4 84.2,239.5 85.1,240.6 86.0,241.5 86.9,242.4 87.8,243.2 88.7,243.9 89.6,244.5 90.5,245.0 91.4,245.4 92.3,245.8 93.2,246.0 94.1,246.2 95.0,246.2 95.9,246.2 96.8,246.0 97.7,245.8 98.6,245.4 99.5,245.0 100.4,244.5 101.3,243.9 102.2,243.2 103.1,242.4 104.0,241.5 104.9,240.6 105.8,239.5 106.7,238.4 107.6,237.1 108.5,235.8 109.4,234.4 110.3,232.9 111.2,231.4 112.1,229.7 113.0,228.0 113.9,226.2 114.8,224.4 115.7,222.4 116.6,220.4 117.5,218.3 118.4,216.2 119.3,214.0 120.2,211.7 121.1,209.3 122.0,207.0 122.9,204.5 123.8,202.0 124.7,199.5 125.6,196.9 126.5,194.2 127.4,191.5 128.3,188.8 129.2,186.0 130.1,183.2 131.0,180.4 131.9,177.6 132.8,174.7 133.7,171.8 134.6,168.8 135.5,165.9 136.4,162.9 137.3,160.0 138.2,157.0 139.1,154.0 140.0,151.0 140.9,148.0 141.8,145.0 142.7,142.0 143.6,139.1 144.5,136.1 145.4,133.2 146.3,130.2 147.2,127.3 148.1,124.4 149.0,121.6 149.9,118.8 150.8,116.0 151.7,113.2 152.6,110.5 153.5,107.8 154.4,105.1 155.3,102.5 156.2,100.0 157.1,97.5 158.0,95.0 158.9,92.7 159.8,90.3 160.7,88.0 161.6,85.8 162.5,83.7 163.4,81.6 164.3,79.6 165.2,77.6 166.1,75.8 167.0,74.0 167.9,72.3 168.8,70.6 169.7,69.1 170.6,67.6 171.5,66.2 172.4,64.9 173.3,63.6 174.2,62.5 175.1,61.4 176.0,60.5 176.9,59.6 177.8,58.8 178.7,58.1 179.6,57.5 180.5,57.0 181.4,56.6 182.3,56.2 183.2,56.0 184.1,55.8 185.0,55.8 185.9,55.8 186.8,56.0 187.7,56.2 188.6,56.6 189.5,57.0 190.4,57.5 191.3,58.1 192.2,58.8 193.1,59.6 194.0,60.5 194.9,61.4 195.8,62.5 196.7,63.6 197.6,64.9 198.5,66.2 199.4,67.6 200.3,69.1 201.2,70.6 202.1,72.3 203.0,74.0 203.9,75.8 204.8,77.6 205.7,79.6 206.6,81.6 207.5,83.7 208.4,85.8 209.3,88.0 210.2,90.3 211.1,92.7 212.0,95.0 212.9,97.5 213.8,100.0 214.7,102.5 215.6,105.1 216.5,107.8 217.4,110.5 218.3,113.2 219.2,116.0 220.1,118.8 221.0,121.6 221.9,124.4 222.8,127.3 223.7,130.2 224.6,133.2 225.5,136.1 226.4,139.1 227.3,142.0 228.2,145.0 229.1,148.0 230.0,151.0 230.9,154.0 231.8,157.0 232.7,160.0 233.6,162.9 234.5,165.9 235.4,168.8 236.3,171.8 237.2,174.7 238.1,177.6 239.0,180.4 239.9,183.2 240.8,186.0 241.7,188.8 242.6,191.5 243.5,194.2 244.4,196.9 245.3,199.5 246.2,202.0 247.1,204.5 248.0,207.0 248.9,209.3 249.8,211.7 250.7,214.0 251.6,216.2 252.5,218.3 253.4,220.4 254.3,222.4 255.2,224.4 256.1,226.2 257.0,228.0 257.9,229.7 258.8,231.4 259.7,232.9 260.6,234.4 261.5,235.8 262.4,237.1 263.3,238.4 264.2,239.5 265.1,240.6 266.0,241.5 266.9,242.4 267.8,243.2 268.7,243.9 269.6,244.5 270.5,245.0 271.4,245.4 272.3,245.8 273.2,246.0 274.1,246.2 275.0,246.2 275.9,246.2 276.8,246.0 277.7,245.8 278.6,245.4 279.5,245.0 280.4,244.5 281.3,243.9 282.2,243.2 283.1,242.4 284.0,241.5 284.9,240.6 285.8,239.5 286.7,238.4 287.6,237.1 288.5,235.8 289.4,234.4 290.3,232.9 291.2,231.4 292.1,229.7 293.0,228.0 293.9,226.2 294.8,224.4 295.7,222.4 296.6,220.4 297.5,218.3 298.4,216.2 299.3,214.0 300.2,211.7 301.1,209.3 302.0,207.0 302.9,204.5 303.8,202.0 304.7,199.5 305.6,196.9 306.5,194.2 307.4,191.5 308.3,188.8 309.2,186.0 310.1,183.2 311.0,180.4 311.9,177.6 312.8,174.7 313.7,171.8 314.6,168.8 315.5,165.9 316.4,162.9 317.3,160.0 318.2,157.0 319.1,154.0 320.0,151.0 320.9,148.0 321.8,145.0 322.7,142.0 323.6,139.1 324.5,136.1 325.4,133.2 326.3,130.2 327.2,127.3 328.1,124.4 329.0,121.6 329.9,118.8 330.8,116.0 331.7,113.2 332.6,110.5 333.5,107.8 334.4,105.1 335.3,102.5 336.2,100.0 337.1,97.5 338.0,95.0 338.9,92.7 339.8,90.3 340.7,88.0 341.6,85.8 342.5,83.7 343.4,81.6 344.3,79.6 345.2,77.6 346.1,75.8 347.0,74.0 347.9,72.3 348.8,70.6 349.7,69.1 350.6,67.6 351.5,66.2 352.4,64.9 353.3,63.6 354.2,62.5 355.1,61.4 356.0,60.5 356.9,59.6 357.8,58.8 358.7,58.1 359.6,57.5 360.5,57.0 361.4,56.6 362.3,56.2 363.2,56.0 364.1,55.8 365.0,55.8 365.9,55.8 366.8,56.0 367.7,56.2 368.6,56.6 369.5,57.0 370.4,57.5 371.3,58.1 372.2,58.8 373.1,59.6 374.0,60.5 374.9,61.4 375.8,62.5 376.7,63.6 377.6,64.9 378.5,66.2 379.4,67.6 380.3,69.1 381.2,70.6 382.1,72.3 383.0,74.0 383.9,75.8 384.8,77.6 385.7,79.6 386.6,81.6 387.5,83.7 388.4,85.8 389.3,88.0 390.2,90.3 391.1,92.7 392.0,95.0 392.9,97.5 393.8,100.0 394.7,102.5 395.6,105.1 396.5,107.8 397.4,110.5 398.3,113.2 399.2,116.0 400.1,118.8 401.0,121.6 401.9,124.4 402.8,127.3 403.7,130.2 404.6,133.2 405.5,136.1 406.4,139.1 407.3,142.0 408.2,145.0 409.1,148.0 410.0,151.0 410.9,154.0 411.8,157.0 412.7,160.0 413.6,162.9 414.5,165.9 415.4,168.8 416.3,171.8 417.2,174.7 418.1,177.6 419.0,180.4 419.9,183.2 420.8,186.0 421.7,188.8 422.6,191.5 423.5,194.2 424.4,196.9 425.3,199.5 426.2,202.0 427.1,204.5 428.0,207.0 428.9,209.3 429.8,211.7 430.7,214.0 431.6,216.2 432.5,218.3 433.4,220.4 434.3,222.4 435.2,224.4 436.1,226.2 437.0,228.0 437.9,229.7 438.8,231.4 439.7,232.9 440.6,234.4 441.5,235.8 442.4,237.1 443.3,238.4 444.2,239.5 445.1,240.6 446.0,241.5 446.9,242.4 447.8,243.2 448.7,243.9 449.6,244.5 450.5,245.0 451.4,245.4 452.3,245.8 453.2,246.0 454.1,246.2 455.0,246.2 455.9,246.2 456.8,246.0 457.7,245.8 458.6,245.4 459.5,245.0 460.4,244.5 461.3,243.9 462.2,243.2 463.1,242.4 464.0,241.5 464.9,240.6 465.8,239.5 466.7,238.4 467.6,237.1 468.5,235.8 469.4,234.4 470.3,232.9 471.2,231.4 472.1,229.7 473.0,228.0 473.9,226.2 474.8,224.4 475.7,222.4 476.6,220.4 477.5,218.3 478.4,216.2 479.3,214.0 480.2,211.7 481.1,209.3 482.0,207.0 482.9,204.5 483.8,202.0 484.7,199.5 485.6,196.9 486.5,194.2 487.4,191.5 488.3,188.8 489.2,186.0 490.1,183.2 491.0,180.4 491.9,177.6 492.8,174.7 493.7,171.8 494.6,168.8 495.5,165.9 496.4,162.9 497.3,160.0 498.2,157.0 499.1,154.0 500.0,151.0 500.9,148.0 501.8,145.0 502.7,142.0 503.6,139.1 504.5,136.1 505.4,133.2 506.3,130.2 507.2,127.3 508.1,124.4 509.0,121.6 509.9,118.8 510.8,116.0 511.7,113.2 512.6,110.5 513.5,107.8 514.4,105.1 515.3,102.5 516.2,100.0 517.1,97.5 518.0,95.0 518.9,92.7 519.8,90.3 520.7,88.0 521.6,85.8 522.5,83.7 523.4,81.6 524.3,79.6 525.2,77.6 526.1,75.8 527.0,74.0 527.9,72.3 528.8,70.6 529.7,69.1 530.6,67.6 531.5,66.2 532.4,64.9 533.3,63.6 534.2,62.5 535.1,61.4 536.0,60.5 536.9,59.6 537.8,58.8 538.7,58.1 539.6,57.5 540.5,57.0 541.4,56.6 542.3,56.2 543.2,56.0 544.1,55.8 545.0,55.8 545.9,55.8 546.8,56.0 547.7,56.2 548.6,56.6 549.5,57.0 550.4,57.5 551.3,58.1 552.2,58.8 553.1,59.6 554.0,60.5 554.9,61.4 555.8,62.5 556.7,63.6 557.6,64.9 558.5,66.2 559.4,67.6 560.3,69.1 561.2,70.6 562.1,72.3 563.0,74.0 563.9,75.8 564.8,77.6 565.7,79.6 566.6,81.6 567.5,83.7 568.4,85.8 569.3,88.0 570.2,90.3 571.1,92.7 572.0,95.0 572.9,97.5 573.8,100.0 574.7,102.5 575.6,105.1 576.5,107.8 577.4,110.5 578.3,113.2 579.2,116.0 580.1,118.8 581.0,121.6 581.9,124.4 582.8,127.3 583.7,130.2 584.6,133.2 585.5,136.1 586.4,139.1 587.3,142.0 588.2,145.0 589.1,148.0 590.0,151.0"/><polyline class="i" points="50.0,180.8 50.9,182.4 51.8,183.9 52.7,185.5 53.6,187.0 54.5,188.4 55.4,189.9 56.3,191.3 57.2,192.6 58.1,193.9 59.0,195.2 59.9,196.4 60.8,197.6 61.7,198.8 62.6,199.9 63.5,200.9 64.4,201.9 65.3,202.8 66.2,203.7 67.1,204.6 68.0,205.4 68.9,206.1 69.8,206.8 70.7,207.4 71.6,208.0 72.5,208.5 73.4,208.9 74.3,209.3 75.2,209.7 76.1,209.9 77.0,210.2 77.9,210.3 78.8,210.4 79.7,210.5 80.6,210.5 81.5,210.4 82.4,210.3 83.3,210.1 84.2,209.9 85.1,209.6 86.0,209.2 86.9,208.8 87.8,208.3 88.7,207.8 89.6,207.2 90.5,206.5 91.4,205.9 92.3,205.1 93.2,204.3 94.1,203.4 95.0,202.5 95.9,201.6 96.8,200.6 97.7,199.5 98.6,198.4 99.5,197.2 100.4,196.0 101.3,194.8 102.2,193.5 103.1,192.2 104.0,190.8 104.9,189.4 105.8,188.0 106.7,186.5 107.6,185.0 108.5,183.4 109.4,181.8 110.3,180.2 111.2,178.6 112.1,176.9 113.0,175.2 113.9,173.5 114.8,171.7 115.7,170.0 116.6,168.2 117.5,166.4 118.4,164.6 119.3,162.8 120.2,160.9 121.1,159.1 122.0,157.2 122.9,155.4 123.8,153.5 124.7,151.6 125.6,149.8 126.5,147.9 127.4,146.0 128.3,144.2 129.2,142.3 130.1,140.5 131.0,138.6 131.9,136.8 132.8,135.0 133.7,133.2 134.6,131.4 135.5,129.7 136.4,127.9 137.3,126.2 138.2,124.5 139.1,122.9 140.0,121.2 140.9,119.6 141.8,118.1 142.7,116.5 143.6,115.0 144.5,113.6 145.4,112.1 146.3,110.7 147.2,109.4 148.1,108.1 149.0,106.8 149.9,105.6 150.8,104.4 151.7,103.2 152.6,102.1 153.5,101.1 154.4,100.1 155.3,99.2 156.2,98.3 157.1,97.4 158.0,96.6 158.9,95.9 159.8,95.2 160.7,94.6 161.6,94.0 162.5,93.5 163.4,93.1 164.3,92.7 165.2,92.3 166.1,92.1 167.0,91.8 167.9,91.7 168.8,91.6 169.7,91.5 170.6,91.5 171.5,91.6 172.4,91.7 173.3,91.9 174.2,92.1 175.1,92.4 176.0,92.8 176.9,93.2 177.8,93.7 178.7,94.2 179.6,94.8 180.5,95.5 181.4,96.1 182.3,96.9 183.2,97.7 184.1,98.6 185.0,99.5 185.9,100.4 186.8,101.4 187.7,102.5 188.6,103.6 189.5,104.8 190.4,106.0 191.3,107.2 192.2,108.5 193.1,109.8 194.0,111.2 194.9,112.6 195.8,114.0 196.7,115.5 197.6,117.0 198.5,118.6 199.4,120.2 200.3,121.8 201.2,123.4 202.1,125.1 203.0,126.8 203.9,128.5 204.8,130.3 205.7,132.0 206.6,133.8 207.5,135.6 208.4,137.4 209.3,139.2 210.2,141.1 211.1,142.9 212.0,144.8 212.9,146.6 213.8,148.5 214.7,150.4 215.6,152.2 216.5,154.1 217.4,156.0 218.3,157.8 219.2,159.7 220.1,161.5 221.0,163.4 221.9,165.2 222.8,167.0 223.7,168.8 224.6,170.6 225.5,172.3 226.4,174.1 227.3,175.8 228.2,177.5 229.1,179.1 230.0,180.8 230.9,182.4 231.8,183.9 232.7,185.5 233.6,187.0 234.5,188.4 235.4,189.9 236.3,191.3 237.2,192.6 238.1,193.9 239.0,195.2 239.9,196.4 240.8,197.6 241.7,198.8 242.6,199.9 243.5,200.9 244.4,201.9 245.3,202.8 246.2,203.7 247.1,204.6 248.0,205.4 248.9,206.1 249.8,206.8 250.7,207.4 251.6,208.0 252.5,208.5 253.4,208.9 254.3,209.3 255.2,209.7 256.1,209.9 257.0,210.2 257.9,210.3 258.8,210.4 259.7,210.5 260.6,210.5 261.5,210.4 262.4,210.3 263.3,210.1 264.2,209.9 265.1,209.6 266.0,209.2 266.9,208.8 267.8,208.3 268.7,207.8 269.6,207.2 270.5,206.5 271.4,205.9 272.3,205.1 273.2,204.3 274.1,203.4 275.0,202.5 275.9,201.6 276.8,200.6 277.7,199.5 278.6,198.4 279.5,197.2 280.4,196.0 281.3,194.8 282.2,193.5 283.1,192.2 284.0,190.8 284.9,189.4 285.8,188.0 286.7,186.5 287.6,185.0 288.5,183.4 289.4,181.8 290.3,180.2 291.2,178.6 292.1,176.9 293.0,175.2 293.9,173.5 294.8,171.7 295.7,170.0 296.6,168.2 297.5,166.4 298.4,164.6 299.3,162.8 300.2,160.9 301.1,159.1 302.0,157.2 302.9,155.4 303.8,153.5 304.7,151.6 305.6,149.8 306.5,147.9 307.4,146.0 308.3,144.2 309.2,142.3 310.1,140.5 311.0,138.6 311.9,136.8 312.8,135.0 313.7,133.2 314.6,131.4 315.5,129.7 316.4,127.9 317.3,126.2 318.2,124.5 319.1,122.9 320.0,121.2 320.9,119.6 321.8,118.1 322.7,116.5 323.6,115.0 324.5,113.6 325.4,112.1 326.3,110.7 327.2,109.4 328.1,108.1 329.0,106.8 329.9,105.6 330.8,104.4 331.7,103.2 332.6,102.1 333.5,101.1 334.4,100.1 335.3,99.2 336.2,98.3 337.1,97.4 338.0,96.6 338.9,95.9 339.8,95.2 340.7,94.6 341.6,94.0 342.5,93.5 343.4,93.1 344.3,92.7 345.2,92.3 346.1,92.1 347.0,91.8 347.9,91.7 348.8,91.6 349.7,91.5 350.6,91.5 351.5,91.6 352.4,91.7 353.3,91.9 354.2,92.1 355.1,92.4 356.0,92.8 356.9,93.2 357.8,93.7 358.7,94.2 359.6,94.8 360.5,95.5 361.4,96.1 362.3,96.9 363.2,97.7 364.1,98.6 365.0,99.5 365.9,100.4 366.8,101.4 367.7,102.5 368.6,103.6 369.5,104.8 370.4,106.0 371.3,107.2 372.2,108.5 373.1,109.8 374.0,111.2 374.9,112.6 375.8,114.0 376.7,115.5 377.6,117.0 378.5,118.6 379.4,120.2 380.3,121.8 381.2,123.4 382.1,125.1 383.0,126.8 383.9,128.5 384.8,130.3 385.7,132.0 386.6,133.8 387.5,135.6 388.4,137.4 389.3,139.2 390.2,141.1 391.1,142.9 392.0,144.8 392.9,146.6 393.8,148.5 394.7,150.4 395.6,152.2 396.5,154.1 397.4,156.0 398.3,157.8 399.2,159.7 400.1,161.5 401.0,163.4 401.9,165.2 402.8,167.0 403.7,168.8 404.6,170.6 405.5,172.3 406.4,174.1 407.3,175.8 408.2,177.5 409.1,179.1 410.0,180.7 410.9,182.4 411.8,183.9 412.7,185.5 413.6,187.0 414.5,188.4 415.4,189.9 416.3,191.3 417.2,192.6 418.1,193.9 419.0,195.2 419.9,196.4 420.8,197.6 421.7,198.8 422.6,199.9 423.5,200.9 424.4,201.9 425.3,202.8 426.2,203.7 427.1,204.6 428.0,205.4 428.9,206.1 429.8,206.8 430.7,207.4 431.6,208.0 432.5,208.5 433.4,208.9 434.3,209.3 435.2,209.7 436.1,209.9 437.0,210.2 437.9,210.3 438.8,210.4 439.7,210.5 440.6,210.5 441.5,210.4 442.4,210.3 443.3,210.1 444.2,209.9 445.1,209.6 446.0,209.2 446.9,208.8 447.8,208.3 448.7,207.8 449.6,207.2 450.5,206.5 451.4,205.9 452.3,205.1 453.2,204.3 454.1,203.4 455.0,202.5 455.9,201.6 456.8,200.6 457.7,199.5 458.6,198.4 459.5,197.2 460.4,196.0 461.3,194.8 462.2,193.5 463.1,192.2 464.0,190.8 464.9,189.4 465.8,188.0 466.7,186.5 467.6,185.0 468.5,183.4 469.4,181.8 470.3,180.2 471.2,178.6 472.1,176.9 473.0,175.2 473.9,173.5 474.8,171.7 475.7,170.0 476.6,168.2 477.5,166.4 478.4,164.6 479.3,162.8 480.2,160.9 481.1,159.1 482.0,157.2 482.9,155.4 483.8,153.5 484.7,151.6 485.6,149.8 486.5,147.9 487.4,146.0 488.3,144.2 489.2,142.3 490.1,140.5 491.0,138.6 491.9,136.8 492.8,135.0 493.7,133.2 494.6,131.4 495.5,129.7 496.4,127.9 497.3,126.2 498.2,124.5 499.1,122.9 500.0,121.2 500.9,119.6 501.8,118.1 502.7,116.5 503.6,115.0 504.5,113.6 505.4,112.1 506.3,110.7 507.2,109.4 508.1,108.1 509.0,106.8 509.9,105.6 510.8,104.4 511.7,103.2 512.6,102.1 513.5,101.1 514.4,100.1 515.3,99.2 516.2,98.3 517.1,97.4 518.0,96.6 518.9,95.9 519.8,95.2 520.7,94.6 521.6,94.0 522.5,93.5 523.4,93.1 524.3,92.7 525.2,92.3 526.1,92.1 527.0,91.8 527.9,91.7 528.8,91.6 529.7,91.5 530.6,91.5 531.5,91.6 532.4,91.7 533.3,91.9 534.2,92.1 535.1,92.4 536.0,92.8 536.9,93.2 537.8,93.7 538.7,94.2 539.6,94.8 540.5,95.5 541.4,96.1 542.3,96.9 543.2,97.7 544.1,98.6 545.0,99.5 545.9,100.4 546.8,101.4 547.7,102.5 548.6,103.6 549.5,104.8 550.4,106.0 551.3,107.2 552.2,108.5 553.1,109.8 554.0,111.2 554.9,112.6 555.8,114.0 556.7,115.5 557.6,117.0 558.5,118.6 559.4,120.2 560.3,121.8 561.2,123.4 562.1,125.1 563.0,126.8 563.9,128.5 564.8,130.3 565.7,132.0 566.6,133.8 567.5,135.6 568.4,137.4 569.3,139.2 570.2,141.1 571.1,142.9 572.0,144.8 572.9,146.6 573.8,148.5 574.7,150.4 575.6,152.2 576.5,154.1 577.4,156.0 578.3,157.8 579.2,159.7 580.1,161.5 581.0,163.4 581.9,165.2 582.8,167.0 583.7,168.8 584.6,170.6 585.5,172.3 586.4,174.1 587.3,175.8 588.2,177.5 589.1,179.1 590.0,180.7"/><text x="365.0" y="49.8" text-anchor="middle">8</text><text x="305.0" y="167.0" text-anchor="end">−π/6</text></svg><figcaption>実線：電圧 v（左軸 ±8 V）、破線：電流 i（右軸 ±2 A）</figcaption></figure>
+      <ul>
+        <li>電圧：ωt=0, π, 2π… でゼロ、ωt=π/2 で最大 8 V、3π/2 で最小 −8 V。</li>
+        <li>電流：ωt=−π/6, 5π/6, 11π/6… でゼロ（上向きにゼロを横切るのは −π/6）、ωt=π/3 で最大 2 A、4π/3 で最小 −2 A。</li>
+        <li>電流の山が電圧の山より π/6（左に）先に来るのが「進み」。</li>
+      </ul>
+    </div></details></div>
+  <div class="ex"><div class="q"><span class="no">問3</span>R-C並列回路に \(v(t)=\sqrt2V\sin\omega t\) を加えたとき、\(i_R(t)\) と \(i_C(t)\) を正弦関数で表せ。また、インピーダンスの逆数 \(\frac IV\) を R と ωC で表せ。</div>
+    <details><summary>解答</summary><div class="a">
+      \[i_R(t)=\frac{v}{R}=\frac{\sqrt2V}{R}\sin\omega t,\qquad i_C(t)=C\frac{dv}{dt}=\sqrt2\omega CV\cos\omega t=\sqrt2\omega CV\sin\!\left(\omega t+\frac{\pi}{2}\right)\]
+      <p>実効値 \(I_R=\frac VR\)、\(I_C=\omega CV\) が直交するので \(I^2=I_R^2+I_C^2\)。</p>
+      <p><span class="ans">\(\dfrac IV=\sqrt{\dfrac1{R^2}+(\omega C)^2}\)</span>（これがアドミタンス \(Y\)）</p>
+    </div></details></div>
+  <div class="ex"><div class="q"><span class="no">問4</span>図の回路で 0.5 Ω の抵抗を流れる電流の大きさと向きをテブナンの定理を用いて求めよ。</div>
+    <figure><svg class="circ" viewBox="0 0 440 250" role="img" aria-label="テブナンの定理の回路（0.5Ωを流れる電流）"><defs><marker id="c6ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahp"/></marker><marker id="c6ahc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahcp"/></marker></defs><polyline points="60,30 380,30" fill="none"/><polyline points="60,220 380,220" fill="none"/><line x1="60" y1="30" x2="60" y2="57.5"/><line x1="60" y1="97.5" x2="60" y2="125"/><rect x="52" y="57.5" width="16" height="40" class="part"/><text x="46" y="82.5" text-anchor="end">7 Ω</text><line x1="60" y1="125" x2="60" y2="152.5"/><line x1="60" y1="192.5" x2="60" y2="220"/><rect x="52" y="152.5" width="16" height="40" class="part"/><text x="46" y="177.5" text-anchor="end">6 Ω</text><line x1="220" y1="30" x2="220" y2="57.5"/><line x1="220" y1="97.5" x2="220" y2="125"/><rect x="212" y="57.5" width="16" height="40" class="part"/><text x="234" y="82.5" text-anchor="start">3 Ω</text><line x1="220" y1="125" x2="220" y2="152.5"/><line x1="220" y1="192.5" x2="220" y2="220"/><rect x="212" y="152.5" width="16" height="40" class="part"/><text x="234" y="177.5" text-anchor="start">4 Ω</text><line x1="380" y1="30" x2="380" y2="105.0"/><line x1="380" y1="145.0" x2="380" y2="220"/><rect x="372" y="105.0" width="16" height="40" class="part"/><text x="366" y="130.0" text-anchor="end">0.5 Ω</text><line x1="60" y1="125" x2="136.0" y2="125"/><line x1="144.0" y1="125" x2="220" y2="125"/><line x1="136.0" y1="109" x2="136.0" y2="141"/><line x1="144.0" y1="117" x2="144.0" y2="133" class="thick"/><text x="128.0" y="107" text-anchor="middle" class="pm">+</text><text x="140.0" y="159" text-anchor="middle">10 V</text><circle cx="60" cy="125" r="3.2" class="dot"/><circle cx="220" cy="125" r="3.2" class="dot"/><text x="52" y="145" text-anchor="end">A</text><text x="230" y="145" text-anchor="start">C</text><circle cx="220" cy="30" r="3.2" class="dot"/><circle cx="220" cy="220" r="3.2" class="dot"/><text x="220" y="20" text-anchor="middle">T（上の節点）</text><text x="220" y="242" text-anchor="middle">下の節点（基準 0 V）</text></svg><figcaption>10 V 電池は A 側（左）が＋</figcaption></figure>
+    <details><summary>解答</summary><div class="a">
+      <p><b>① 開放電圧 \(V_0\)</b>：0.5 Ω を外し、下の節点を 0 V とする。電池より \(V_A-V_C=10\)。節点 T の KCL：\(\frac{V_T-V_A}{7}+\frac{V_T-V_C}{3}=0\) → \(V_T=\frac{3V_A+7V_C}{10}\)。</p>
+      <p>A と C（電池でつながった部分）をまとめた KCL：T への電流の和は T の式からゼロなので、下への電流だけ残って \(\frac{V_A}{6}+\frac{V_C}{4}=0\)。</p>
+      <p>\(V_A=V_C+10\) を代入：\(2(V_C+10)+3V_C=0\) → \(V_C=-4\) V、\(V_A=6\) V。よって \(V_T=\frac{18-28}{10}=-1\) V。上の端子が下の端子より 1 V 低い。</p>
+      <p><b>② 内部抵抗 \(R_0\)</b>：電池を短絡すると A と C が同じ節点になり、T と AC の間が 7∥3、AC と下の間が 6∥4。</p>
+      \[R_0=\frac{7\times3}{10}+\frac{6\times4}{10}=2.1+2.4=4.5\ [\Omega]\]
+      <p><b>③ 電流</b>：\(I=\frac{V_0}{R_0+0.5}=\frac{1}{4.5+0.5}=0.2\) A。下の端子の方が電位が高いので、電流は下から上へ流れる。</p>
+      <p><span class="ans">0.2 A、0.5 Ω の抵抗を下から上の向き</span></p>
+      <p>（0.5 Ω を付けたまま節点方程式で直接解いても上→下に −0.2 A になり一致）</p>
+    </div></details></div>
+
+  <h3>演習問題 5（インピーダンス・共振・アドミタンス）</h3>
+  <div class="ex"><div class="q"><span class="no">問1</span>200 Ω の抵抗と 5 mH のコイルを直列接続し、角周波数 40 krad/s の交流電圧を加えたときのインピーダンス Z と、電圧と電流の位相差 φ を求めよ。</div>
+    <details><summary>解答</summary><div class="a">
+      <p>\(\omega L=40\times10^3\times5\times10^{-3}=200\) Ω。</p>
+      \[Z=\sqrt{200^2+200^2}=200\sqrt2\approx282.8\ [\Omega],\qquad \phi=\tan^{-1}\frac{200}{200}=\frac{\pi}{4}\ [\mathrm{rad}]\ (45°)\]
+      <p><span class="ans">Z ≈ 283 Ω（200√2 Ω）、φ = π/4 rad：電圧が電流より 45° 進む（電流が遅れる）</span></p>
+    </div></details></div>
+  <div class="ex"><div class="q"><span class="no">問2</span>200 Ω の抵抗、1 mH のコイル、0.01 μF のコンデンサを直列接続し、100 kHz の交流電圧を加えたときの合成インピーダンス Z、合成アドミタンス Y、リアクタンス X、位相差 φ を求めよ。</div>
+    <details><summary>解答</summary><div class="a">
+      <p>\(\omega=2\pi\times10^5\) rad/s。</p>
+      \[X_L=\omega L=2\pi\times10^5\times10^{-3}=200\pi\approx628.3\ \Omega,\qquad X_C=\frac1{2\pi\times10^5\times10^{-8}}=\frac{500}{\pi}\approx159.2\ \Omega\]
+      <p>\(X=X_L-X_C=200\pi-\frac{500}\pi\approx469.2\) Ω（誘導性）</p>
+      \[Z=\sqrt{200^2+469.2^2}\approx510\ \Omega,\qquad Y=\frac1Z\approx1.96\times10^{-3}\ \mathrm S\]
+      <p>\(\phi=\tan^{-1}\frac{469.2}{200}\approx66.9°\)。</p>
+      <p><span class="ans">X ≈ 469 Ω、Z ≈ 510 Ω、Y ≈ 1.96×10⁻³ S、電圧が電流より約 66.9° 進む</span></p>
+      <div class="tip"><b>電卓なしなら：</b>\(\pi\approx3.14\) で \(628-159=469\)。\(469^2\approx2.2\times10^5\) に \(4\times10^4\) を足して \(\sqrt{2.6\times10^5}\approx510\)。</div>
+    </div></details></div>
+  <div class="ex"><div class="q"><span class="no">問3</span>10 Ω の抵抗、1 mH のコイル、100 pF のコンデンサからなる直列回路の共振周波数 f₀ と、そのときのインピーダンス Z、電圧と電流の位相差 φ を求めよ。</div>
+    <details><summary>解答</summary><div class="a">
+      \[f_0=\frac1{2\pi\sqrt{LC}}=\frac1{2\pi\sqrt{10^{-3}\times10^{-10}}}=\frac1{2\pi\sqrt{10}\times10^{-7}}=\frac{10^7}{2\pi\times3.162}\approx5.03\times10^5\ \mathrm{Hz}\]
+      <p><span class="ans">f₀ ≈ 503 kHz、Z = R = 10 Ω、φ = 0（同相）</span></p>
+    </div></details></div>
+  <div class="ex"><div class="q"><span class="no">問4</span>角周波数 ω の交流電圧源に、R＝10 Ω、ωL＝30 Ω、1/ωC＝15 Ω の3素子を並列に接続した回路のアドミタンス Y を求めよ。また、周波数 f が2倍になったとき Y は何倍になるか。</div>
+    <details><summary>解答</summary><div class="a">
+      <p>RLC並列のアドミタンスの式（ec5）に \(\frac1R=\frac1{10}\)、\(\omega C=\frac1{15}\)、\(\frac1{\omega L}=\frac1{30}\) を入れる。</p>
+      \[Y=\sqrt{\frac1{R^2}+\left(\omega C-\frac1{\omega L}\right)^2}=\sqrt{\frac1{100}+\left(\frac1{15}-\frac1{30}\right)^2}=\sqrt{\frac1{100}+\frac1{900}}=\frac{\sqrt{10}}{30}\approx0.105\ \mathrm S\]
+      <p>\(\omega C>\frac1{\omega L}\) なので容量性で、電流は電圧より \(\tan^{-1}R(\omega C-\frac1{\omega L})=\tan^{-1}\frac13\approx18.4°\) 進む。</p>
+      <p>f が2倍 → ωL＝60 Ω（2倍）、1/ωC＝7.5 Ω（半分）なので \(\omega C=\frac2{15}\)、\(\frac1{\omega L}=\frac1{60}\)：</p>
+      \[Y'=\sqrt{\frac1{100}+\left(\frac2{15}-\frac1{60}\right)^2}=\sqrt{\frac1{100}+\left(\frac7{60}\right)^2}=\frac{\sqrt{36+49}}{60}=\frac{\sqrt{85}}{60}\approx0.154\ \mathrm S\]
+      \[\frac{Y'}{Y}=\frac{\sqrt{85}/60}{\sqrt{10}/30}=\frac{\sqrt{85}}{2\sqrt{10}}=\frac{\sqrt{8.5}}{2}\approx1.46\]
+      <p><span class="ans">\(Y=\frac{\sqrt{10}}{30}\approx0.105\) S、周波数2倍で約 1.46 倍（\(\frac{\sqrt{8.5}}{2}\) 倍）</span></p>
+      <div class="warn"><b>よくあるミス：</b>\(\frac1{\omega C}=15\) Ω を \(\omega C=15\) と取り違えない。並列では \(\omega C=\frac1{15}\) S、\(\frac1{\omega L}=\frac1{30}\) S のように<b>逆数</b>で足し引きする。</div>
+    </div></details></div>
+</section>
+
+<!-- ================= 模擬試験 ================= -->
+<section class="tab" id="mock" data-title="模擬試験" data-short="模擬試験" data-src="オリジナル">
+  <h2>模擬試験（4題・60分）</h2>
+  <p class="srcline">演習1〜5の出題パターンに合わせたオリジナル問題。資料・電卓なしで解いてみて。数値はすべて検算済み。</p>
+  <div class="card timer" data-timer><span class="tm">60:00</span><button type="button" class="tm-start">スタート</button><button type="button" class="tm-reset">リセット</button></div>
+
+  <div class="ex"><div class="q"><span class="no">問1</span>図の RLC 直列回路に \(v(t)=100\sqrt2\sin\omega t\)［V］を加えた。R＝30 Ω、ωL＝60 Ω、1/ωC＝20 Ω のとき、(1) 合成インピーダンスの大きさ Z (2) 電流 \(i(t)\) (3) R, L, C それぞれの両端電圧の実効値 (4) 消費電力と力率 を求めよ。</div>
+    <figure><svg class="circ" viewBox="0 0 420 200" role="img" aria-label="模試 問1のRLC直列回路"><defs><marker id="c9ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahp"/></marker><marker id="c9ahc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahcp"/></marker></defs><line x1="40" y1="40" x2="40" y2="91.0"/><line x1="40" y1="119.0" x2="40" y2="170"/><circle cx="40" cy="105.0" r="14" class="part"/><path d="M32,105.0 q4,-8 8,0 t8,0" fill="none"/><line x1="64" y1="117.0" x2="64" y2="93.0" marker-end="url(#c9ah)"/><text x="72" y="110.0" text-anchor="start">v(t)</text><polyline points="40,40 60,40" fill="none"/><line x1="60" y1="40" x2="95.0" y2="40"/><line x1="135.0" y1="40" x2="170" y2="40"/><rect x="95.0" y="32" width="40" height="16" class="part"/><text x="115.0" y="26" text-anchor="middle">R=30 Ω</text><line x1="170" y1="40" x2="205.0" y2="40"/><line x1="245.0" y1="40" x2="280" y2="40"/><path d="M205.0,40 a5,5 0 0 1 10,0 a5,5 0 0 1 10,0 a5,5 0 0 1 10,0 a5,5 0 0 1 10,0" fill="none"/><text x="225.0" y="26" text-anchor="middle">ωL=60 Ω</text><line x1="280" y1="40" x2="325.0" y2="40"/><line x1="335.0" y1="40" x2="380" y2="40"/><line x1="325.0" y1="26" x2="325.0" y2="54" class="thick"/><line x1="335.0" y1="26" x2="335.0" y2="54" class="thick"/><text x="330.0" y="20" text-anchor="middle">1/ωC=20 Ω</text><polyline points="380,40 380,170 40,170" fill="none"/><line x1="70" y1="66" x2="110" y2="66" class="cur" marker-end="url(#c9ahc)"/><text x="90.0" y="84.0" text-anchor="middle" class="curl">i</text></svg></figure>
+    <details><summary>解答</summary><div class="a">
+      <p>(1) \(X=60-20=40\) Ω、\(Z=\sqrt{30^2+40^2}=50\) Ω</p>
+      <p>(2) \(I=\frac{100}{50}=2\) A。誘導性（ωL＞1/ωC）なので電流は遅れ、\(\phi=-\tan^{-1}\frac{40}{30}=-\tan^{-1}\frac43=-53.1°\)。<span class="ans">\(i(t)=2\sqrt2\sin(\omega t-53.1°)\)［A］</span></p>
+      <p>(3) \(V_R=60\) V、\(V_L=120\) V、\(V_C=40\) V（\(V_L\) が電源電圧より大きくなるのは位相がずれているから。\(\sqrt{60^2+(120-40)^2}=100\) ✓）</p>
+      <p>(4) \(P=RI^2=30\times4=120\) W、力率 \(\cos\phi=\frac{R}{Z}=\frac{30}{50}=0.6\)</p>
+    </div></details></div>
+
+  <div class="ex"><div class="q"><span class="no">問2</span>図の回路で R₃＝2 Ω を流れる電流を、テブナンの定理を用いて求めよ（大きさと向き）。</div>
+    <figure><svg class="circ" viewBox="0 0 420 210" role="img" aria-label="模試 問2の回路"><defs><marker id="c8ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahp"/></marker><marker id="c8ahc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahcp"/></marker></defs><line x1="40" y1="30" x2="40" y2="101.0"/><line x1="40" y1="109.0" x2="40" y2="180"/><line x1="24" y1="101.0" x2="56" y2="101.0"/><line x1="32" y1="109.0" x2="48" y2="109.0" class="thick"/><text x="20" y="99.0" text-anchor="end" class="pm">+</text><text x="62" y="110.0" text-anchor="start">E=12 V</text><polyline points="40,30 60,30" fill="none"/><line x1="60" y1="30" x2="110.0" y2="30"/><line x1="150.0" y1="30" x2="200" y2="30"/><rect x="110.0" y="22" width="40" height="16" class="part"/><text x="130.0" y="16" text-anchor="middle">R₁=6 Ω</text><polyline points="200,30 340,30" fill="none"/><line x1="200" y1="30" x2="200" y2="85.0"/><line x1="200" y1="125.0" x2="200" y2="180"/><rect x="192" y="85.0" width="16" height="40" class="part"/><text x="214" y="110.0" text-anchor="start">R₂=3 Ω</text><line x1="340" y1="30" x2="340" y2="85.0"/><line x1="340" y1="125.0" x2="340" y2="180"/><rect x="332" y="85.0" width="16" height="40" class="part"/><text x="326" y="110.0" text-anchor="end">R₃=2 Ω</text><polyline points="40,180 340,180" fill="none"/><circle cx="200" cy="30" r="3.2" class="dot"/><circle cx="200" cy="180" r="3.2" class="dot"/><text x="200" y="20" text-anchor="middle">a</text><text x="200" y="200" text-anchor="middle">b</text></svg><figcaption>電池は上側が＋</figcaption></figure>
+    <details><summary>解答</summary><div class="a">
+      <p>R₃ を外したときの ab 間電圧（分圧）：\(V_0=12\times\frac{3}{6+3}=4\) V（a が高い）。</p>
+      <p>電池を短絡して ab から見た抵抗：\(R_0=\frac{6\times3}{6+3}=2\) Ω。</p>
+      <p><span class="ans">\(I=\frac{4}{2+2}=1\) A、R₃ を a から b（上から下）へ</span></p>
+    </div></details></div>
+
+  <div class="ex"><div class="q"><span class="no">問3</span>(1) 静電容量 20 μF のコンデンサの電圧を 0.1 s 間に 50 V から 30 V へ一定の割合で変化させた。電圧の高い側から低い側への向きを正として、流れる電流の向きと大きさを求めよ。(2) インダクタンス 2 mH のコイルの電流を 0.01 s 間に 0.3 A から 0.1 A へ変化させたとき、両端に発生する電圧の大きさを求めよ。</div>
+    <details><summary>解答</summary><div class="a">
+      <p>(1) \(i=C\frac{\Delta v}{\Delta t}=20\times10^{-6}\times\frac{30-50}{0.1}=-4\times10^{-3}\) A。<span class="ans">負の向き（低い側→高い側）に 4 mA</span>（放電）</p>
+      <p>(2) \(|v|=L\left|\frac{\Delta i}{\Delta t}\right|=2\times10^{-3}\times\frac{0.2}{0.01}=4\times10^{-2}\) V。<span class="ans">40 mV</span></p>
+    </div></details></div>
+
+  <div class="ex"><div class="q"><span class="no">問4</span>R＝20 Ω、ωL＝10 Ω、1/ωC＝20 Ω の3素子を並列に接続し、実効値 100 V の交流電圧を加えた。(1) アドミタンス Y (2) 全電流の実効値と電圧との位相差 (3) 周波数を2倍にしたときのアドミタンスと位相差 (4) この3素子を直列にしたときの共振角周波数は元の ω の何倍か。</div>
+    <details><summary>解答</summary><div class="a">
+      <p>(1) \(\frac1R=0.05\)、\(\omega C=\frac1{20}=0.05\)、\(\frac1{\omega L}=\frac1{10}=0.1\)［S］。</p>
+      \[Y=\sqrt{0.05^2+(0.05-0.1)^2}=0.05\sqrt2\approx0.0707\ \mathrm S\]
+      <p>(2) \(I=YV=5\sqrt2\approx7.07\) A、\(\phi=\tan^{-1}R\left(\omega C-\frac1{\omega L}\right)=\tan^{-1}\{20\times(-0.05)\}=\tan^{-1}(-1)=-45°\)：<span class="ans">電流が電圧より 45° 遅れる</span></p>
+      <p>(3) ωL＝20 Ω、1/ωC＝10 Ω になり \(\omega C=0.1\)、\(\frac1{\omega L}=0.05\)。\(Y'=\sqrt{0.05^2+0.05^2}=0.05\sqrt2\) S で大きさは<b>同じ</b>（1倍）だが、\(\phi=\tan^{-1}(+1)=+45°\) で今度は<b>電流が 45° 進む</b>。</p>
+      <p>(4) \(L=\frac{10}{\omega}\)、\(C=\frac1{20\omega}\) より \(LC=\frac{1}{2\omega^2}\)、\(\omega_0=\frac1{\sqrt{LC}}=\sqrt2\,\omega\)。<span class="ans">√2 倍（約1.41倍）</span></p>
+    </div></details></div>
+</section>
+
+<!-- ================= 公式シート ================= -->
+<section class="tab" id="sheet" data-title="公式シート" data-short="公式シート" data-src="ec1〜6">
+  <h2>公式シート（直前見直し用）</h2>
+  <p class="srcline">試験範囲（ec1〜ec6）の式。資料持ち込み不可なので全部頭に入れておく。</p>
+  <div class="tw"><table class="sheet">
+    <tr><th>項目</th><th>式</th></tr>
+    <tr><td>R・L・C</td><td>\(v=Ri\)、\(v=L\frac{di}{dt}\)、\(i=C\frac{dv}{dt}\)、\(v=\frac1C\int i\,dt\)</td></tr>
+    <tr><td>L・C の定義</td><td>\(L=\frac{N\Phi}{i}\)［H=Wb/A］、\(C=\frac QV\)［F=C/V］</td></tr>
+    <tr><td>直流での L・C</td><td>L は短絡、C は開放</td></tr>
+    <tr><td>直列合成</td><td>\(R=\sum R_k\)、\(L=\sum L_k\)、\(\frac1C=\sum\frac1{C_k}\)</td></tr>
+    <tr><td>並列合成</td><td>\(\frac1R=\sum\frac1{R_k}\)、\(\frac1L=\sum\frac1{L_k}\)、\(C=\sum C_k\)</td></tr>
+    <tr><td>分圧・分流</td><td>\(v_k=\frac{R_k}{R}v\)、\(i_1=\frac{R_2}{R_1+R_2}i\)</td></tr>
+    <tr><td>電池</td><td>\(V=V_0-rI\)、電流源 \(I_0=\frac{V_0}{r}\)</td></tr>
+    <tr><td>キルヒホッフ</td><td>\(\sum I_k=0\)、閉路で（起電力の和）＝（電圧降下の和）</td></tr>
+    <tr><td>重ね合わせ</td><td>電圧源→短絡、電流源→開放して、各電源の結果を向きを考えて足す</td></tr>
+    <tr><td>テブナン</td><td>\(I=\frac{V_0}{R_0+R_L}\)（\(R_0\)：電源を除いて端子から見た抵抗）</td></tr>
+    <tr><td>ブリッジ平衡</td><td>\(R_1R_4=R_2R_3\)（向かい合う辺の積）</td></tr>
+    <tr><td>電力（直流）</td><td>\(P=VI=RI^2=\frac{V^2}R\)、\(W=VIt\)、\(Q=RI^2t\)</td></tr>
+    <tr><td>正弦波</td><td>\(\omega=2\pi f=\frac{2\pi}T\)、\(V_m=\sqrt2V\)、\(+\phi\) は進み（左シフト）</td></tr>
+    <tr><td>位相（素子）</td><td>R：同相、L：電圧が \(\frac\pi2\) 進む（\(X_L=\omega L\)）、C：電流が \(\frac\pi2\) 進む（\(X_C=\frac1{\omega C}\)）</td></tr>
+    <tr><td>RLC直列</td><td>\(Z=\sqrt{R^2+(\omega L-\frac1{\omega C})^2}\)、\(\phi=-\tan^{-1}\frac{\omega L-\frac1{\omega C}}{R}\)（電流の進み）</td></tr>
+    <tr><td>RLC並列</td><td>\(Y=\sqrt{\frac1{R^2}+(\omega C-\frac1{\omega L})^2}\)、\(\phi=\tan^{-1}R(\omega C-\frac1{\omega L})\)</td></tr>
+    <tr><td>直列共振</td><td>\(\omega_0=\frac1{\sqrt{LC}}\)、\(f_0=\frac1{2\pi\sqrt{LC}}\)、\(Z=R\)、\(\phi=0\)</td></tr>
+    <tr><td>未定係数法</td><td>\(\sqrt2I\sin(\omega t+\phi)=\sqrt2I(\sin\omega t\cos\phi+\cos\omega t\sin\phi)\) と係数比較 → 二乗して足すと \(I\)、割ると \(\tan\phi\)</td></tr>
+    <tr><td>直並列</td><td>\(I=\sqrt{(\sum I_k\cos\phi_k)^2+(\sum I_k\sin\phi_k)^2}\)、\(\tan\phi=\frac{\sum I_k\sin\phi_k}{\sum I_k\cos\phi_k}\)</td></tr>
+    <tr><td>フェーザ</td><td>直列は電流基準 \(V=\sqrt{V_R^2+(V_L-V_C)^2}\)、並列は電圧基準 \(I=\sqrt{I_R^2+(I_C-I_L)^2}\)</td></tr>
+    <tr><td>名前</td><td>Z：インピーダンス［Ω］（R レジスタンス、X リアクタンス）、Y：アドミタンス［S］（G コンダクタンス、B サセプタンス）、\(Y=\frac1Z\)</td></tr>
+  </table></div>
+</section>
+
+<div class="pager"><button type="button" id="prev"></button><button type="button" id="next"></button></div>
+</main>
+
+<script>
+(function () {
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('section.tab'));
+  var list = document.getElementById('tablist');
+  var prev = document.getElementById('prev'), next = document.getElementById('next');
+  var buttons = tabs.map(function (s) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.setAttribute('role', 'tab'); b.dataset.id = s.id;
+    b.textContent = s.dataset.short;
+    if (s.dataset.src) { var sp = document.createElement('span'); sp.className = 'src'; sp.textContent = s.dataset.src; b.appendChild(sp); }
+    b.addEventListener('click', function () { show(s.id, true); });
+    list.appendChild(b);
+    return b;
+  });
+  function show(id, push) {
+    var idx = tabs.findIndex(function (s) { return s.id === id; });
+    if (idx < 0) idx = 0;
+    tabs.forEach(function (s, i) { s.hidden = i !== idx; });
+    buttons.forEach(function (b, i) { b.setAttribute('aria-selected', i === idx ? 'true' : 'false'); });
+    buttons[idx].scrollIntoView({ block: 'nearest', inline: 'center' });
+    prev.hidden = idx === 0; next.hidden = idx === tabs.length - 1;
+    if (idx > 0) { prev.textContent = '← ' + tabs[idx - 1].dataset.title; prev.onclick = function () { show(tabs[idx - 1].id, true); }; }
+    if (idx < tabs.length - 1) { next.textContent = tabs[idx + 1].dataset.title + ' →'; next.onclick = function () { show(tabs[idx + 1].id, true); }; }
+    if (push) { history.replaceState(null, '', '#' + tabs[idx].id); window.scrollTo(0, 0); }
+    document.title = (idx === 0 ? '' : tabs[idx].dataset.title + '｜') + '電気回路 中間対策ノート';
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[data-go]');
+    if (a) { e.preventDefault(); show(a.dataset.go, true); }
+  });
+  window.addEventListener('hashchange', function () { show(location.hash.slice(1), false); });
+  show(location.hash.slice(1), false);
+
+  // タイマー
+  document.querySelectorAll('[data-timer]').forEach(function (t) {
+    var LIMIT = 60 * 60, left = LIMIT, id = null;
+    var out = t.querySelector('.tm'), start = t.querySelector('.tm-start'), reset = t.querySelector('.tm-reset');
+    function draw() {
+      var a = Math.abs(left), m = Math.floor(a / 60), s = a % 60;
+      out.textContent = (left < 0 ? '+' : '') + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+      t.classList.toggle('over', left < 0);
+    }
+    start.addEventListener('click', function () {
+      if (id) { clearInterval(id); id = null; start.textContent = '再開'; return; }
+      id = setInterval(function () { left--; draw(); }, 1000);
+      start.textContent = '一時停止';
+    });
+    reset.addEventListener('click', function () { clearInterval(id); id = null; left = LIMIT; start.textContent = 'スタート'; draw(); });
+    draw();
+  });
+
+  // チェックリスト（この端末のブラウザにだけ保存）
+  var KEY = 'denki-kairo-checklist-v1', state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { state = {}; }
+  var boxes = document.querySelectorAll('#checks input');
+  function render() {
+    var n = 0;
+    boxes.forEach(function (b) { b.parentNode.classList.toggle('done', b.checked); if (b.checked) n++; });
+    document.getElementById('prog').textContent = n + ' / ' + boxes.length + ' できた';
+  }
+  boxes.forEach(function (b) {
+    b.checked = !!state[b.id];
+    b.addEventListener('change', function () {
+      state[b.id] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>
