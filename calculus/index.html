@@ -71,7 +71,15 @@ h1 .mk { background: linear-gradient(transparent 55%, var(--marker) 55%); }
 nav.toc { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); border-bottom: 1px solid var(--line); }
 nav.toc .wrap { display: flex; gap: 4px; overflow-x: auto; padding-block: 8px; scrollbar-width: none; }
 nav.toc a { flex: none; font-size: 13.5px; font-weight: 500; color: var(--muted); text-decoration: none; padding: 5px 11px; border-radius: 6px; }
-nav.toc a:hover, nav.toc a:focus-visible { color: var(--accent); background: var(--accent-soft); outline: none; }
+nav.toc a:hover { color: var(--accent); background: var(--accent-soft); }
+nav.toc a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+nav.toc a[aria-current="page"] { color: var(--card); background: var(--accent); }
+main section[hidden] { display: none; }
+.nextprev { display: flex; justify-content: space-between; gap: 10px; margin-top: 36px; flex-wrap: wrap; }
+.nextprev a { color: var(--ink); text-decoration: none; padding: 8px 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); font-size: 14px; }
+.nextprev a:hover { border-color: var(--accent); color: var(--accent); }
+.nextprev a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.nextprev .spacer { flex: 1; }
 
 main .wrap { padding-block: 12px 80px; }
 section { padding-top: 40px; scroll-margin-top: 56px; }
@@ -182,7 +190,7 @@ html { scroll-behavior: smooth; }
   </div>
 </header>
 
-<nav class="toc" aria-label="目次">
+<nav class="toc" aria-label="セクションの切り替え">
   <div class="wrap">
     <a href="#formulas">公式まとめ</a>
     <a href="#w1">第1週</a>
@@ -883,11 +891,52 @@ html { scroll-behavior: smooth; }
   <footer>演習問題（第1〜5週）の内容をもとに作成。解答は自作なので、授業で配られた解答と食い違ったら授業の方を優先してね。</footer>
 </section>
 
+<div class="nextprev" id="nextprev"></div>
+
 </div>
 </main>
 
 <script>
 (function () {
+  // ---- tabs: 1セクションずつ表示（URLの #id で開くタブを決める） ----
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('nav.toc a'));
+  var ids = tabs.map(function (a) { return a.getAttribute('href').slice(1); });
+  var sections = ids.map(function (id) { return document.getElementById(id); });
+  function show(id, scroll) {
+    // 模試①②など、セクション内の要素の id で来たらそのセクションを開く
+    var target = document.getElementById(id);
+    var i = ids.indexOf(id);
+    if (i < 0 && target) i = sections.findIndex(function (s) { return s.contains(target); });
+    if (i < 0) i = 0;
+    sections.forEach(function (s, k) { s.hidden = k !== i; });
+    tabs.forEach(function (a, k) {
+      if (k === i) {
+        a.setAttribute('aria-current', 'page');
+        var bar = a.parentNode; bar.scrollLeft = a.offsetLeft - bar.clientWidth / 2 + a.offsetWidth / 2;
+      } else a.removeAttribute('aria-current');
+    });
+    var np = document.getElementById('nextprev');
+    np.innerHTML = '';
+    if (i > 0) { var p = document.createElement('a'); p.href = '#' + ids[i - 1]; p.textContent = '← ' + tabs[i - 1].textContent; np.appendChild(p); }
+    var sp = document.createElement('span'); sp.className = 'spacer'; np.appendChild(sp);
+    if (i < ids.length - 1) { var n = document.createElement('a'); n.href = '#' + ids[i + 1]; n.textContent = tabs[i + 1].textContent + ' →'; np.appendChild(n); }
+    if (scroll) {
+      if (target && ids.indexOf(id) < 0) target.scrollIntoView({ block: 'start' });
+      else { var cv = document.querySelector('.cover'); window.scrollTo(0, cv.offsetTop + cv.offsetHeight); }  // タブ帯がちょうど上端に来る位置
+    }
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var id = a.getAttribute('href').slice(1);
+    if (!document.getElementById(id)) return;
+    e.preventDefault();
+    try { history.replaceState(null, '', '#' + id); } catch (err) {}
+    show(id, true);
+  });
+  show(location.hash.slice(1), !!location.hash);
+  window.addEventListener('hashchange', function () { show(location.hash.slice(1), true); });
+
   // ---- toggle all answers per section ----
   document.querySelectorAll('[data-toggle]').forEach(function (btn) {
     btn.addEventListener('click', function () {
