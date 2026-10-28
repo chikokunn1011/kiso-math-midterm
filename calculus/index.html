@@ -1,0 +1,1030 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>微分積分 テスト対策ノート</title>
+<style>html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=M+PLUS+1+Code:wght@400;600&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
+<style>
+/* Layout: 方眼ノート風。上部に方眼の表紙帯、sticky目次、1カラムの本文。重要式は蛍光マーカー */
+:root {
+  --paper: #f4f6f9;
+  --card: #ffffff;
+  --ink: #18203a;
+  --muted: #5b6579;
+  --line: #d6dce7;
+  --grid: #e1e7f1;
+  --accent: #2442b8;
+  --accent-soft: #e6ebfb;
+  --marker: rgba(255, 222, 70, .55);
+  --good: #1d7a4c;
+  --bad: #b2382c;
+  --f-display: "Dela Gothic One", "Hiragino Sans", "Yu Gothic", sans-serif;
+  --f-body: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  --f-code: "M PLUS 1 Code", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f1421; --card: #161d2d; --ink: #e5e9f2; --muted: #9aa4b9; --line: #2a3448;
+    --grid: #1b2335; --accent: #8ea4ff; --accent-soft: #1e2847; --marker: rgba(255, 210, 40, .26);
+    --good: #5fcf96; --bad: #ff8a7d; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f1421; --card: #161d2d; --ink: #e5e9f2; --muted: #9aa4b9; --line: #2a3448;
+  --grid: #1b2335; --accent: #8ea4ff; --accent-soft: #1e2847; --marker: rgba(255, 210, 40, .26);
+  --good: #5fcf96; --bad: #ff8a7d; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: 15.5px; line-height: 1.75; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+.wrap { max-width: 860px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+/* cover */
+.cover {
+  background-color: var(--paper);
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 22px 22px;
+  border-bottom: 1px solid var(--line);
+}
+.cover .wrap { padding-block: 44px 34px; }
+.home-link { display: inline-block; font-size: 13px; color: var(--muted); text-decoration: none; margin-bottom: 8px; }
+.home-link:hover { color: var(--ink); text-decoration: underline; }
+.eyebrow { font-family: var(--f-code); font-size: 12.5px; letter-spacing: .08em; color: var(--muted); }
+h1 { font-family: var(--f-display); font-weight: 400; font-size: clamp(30px, 6vw, 46px); line-height: 1.2; margin: 8px 0 12px; text-wrap: balance; }
+h1 .mk { background: linear-gradient(transparent 55%, var(--marker) 55%); }
+.lead { max-width: 60ch; color: var(--muted); margin: 0; }
+.scope { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.scope span { font-family: var(--f-code); font-size: 12.5px; padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--card); }
+
+/* nav */
+nav.toc { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); border-bottom: 1px solid var(--line); }
+nav.toc .wrap { display: flex; gap: 4px; overflow-x: auto; padding-block: 8px; scrollbar-width: none; }
+nav.toc a { flex: none; font-size: 13.5px; font-weight: 500; color: var(--muted); text-decoration: none; padding: 5px 11px; border-radius: 6px; }
+nav.toc a:hover, nav.toc a:focus-visible { color: var(--accent); background: var(--accent-soft); outline: none; }
+
+main .wrap { padding-block: 12px 80px; }
+section { padding-top: 40px; scroll-margin-top: 56px; }
+h2 { font-family: var(--f-display); font-weight: 400; font-size: 26px; margin: 0 0 4px; text-wrap: balance; }
+h2 .wk { font-family: var(--f-code); font-size: 13px; color: var(--accent); display: block; letter-spacing: .06em; margin-bottom: 2px; }
+.sec-lead { color: var(--muted); margin: 0 0 18px; max-width: 65ch; }
+h3 { font-size: 17px; font-weight: 700; margin: 26px 0 10px; }
+p { margin: 0 0 10px; }
+
+.box { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 14px; }
+.grid2 > * { min-width: 0; }
+.box h4 { margin: 0 0 8px; font-size: 14px; font-family: var(--f-code); font-weight: 600; color: var(--accent); letter-spacing: .03em; }
+.mk { background: linear-gradient(transparent 50%, var(--marker) 50%); padding: 0 2px; }
+.math-scroll { overflow-x: auto; overflow-y: hidden; }
+table.ft { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+table.ft td { padding: 6px 4px; border-bottom: 1px dashed var(--line); vertical-align: middle; }
+table.ft tr:last-child td { border-bottom: 0; }
+table.ft td:first-child { white-space: nowrap; }
+.note { font-size: 13.5px; color: var(--muted); }
+
+/* problems */
+.toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 6px; }
+button { font: inherit; font-size: 13.5px; font-weight: 500; color: var(--accent); background: var(--accent-soft); border: 1px solid transparent; border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+button:hover { border-color: var(--accent); }
+button:focus-visible, summary:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.qhead { font-weight: 700; margin: 22px 0 8px; display: flex; gap: 10px; align-items: baseline; }
+.qhead .n { font-family: var(--f-code); color: var(--accent); font-size: 14px; flex: none; }
+.qhead .t { min-width: 0; }
+.plist { display: grid; gap: 8px; }
+.prob { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; min-width: 0; }
+.prob .q { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.prob .q .no { font-family: var(--f-code); font-size: 13px; color: var(--muted); flex: none; }
+.prob .q .ex { min-width: 0; overflow-x: auto; }
+details { margin-top: 6px; }
+summary { cursor: pointer; font-size: 13px; font-weight: 500; color: var(--accent); list-style: none; display: inline-flex; align-items: center; gap: 6px; user-select: none; }
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "＋"; font-family: var(--f-code); }
+details[open] summary::before { content: "－"; }
+.sol { margin-top: 8px; padding: 10px 0 2px 14px; border-left: 2px solid var(--line); overflow-x: auto; }
+.sol p { margin: 0 0 6px; }
+.ans { display: inline-block; margin-top: 4px; padding: 2px 8px; border-radius: 4px; background: var(--marker); font-weight: 700; }
+.tag { font-family: var(--f-code); font-size: 11.5px; padding: 1px 7px; border-radius: 4px; border: 1px solid currentColor; margin-left: 6px; vertical-align: 1px; }
+.tag.max { color: var(--bad); } .tag.min { color: var(--accent); } .tag.none { color: var(--muted); }
+
+/* graphs */
+.plot { margin-top: 8px; max-width: 420px; }
+.plot svg { width: 100%; height: auto; display: block; background: var(--card); border: 1px solid var(--line); border-radius: 6px; }
+.plot .gridl { stroke: var(--grid); stroke-width: 1; }
+.plot .axis { stroke: var(--muted); stroke-width: 1.2; }
+.plot .curve { fill: none; stroke: var(--accent); stroke-width: 2.2; stroke-linejoin: round; }
+.plot .asym { stroke: var(--muted); stroke-dasharray: 4 4; stroke-width: 1; }
+.plot .pt { fill: var(--bad); }
+.plot .pt.ip { fill: var(--good); }
+.plot text { fill: var(--ink); font-family: var(--f-code); font-size: 11px; }
+.plot text.ax { fill: var(--muted); }
+
+/* increase table */
+.zt { border-collapse: collapse; font-size: 14px; margin: 6px 0; }
+.zt td, .zt th { border: 1px solid var(--line); padding: 4px 10px; text-align: center; white-space: nowrap; font-weight: 400; }
+.zt th { color: var(--muted); font-family: var(--f-code); font-size: 12.5px; }
+.tbl-scroll { overflow-x: auto; }
+
+/* patterns */
+ol.pat { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; counter-reset: p; }
+ol.pat > li { counter-increment: p; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 18px 14px 56px; position: relative; min-width: 0; }
+ol.pat > li::before { content: counter(p); position: absolute; left: 18px; top: 13px; font-family: var(--f-display); font-size: 22px; color: var(--accent); line-height: 1.2; }
+ol.pat b { display: block; margin-bottom: 4px; }
+ol.pat .src { font-family: var(--f-code); font-size: 12px; color: var(--muted); }
+ul.trap { margin: 0; padding-left: 1.2em; }
+ul.trap li { margin-bottom: 6px; }
+ul.trap .x { color: var(--bad); font-weight: 700; }
+ul.trap .o { color: var(--good); font-weight: 700; }
+
+/* checklist */
+.check { display: grid; gap: 6px; }
+.check label { display: flex; gap: 10px; align-items: flex-start; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 9px 14px; cursor: pointer; }
+.check input { margin-top: 6px; accent-color: var(--accent); width: 16px; height: 16px; flex: none; }
+.check label.done span { color: var(--muted); text-decoration: line-through; }
+.progress { font-family: var(--f-code); font-size: 13px; color: var(--muted); margin-bottom: 8px; font-variant-numeric: tabular-nums; }
+
+/* mock exams */
+.exam { margin-top: 22px; padding-top: 4px; }
+.exam + .exam { margin-top: 44px; padding-top: 30px; border-top: 2px dashed var(--line); }
+.exam-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 18px; margin-bottom: 10px; }
+.exam-head > div { min-width: 0; }
+.exam-no { font-family: var(--f-code); font-size: 12.5px; color: var(--accent); letter-spacing: .08em; }
+.exam-title { font-family: var(--f-display); font-size: 22px; line-height: 1.3; }
+.timer { display: flex; align-items: center; gap: 8px; }
+.timer .tm { font-family: var(--f-code); font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; min-width: 4.2ch; }
+.timer.over .tm { color: var(--bad); }
+.pts { font-family: var(--f-code); font-size: 12px; font-weight: 400; color: var(--muted); margin-left: 8px; white-space: nowrap; }
+footer { color: var(--muted); font-size: 12.5px; border-top: 1px solid var(--line); padding-top: 18px; margin-top: 48px; }
+@media (max-width: 520px) { body { font-size: 15px; } .box { padding: 14px 15px; } ol.pat > li { padding-left: 46px; } ol.pat > li::before { left: 14px; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+html { scroll-behavior: smooth; }
+</style>
+</head>
+<body>
+
+<header class="cover">
+  <div class="wrap">
+    <a class="home-link" href="../">← 講義一覧</a>
+    <div class="eyebrow">微分積分 ／ 第1〜5週</div>
+    <h1>微分積分<br><span class="mk">テスト対策ノート</span></h1>
+    <p class="lead">演習問題5回分から、使う公式・全問の解答と解き方・よく出る型をまとめた。解答は「＋解答」で開閉できるから、まず自力で解いてから確認しよう。</p>
+    <div class="scope"><span>導関数・高階導関数</span><span>テイラー展開</span><span>極限</span><span>増減表と極値</span><span>ロピタルの定理</span><span>グラフの概形</span></div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="目次">
+  <div class="wrap">
+    <a href="#formulas">公式まとめ</a>
+    <a href="#w1">第1週</a>
+    <a href="#w2">第2週</a>
+    <a href="#w3">第3週</a>
+    <a href="#w4">第4週</a>
+    <a href="#w5">第5週</a>
+    <a href="#mock">模試</a>
+    <a href="#patterns">頻出パターン</a>
+    <a href="#practice">練習問題</a>
+    <a href="#checklist">チェックリスト</a>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+
+<!-- ===================== 公式 ===================== -->
+<section id="formulas">
+  <h2>公式まとめ</h2>
+  <p class="sec-lead">テストで手が止まらないように、5回分の演習で実際に使った公式だけを集めた。</p>
+
+  <div class="grid2">
+    <div class="box">
+      <h4>基本の導関数</h4>
+      <table class="ft">
+        <tr><td>\((x^a)'\)</td><td>\(= a x^{a-1}\)　<span class="note">（√x, 1/x もこれ）</span></td></tr>
+        <tr><td>\((e^{x})'\)</td><td>\(= e^{x}\)</td></tr>
+        <tr><td>\((\log x)'\)</td><td>\(= \dfrac{1}{x}\)</td></tr>
+        <tr><td>\((\sin x)'\)</td><td>\(= \cos x\)</td></tr>
+        <tr><td>\((\cos x)'\)</td><td>\(= -\sin x\)</td></tr>
+        <tr><td>\((\arctan x)'\)</td><td>\(= \dfrac{1}{1+x^2}\)</td></tr>
+      </table>
+    </div>
+    <div class="box">
+      <h4>組み合わせの微分</h4>
+      <table class="ft">
+        <tr><td>積</td><td>\((fg)' = f'g + fg'\)</td></tr>
+        <tr><td>商</td><td>\(\left(\dfrac{f}{g}\right)' = \dfrac{f'g - fg'}{g^2}\)</td></tr>
+        <tr><td>合成</td><td>\(\{f(g(x))\}' = f'(g(x))\,g'(x)\)</td></tr>
+        <tr><td>一次式</td><td><span class="mk">\(\{f(ax+b)\}' = a\,f'(ax+b)\)</span></td></tr>
+      </table>
+      <p class="note" style="margin-top:8px">例：\((\sin 3x)'=3\cos 3x\)、\((e^{-2x})'=-2e^{-2x}\)、\(\{\log(3x+1)\}'=\dfrac{3}{3x+1}\)</p>
+    </div>
+  </div>
+
+  <h3>テイラー展開（x = 0 のまわり）</h3>
+  <div class="box">
+    <div class="math-scroll">\[ f(x) = f(0) + f'(0)\,x + \frac{f''(0)}{2!}x^2 + \frac{f'''(0)}{3!}x^3 + \frac{f^{(4)}(0)}{4!}x^4 + \cdots \]</div>
+    <p class="note">第2週は「微分して代入」でこの式を使う。<span class="mk">\(k\) 次の係数は \(f^{(k)}(0)\) を \(k!\) で割る</span>のを忘れないこと。</p>
+  </div>
+  <div class="grid2" style="margin-top:14px">
+    <div class="box">
+      <h4>覚える4本（配布プリントの公式）</h4>
+      <div class="math-scroll">
+      \[ e^{x} = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \cdots \]
+      \[ \sin x = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \cdots \]
+      \[ \cos x = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \cdots \]
+      \[ \log(1+x) = x - \frac{x^2}{2} + \frac{x^3}{3} - \cdots \]
+      </div>
+    </div>
+    <div class="box">
+      <h4>代入の使い方</h4>
+      <p>\(x\) を \(3x,\ -x,\ x/2\) などに置き換えるだけで別の関数の展開になる。</p>
+      <div class="math-scroll">
+      \[ e^{-2x} = 1 - 2x + 2x^2 - \tfrac{4}{3}x^3 + \cdots \]
+      \[ \cos 3x = 1 - \tfrac{9}{2}x^2 + \tfrac{27}{8}x^4 - \cdots \]
+      \[ \log(1-x) = -x - \tfrac{x^2}{2} - \tfrac{x^3}{3} - \cdots \]
+      </div>
+      <p class="note">3!=6、4!=24、5!=120。符号は \((-1)^k\) が付くか毎回確認。</p>
+    </div>
+  </div>
+
+  <h3>極値・極限の判定ルール</h3>
+  <div class="grid2">
+    <div class="box">
+      <h4>x = 0 で極値をとるか（第5週）</h4>
+      <p>\(f(x) = f(0) + a_n x^n + \cdots\)（\(a_n\) は定数項の次に出てくる最初の0でない係数）</p>
+      <table class="ft">
+        <tr><td>\(n\) が偶数, \(a_n \gt 0\)</td><td>極小 \(f(0)\)</td></tr>
+        <tr><td>\(n\) が偶数, \(a_n \lt 0\)</td><td>極大 \(f(0)\)</td></tr>
+        <tr><td>\(n\) が奇数</td><td>極値なし</td></tr>
+      </table>
+    </div>
+    <div class="box">
+      <h4>増減表で極値（第4週）</h4>
+      <p>① \(f'(x)\) を因数分解 → ② \(f'=0\) の \(x\) を並べる → ③ 各区間の符号 → ④ <span class="mk">符号が変わる点だけ</span>が極値。</p>
+      <p class="note">\(+\to-\) なら極大、\(-\to+\) なら極小。重解 \((x-a)^2\) の点は符号が変わらないので極値ではない。</p>
+    </div>
+    <div class="box">
+      <h4>ロピタルの定理</h4>
+      <p>\(\dfrac{0}{0}\) か \(\dfrac{\infty}{\infty}\) の形なら</p>
+      <div class="math-scroll">\[ \lim \frac{f(x)}{g(x)} = \lim \frac{f'(x)}{g'(x)} \]</div>
+      <p class="note">商の微分ではなく、分子と分母を<b>別々に</b>微分する。</p>
+    </div>
+    <div class="box">
+      <h4>増え方の強さ（x → ∞）</h4>
+      <p class="math-scroll">\[ \log x \ \ll\ x^{a}\ (a\gt 0) \ \ll\ e^{x} \]</p>
+      <p class="note">強い方が分母なら 0 に行く。例：\(\dfrac{\log x}{\sqrt x}\to 0\)、\(\dfrac{\log x}{x^2}\to 0\)</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 第1週 ===================== -->
+<section id="w1">
+  <h2><span class="wk">WEEK 01</span>導関数と高階導関数</h2>
+  <p class="sec-lead">1回微分と2回微分。積・合成の微分を正確に回すのが全部の土台になる。</p>
+  <div class="toolbar"><button type="button" data-toggle="w1">この週の解答を全部開く</button></div>
+
+  <div class="qhead"><span class="n">1.</span><span class="t">\(y'\) と \(y''\) を求めよ</span></div>
+  <div class="plist">
+    <div class="prob"><div class="q"><span class="no">(1)</span><span class="ex">\(y = x^3 - 2x^2 + 3x + 2\)</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(y' = 3x^2 - 4x + 3\)</p><p class="ans">\(y'' = 6x - 4\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(2)</span><span class="ex">\(y = \sqrt{x}\)</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(y = x^{1/2}\) と見る。</p><p>\(y' = \dfrac12 x^{-1/2} = \dfrac{1}{2\sqrt x}\)</p><p class="ans">\(y'' = -\dfrac14 x^{-3/2} = -\dfrac{1}{4x\sqrt x}\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(3)</span><span class="ex">\(y = \dfrac{1}{x}\)</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(y = x^{-1}\)</p><p>\(y' = -x^{-2} = -\dfrac{1}{x^2}\)</p><p class="ans">\(y'' = 2x^{-3} = \dfrac{2}{x^3}\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(4)</span><span class="ex">\(y = \sin 3x\)</span></div>
+      <details><summary>解答</summary><div class="sol"><p>中身の 3 が毎回前に出る。</p><p>\(y' = 3\cos 3x\)</p><p class="ans">\(y'' = -9\sin 3x\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(5)</span><span class="ex">\(y = \dfrac{1}{e^{2x}}\)</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(y = e^{-2x}\) と書き直す。</p><p>\(y' = -2e^{-2x}\)</p><p class="ans">\(y'' = 4e^{-2x}\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(6)</span><span class="ex">\(y = \log(3x+1)\)</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(y' = \dfrac{3}{3x+1} = 3(3x+1)^{-1}\)</p><p class="ans">\(y'' = -\dfrac{9}{(3x+1)^2}\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(7)</span><span class="ex">\(y = x\sin 2x\)</span></div>
+      <details><summary>解答</summary><div class="sol"><p>積の微分：\(y' = \sin 2x + 2x\cos 2x\)</p><p>\(y'' = 2\cos 2x + (2\cos 2x - 4x\sin 2x)\)</p><p class="ans">\(y'' = 4\cos 2x - 4x\sin 2x\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(8)</span><span class="ex">\(y = x^3\log x\)</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(y' = 3x^2\log x + x^3\cdot\dfrac1x = 3x^2\log x + x^2\)</p><p>\(y'' = 6x\log x + 3x + 2x\)</p><p class="ans">\(y'' = 6x\log x + 5x\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(9)</span><span class="ex">\(y = e^{-x^2}\)</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(y' = -2x\,e^{-x^2}\)</p><p>\(y'' = -2e^{-x^2} + (-2x)(-2x)e^{-x^2}\)</p><p class="ans">\(y'' = (4x^2 - 2)\,e^{-x^2}\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(10)</span><span class="ex">\(y = \sqrt{x^2+1}\)</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(y' = \dfrac12(x^2+1)^{-1/2}\cdot 2x = \dfrac{x}{\sqrt{x^2+1}}\)</p><p>商の微分：\(y'' = \dfrac{\sqrt{x^2+1} - x\cdot\frac{x}{\sqrt{x^2+1}}}{x^2+1} = \dfrac{(x^2+1)-x^2}{(x^2+1)^{3/2}}\)</p><p class="ans">\(y'' = \dfrac{1}{(x^2+1)^{3/2}}\)</p></div></details></div>
+  </div>
+
+  <div class="qhead"><span class="n">2.</span><span class="t">3階導関数と \(f(0), f'(0), f''(0), f'''(0)\)</span></div>
+  <div class="plist">
+    <div class="prob"><div class="q"><span class="no">(1)</span><span class="ex">\(f(x) = \cos\left(2x + \dfrac{\pi}{3}\right)\)</span></div>
+      <details><summary>解答</summary><div class="sol">
+        <p>\(f' = -2\sin(2x+\tfrac\pi3)\)、\(f'' = -4\cos(2x+\tfrac\pi3)\)、\(f''' = 8\sin(2x+\tfrac\pi3)\)</p>
+        <p>\(\cos\tfrac\pi3 = \tfrac12,\ \sin\tfrac\pi3 = \tfrac{\sqrt3}{2}\) を代入：</p>
+        <p class="ans">\(f(0)=\tfrac12,\ f'(0)=-\sqrt3,\ f''(0)=-2,\ f'''(0)=4\sqrt3\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(2)</span><span class="ex">\(f(x) = (x^2+1)e^{-x}\)</span></div>
+      <details><summary>解答</summary><div class="sol">
+        <p>\(f' = 2x e^{-x} - (x^2+1)e^{-x} = (-x^2+2x-1)e^{-x}\)</p>
+        <p>\(f'' = (-2x+2)e^{-x} - (-x^2+2x-1)e^{-x} = (x^2-4x+3)e^{-x}\)</p>
+        <p>\(f''' = (2x-4)e^{-x} - (x^2-4x+3)e^{-x} = (-x^2+6x-7)e^{-x}\)</p>
+        <p class="ans">\(f(0)=1,\ f'(0)=-1,\ f''(0)=3,\ f'''(0)=-7\)</p>
+        <p class="note">型：\((\text{多項式})e^{-x}\) を微分すると「多項式の微分 − 多項式」に \(e^{-x}\) が付く。</p></div></details></div>
+  </div>
+
+  <div class="qhead"><span class="n">3.</span><span class="t">割り算を利用した微分</span></div>
+  <div class="plist">
+    <div class="prob"><div class="q"><span class="no">(1)</span><span class="ex">\(x^3 + x^2 + x + 4\) を \(x + 1\) で割った商と余り</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(x^3+x^2+x+4 = (x+1)(x^2+1) + 3\)</p><p class="ans">商 \(x^2+1\)、余り \(3\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(2)</span><span class="ex">\(f(x) = \dfrac{x^3+x^2+x+4}{x+1}\) の \(f(0), f'(0), f''(0), f'''(0)\)</span></div>
+      <details><summary>解答</summary><div class="sol">
+        <p>(1) より \(f(x) = x^2 + 1 + \dfrac{3}{x+1} = x^2 + 1 + 3(x+1)^{-1}\)。これなら商の微分がいらない。</p>
+        <p>\(f' = 2x - 3(x+1)^{-2}\)、\(f'' = 2 + 6(x+1)^{-3}\)、\(f''' = -18(x+1)^{-4}\)</p>
+        <p class="ans">\(f(0)=4,\ f'(0)=-3,\ f''(0)=8,\ f'''(0)=-18\)</p></div></details></div>
+  </div>
+
+  <div class="qhead"><span class="n">4.</span><span class="t">\(f(x)=\log(2x+1)\) の \(f^{(n)}(x)\)（\(n \ge 1\)）</span></div>
+  <div class="plist">
+    <div class="prob"><div class="q"><span class="no">　</span><span class="ex">何回か微分して規則を見つける</span></div>
+      <details><summary>解答</summary><div class="sol">
+        <p>\(f' = 2(2x+1)^{-1}\)</p>
+        <p>\(f'' = -1\cdot 2^2(2x+1)^{-2}\)</p>
+        <p>\(f''' = 2\cdot 2^3(2x+1)^{-3}\)</p>
+        <p>\(f^{(4)} = -3!\cdot 2^4(2x+1)^{-4}\)</p>
+        <p>符号は交互、係数は \((n-1)!\) と \(2^n\) が増える。</p>
+        <p class="ans">\(f^{(n)}(x) = \dfrac{(-1)^{n-1}(n-1)!\,2^n}{(2x+1)^n}\)</p>
+        <p class="note">\(n=1\) を代入して \(f'\) と一致するか確認するクセをつけよう。</p></div></details></div>
+  </div>
+</section>
+
+<!-- ===================== 第2週 ===================== -->
+<section id="w2">
+  <h2><span class="wk">WEEK 02</span>微分してテイラー展開</h2>
+  <p class="sec-lead">\(f(0), f'(0), f''(0), \dots\) を計算して公式に入れる方法。\(k!\) で割るのを忘れない。</p>
+  <div class="toolbar"><button type="button" data-toggle="w2">この週の解答を全部開く</button></div>
+
+  <div class="qhead"><span class="n">1.</span><span class="t">\(f', f''\) → \(f(0), f'(0), f''(0)\) → 2次までのテイラー展開</span></div>
+  <div class="plist">
+    <div class="prob"><div class="q"><span class="no">(1)</span><span class="ex">\(f(x) = \sqrt{x+1}\)</span></div>
+      <details><summary>解答</summary><div class="sol">
+        <p>\(f' = \dfrac{1}{2\sqrt{x+1}}\)、\(f'' = -\dfrac{1}{4(x+1)^{3/2}}\)</p>
+        <p>\(f(0)=1,\ f'(0)=\tfrac12,\ f''(0)=-\tfrac14\)</p>
+        <p class="ans">\(f(x) \approx 1 + \dfrac12 x - \dfrac18 x^2\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(2)</span><span class="ex">\(f(x) = \cos\left(x + \dfrac\pi4\right)\)</span></div>
+      <details><summary>解答</summary><div class="sol">
+        <p>\(f' = -\sin(x+\tfrac\pi4)\)、\(f'' = -\cos(x+\tfrac\pi4)\)</p>
+        <p>\(f(0)=\tfrac{\sqrt2}{2},\ f'(0)=-\tfrac{\sqrt2}{2},\ f''(0)=-\tfrac{\sqrt2}{2}\)</p>
+        <p class="ans">\(f(x) \approx \dfrac{\sqrt2}{2} - \dfrac{\sqrt2}{2}x - \dfrac{\sqrt2}{4}x^2\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(3)</span><span class="ex">\(f(x) = \log(1-3x)\)</span></div>
+      <details><summary>解答</summary><div class="sol">
+        <p>\(f' = \dfrac{-3}{1-3x}\)、\(f'' = -\dfrac{9}{(1-3x)^2}\)</p>
+        <p>\(f(0)=0,\ f'(0)=-3,\ f''(0)=-9\)</p>
+        <p class="ans">\(f(x) \approx -3x - \dfrac92 x^2\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(4)</span><span class="ex">\(f(x) = (x+1)e^{-3x}\)</span></div>
+      <details><summary>解答</summary><div class="sol">
+        <p>\(f' = e^{-3x} - 3(x+1)e^{-3x} = (-3x-2)e^{-3x}\)</p>
+        <p>\(f'' = -3e^{-3x} - 3(-3x-2)e^{-3x} = (9x+3)e^{-3x}\)</p>
+        <p>\(f(0)=1,\ f'(0)=-2,\ f''(0)=3\)</p>
+        <p class="ans">\(f(x) \approx 1 - 2x + \dfrac32 x^2\)</p></div></details></div>
+  </div>
+
+  <div class="qhead"><span class="n">2.</span><span class="t">同様に3次の項まで</span></div>
+  <div class="plist">
+    <div class="prob"><div class="q"><span class="no">(1)</span><span class="ex">\(f(x) = \dfrac{1}{2x+1}\)</span></div>
+      <details><summary>解答</summary><div class="sol">
+        <p>\(f' = -2(2x+1)^{-2}\)、\(f'' = 8(2x+1)^{-3}\)、\(f''' = -48(2x+1)^{-4}\)</p>
+        <p>\(f(0)=1,\ f'(0)=-2,\ f''(0)=8,\ f'''(0)=-48\)</p>
+        <p class="ans">\(f(x) \approx 1 - 2x + 4x^2 - 8x^3\)</p>
+        <p class="note">検算：\(\frac{1}{1-t} = 1+t+t^2+\cdots\) に \(t=-2x\)。</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(2)</span><span class="ex">\(f(x) = \cos 4x\)</span></div>
+      <details><summary>解答</summary><div class="sol">
+        <p>\(f' = -4\sin 4x\)、\(f'' = -16\cos 4x\)、\(f''' = 64\sin 4x\)</p>
+        <p>\(f(0)=1,\ f'(0)=0,\ f''(0)=-16,\ f'''(0)=0\)</p>
+        <p class="ans">\(f(x) \approx 1 - 8x^2\)</p>
+        <p class="note">1次・3次の項は 0（cos は偶関数）。</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(3)</span><span class="ex">\(f(x) = \sin\left(2x + \dfrac\pi6\right)\)</span></div>
+      <details><summary>解答</summary><div class="sol">
+        <p>\(f' = 2\cos(\cdot)\)、\(f'' = -4\sin(\cdot)\)、\(f''' = -8\cos(\cdot)\)</p>
+        <p>\(\sin\tfrac\pi6=\tfrac12,\ \cos\tfrac\pi6=\tfrac{\sqrt3}{2}\) より \(f(0)=\tfrac12,\ f'(0)=\sqrt3,\ f''(0)=-2,\ f'''(0)=-4\sqrt3\)</p>
+        <p class="ans">\(f(x) \approx \dfrac12 + \sqrt3\,x - x^2 - \dfrac{2\sqrt3}{3}x^3\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(4)</span><span class="ex">\(f(x) = (x+3)\cos 2x\)</span></div>
+      <details><summary>解答</summary><div class="sol">
+        <p>\(f' = \cos 2x - 2(x+3)\sin 2x\)</p>
+        <p>\(f'' = -4\sin 2x - 4(x+3)\cos 2x\)</p>
+        <p>\(f''' = -12\cos 2x + 8(x+3)\sin 2x\)</p>
+        <p>\(f(0)=3,\ f'(0)=1,\ f''(0)=-12,\ f'''(0)=-12\)</p>
+        <p class="ans">\(f(x) \approx 3 + x - 6x^2 - 2x^3\)</p>
+        <p class="note">検算：\((x+3)(1-2x^2) = 3 + x - 6x^2 - 2x^3\)。</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(5)</span><span class="ex">\(f(x) = e^x\sin x\)</span></div>
+      <details><summary>解答</summary><div class="sol">
+        <p>\(f' = e^x(\sin x + \cos x)\)、\(f'' = 2e^x\cos x\)、\(f''' = 2e^x(\cos x - \sin x)\)</p>
+        <p>\(f(0)=0,\ f'(0)=1,\ f''(0)=2,\ f'''(0)=2\)</p>
+        <p class="ans">\(f(x) \approx x + x^2 + \dfrac13 x^3\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(6)</span><span class="ex">\(f(x) = e^{x^2+x}\)</span></div>
+      <details><summary>解答</summary><div class="sol">
+        <p>\(f' = (2x+1)e^{x^2+x}\)</p>
+        <p>\(f'' = \{2 + (2x+1)^2\}e^{x^2+x}\)</p>
+        <p>\(f''' = \{4(2x+1) + (2+(2x+1)^2)(2x+1)\}e^{x^2+x}\)</p>
+        <p>\(f(0)=1,\ f'(0)=1,\ f''(0)=3,\ f'''(0)=4+3=7\)</p>
+        <p class="ans">\(f(x) \approx 1 + x + \dfrac32 x^2 + \dfrac76 x^3\)</p></div></details></div>
+  </div>
+</section>
+
+<!-- ===================== 第3週 ===================== -->
+<section id="w3">
+  <h2><span class="wk">WEEK 03</span>公式を使ったテイラー展開と極限</h2>
+  <p class="sec-lead">微分せずに、覚えた4本に代入して掛け算する。必要な次数より上は捨ててOK。</p>
+  <div class="toolbar"><button type="button" data-toggle="w3">この週の解答を全部開く</button></div>
+
+  <div class="qhead"><span class="n">1.</span><span class="t">x = 0 のテイラー展開を指定の次数まで</span></div>
+  <div class="plist">
+    <div class="prob"><div class="q"><span class="no">(1)</span><span class="ex">\(\cos 3x\)（4次）</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(\cos t\) に \(t=3x\)：\(1 - \frac{9x^2}{2} + \frac{81x^4}{24}\)</p><p class="ans">\(1 - \dfrac92x^2 + \dfrac{27}{8}x^4\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(2)</span><span class="ex">\(\log\left(1 + \dfrac{x}{2}\right)\)（3次）</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(t = \frac x2\)：\(\frac x2 - \frac{1}{2}\cdot\frac{x^2}{4} + \frac13\cdot\frac{x^3}{8}\)</p><p class="ans">\(\dfrac12x - \dfrac18x^2 + \dfrac1{24}x^3\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(3)</span><span class="ex">\(\dfrac{1}{e^{2x}}\)（3次）</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(e^{t}\) に \(t=-2x\)：\(1 - 2x + \frac{4x^2}{2} - \frac{8x^3}{6}\)</p><p class="ans">\(1 - 2x + 2x^2 - \dfrac43x^3\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(4)</span><span class="ex">\((1+x)\sin x\)（4次）</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\((1+x)\left(x - \frac{x^3}{6}\right) = x - \frac{x^3}{6} + x^2 - \frac{x^4}{6}\)</p><p class="ans">\(x + x^2 - \dfrac16x^3 - \dfrac16x^4\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(5)</span><span class="ex">\((1-2x)e^{2x}\)（3次）</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(e^{2x} = 1 + 2x + 2x^2 + \frac43x^3\)</p><p>\((1-2x)\times\) これ：\(1 + (2-2)x + (2-4)x^2 + (\frac43 - 4)x^3\)</p><p class="ans">\(1 - 2x^2 - \dfrac83x^3\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(6)</span><span class="ex">\(\sin x\,\log(1+x)\)（4次）</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(\left(x - \frac{x^3}{6}\right)\left(x - \frac{x^2}{2} + \frac{x^3}{3}\right)\)。4次までの項だけ拾う：</p><p>\(x^2 - \frac{x^3}{2} + \frac{x^4}{3} - \frac{x^4}{6}\)</p><p class="ans">\(x^2 - \dfrac12x^3 + \dfrac16x^4\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(7)</span><span class="ex">\(\sin^2 x\)（4次）</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(\left(x - \frac{x^3}{6}\right)^2 = x^2 - 2\cdot\frac{x^4}{6} + \cdots\)</p><p class="ans">\(x^2 - \dfrac13x^4\)</p><p class="note">別解：\(\sin^2x = \frac{1-\cos 2x}{2}\) に cos の展開を入れても同じ。</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(8)</span><span class="ex">\(e^{-x}\cos 2x\)（3次）</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(\left(1 - x + \frac{x^2}{2} - \frac{x^3}{6}\right)(1 - 2x^2)\)</p><p>\(= 1 - x + \left(\frac12 - 2\right)x^2 + \left(-\frac16 + 2\right)x^3\)</p><p class="ans">\(1 - x - \dfrac32x^2 + \dfrac{11}{6}x^3\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(9)</span><span class="ex">\((1+2x)e^x - \log(1-x)\)（3次）</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\((1+2x)e^x = 1 + 3x + \frac52x^2 + \frac76x^3\)</p><p>\(-\log(1-x) = x + \frac12x^2 + \frac13x^3\)</p><p class="ans">\(1 + 4x + 3x^2 + \dfrac32x^3\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(10)</span><span class="ex">\(e^{2+3x}\)（3次）</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(e^{2+3x} = e^2\cdot e^{3x}\)。\(e^2\) はただの定数。</p><p>\(e^{3x} = 1 + 3x + \frac92x^2 + \frac{27}{6}x^3\)</p><p class="ans">\(e^2\left(1 + 3x + \dfrac92x^2 + \dfrac92x^3\right)\)</p></div></details></div>
+  </div>
+
+  <div class="qhead"><span class="n">2.</span><span class="t">極限を求めよ（テイラー展開で最低次の項を比べる）</span></div>
+  <div class="plist">
+    <div class="prob"><div class="q"><span class="no">(1)</span><span class="ex">\(\displaystyle\lim_{x\to0}\frac{x - \sin x}{x^3}\)</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(x - \sin x = \frac{x^3}{6} - \cdots\)</p><p class="ans">\(\dfrac16\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(2)</span><span class="ex">\(\displaystyle\lim_{x\to0}\frac{\log(1+2x)}{x}\)</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(\log(1+2x) = 2x - 2x^2 + \cdots\) なので \(\frac{2x - \cdots}{x} \to 2\)</p><p class="ans">\(2\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(3)</span><span class="ex">\(\displaystyle\lim_{x\to0}\frac{e^x\cos x - 1 - x}{x^3}\)</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(e^x\cos x = \left(1 + x + \frac{x^2}{2} + \frac{x^3}{6}\right)\left(1 - \frac{x^2}{2}\right) = 1 + x + 0\cdot x^2 - \frac13x^3 + \cdots\)</p><p>分子 \(= -\frac13x^3 + \cdots\)</p><p class="ans">\(-\dfrac13\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(4)</span><span class="ex">\(\displaystyle\lim_{x\to0}\frac{\sin 3x\,\log(1+x)}{1 - \cos x}\)</span></div>
+      <details><summary>解答</summary><div class="sol"><p>分子 \(\approx 3x\cdot x = 3x^2\)、分母 \(\approx \frac{x^2}{2}\)</p><p class="ans">\(\dfrac{3}{1/2} = 6\)</p></div></details></div>
+  </div>
+</section>
+
+<!-- ===================== 第4週 ===================== -->
+<section id="w4">
+  <h2><span class="wk">WEEK 04</span>増減表と極値、グラフ</h2>
+  <p class="sec-lead">\(f'\) を因数分解して符号を調べる。グラフはこのページで正確に描画したものを載せてある。</p>
+  <div class="toolbar"><button type="button" data-toggle="w4">この週の解答を全部開く</button></div>
+
+  <div class="qhead"><span class="n">1.</span><span class="t">増減表を書いて極値を求め、グラフを描け</span></div>
+  <div class="plist">
+    <div class="prob"><div class="q"><span class="no">(1)</span><span class="ex">\(f(x) = x^3 - 3x^2 - 9x + 5\)</span></div>
+      <details><summary>解答</summary><div class="sol">
+        <p>\(f'(x) = 3x^2 - 6x - 9 = 3(x+1)(x-3)\)</p>
+        <div class="tbl-scroll"><table class="zt"><tr><th>x</th><td>…</td><td>−1</td><td>…</td><td>3</td><td>…</td></tr><tr><th>f′</th><td>+</td><td>0</td><td>−</td><td>0</td><td>+</td></tr><tr><th>f</th><td>↗</td><td>10</td><td>↘</td><td>−22</td><td>↗</td></tr></table></div>
+        <p class="ans">極大値 10（x=−1）、極小値 −22（x=3）</p>
+        <div class="plot" data-plot="w4-1"></div></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(2)</span><span class="ex">\(f(x) = -x^3 + 3x^2\)</span></div>
+      <details><summary>解答</summary><div class="sol">
+        <p>\(f'(x) = -3x^2 + 6x = -3x(x-2)\)</p>
+        <div class="tbl-scroll"><table class="zt"><tr><th>x</th><td>…</td><td>0</td><td>…</td><td>2</td><td>…</td></tr><tr><th>f′</th><td>−</td><td>0</td><td>+</td><td>0</td><td>−</td></tr><tr><th>f</th><td>↘</td><td>0</td><td>↗</td><td>4</td><td>↘</td></tr></table></div>
+        <p class="ans">極小値 0（x=0）、極大値 4（x=2）</p>
+        <div class="plot" data-plot="w4-2"></div></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(3)</span><span class="ex">\(f(x) = x^4 - 2x^2\)</span></div>
+      <details><summary>解答</summary><div class="sol">
+        <p>\(f'(x) = 4x^3 - 4x = 4x(x+1)(x-1)\)</p>
+        <div class="tbl-scroll"><table class="zt"><tr><th>x</th><td>…</td><td>−1</td><td>…</td><td>0</td><td>…</td><td>1</td><td>…</td></tr><tr><th>f′</th><td>−</td><td>0</td><td>+</td><td>0</td><td>−</td><td>0</td><td>+</td></tr><tr><th>f</th><td>↘</td><td>−1</td><td>↗</td><td>0</td><td>↘</td><td>−1</td><td>↗</td></tr></table></div>
+        <p class="ans">極小値 −1（x=±1）、極大値 0（x=0）</p>
+        <div class="plot" data-plot="w4-3"></div></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(4)</span><span class="ex">\(f(x) = 3x^4 + 16x^3 + 24x^2 - 7\)</span></div>
+      <details><summary>解答</summary><div class="sol">
+        <p>\(f'(x) = 12x^3 + 48x^2 + 48x = 12x(x+2)^2\)</p>
+        <div class="tbl-scroll"><table class="zt"><tr><th>x</th><td>…</td><td>−2</td><td>…</td><td>0</td><td>…</td></tr><tr><th>f′</th><td>−</td><td>0</td><td>−</td><td>0</td><td>+</td></tr><tr><th>f</th><td>↘</td><td>9</td><td>↘</td><td>−7</td><td>↗</td></tr></table></div>
+        <p class="ans">極小値 −7（x=0）。x=−2 は極値ではない</p>
+        <p class="note"><b>ひっかけ</b>：\((x+2)^2\) は重解なので x=−2 の前後で \(f'\) の符号が変わらない。接線が水平になるだけ（緑の点）。</p>
+        <div class="plot" data-plot="w4-4"></div></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(5)</span><span class="ex">\(f(x) = \sin x(\cos x + 1)\)　（\(0 \le x \le 2\pi\)）</span></div>
+      <details><summary>解答</summary><div class="sol">
+        <p>\(f'(x) = \cos x(\cos x + 1) - \sin^2 x = 2\cos^2x + \cos x - 1 = (2\cos x - 1)(\cos x + 1)\)</p>
+        <p>\(f'=0\)：\(\cos x = \tfrac12\) → \(x = \tfrac\pi3, \tfrac{5\pi}3\)、\(\cos x = -1\) → \(x = \pi\)</p>
+        <p>\(\cos x + 1 \ge 0\) なので符号は \(2\cos x - 1\) で決まる。</p>
+        <div class="tbl-scroll"><table class="zt"><tr><th>x</th><td>0</td><td>…</td><td>π/3</td><td>…</td><td>π</td><td>…</td><td>5π/3</td><td>…</td><td>2π</td></tr><tr><th>f′</th><td></td><td>+</td><td>0</td><td>−</td><td>0</td><td>−</td><td>0</td><td>+</td><td></td></tr><tr><th>f</th><td>0</td><td>↗</td><td>3√3/4</td><td>↘</td><td>0</td><td>↘</td><td>−3√3/4</td><td>↗</td><td>0</td></tr></table></div>
+        <p class="ans">極大値 \(\tfrac{3\sqrt3}{4}\)（\(x=\tfrac\pi3\)）、極小値 \(-\tfrac{3\sqrt3}{4}\)（\(x=\tfrac{5\pi}3\)）</p>
+        <p class="note">x=π も (4) と同じく符号が変わらないので極値ではない。</p>
+        <div class="plot" data-plot="w4-5"></div></div></details></div>
+  </div>
+
+  <div class="qhead"><span class="n">2.</span><span class="t">\(f(x) = x^3 + ax^2 + (a^2+2a)x\)（a は定数）</span></div>
+  <div class="plist">
+    <div class="prob"><div class="q"><span class="no">(1)</span><span class="ex">\(f'(1) = 0\) となる a</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(f'(x) = 3x^2 + 2ax + a^2 + 2a\)</p><p>\(f'(1) = a^2 + 4a + 3 = (a+1)(a+3) = 0\)</p><p class="ans">\(a = -1, -3\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(2)</span><span class="ex">\(f(x)\) が \(x = 1\) で極値を持つ a</span></div>
+      <details><summary>解答</summary><div class="sol">
+        <p>(1) の候補を1つずつ確かめる（必要条件 → 十分性のチェック）。</p>
+        <p>\(a=-1\)：\(f' = 3x^2 - 2x - 1 = (3x+1)(x-1)\) → x=1 で符号が変わる ○</p>
+        <p>\(a=-3\)：\(f' = 3x^2 - 6x + 3 = 3(x-1)^2\) → 符号が変わらない ✕</p>
+        <p class="ans">\(a = -1\)</p>
+        <p class="note">「\(f'(1)=0\) だから極値」は×。テストで一番狙われるポイント。</p></div></details></div>
+  </div>
+</section>
+
+<!-- ===================== 第5週 ===================== -->
+<section id="w5">
+  <h2><span class="wk">WEEK 05</span>テイラー展開で極値判定・ロピタル・グラフ概形</h2>
+  <p class="sec-lead">第3週の展開技術を使って、x=0 での極値を最初の非ゼロ項の次数で判定する。</p>
+  <div class="toolbar"><button type="button" data-toggle="w5">この週の解答を全部開く</button></div>
+
+  <div class="qhead"><span class="n">1.</span><span class="t">テイラー展開し、x = 0 で極値をとるか判定せよ</span></div>
+  <div class="plist">
+    <div class="prob"><div class="q"><span class="no">(1)</span><span class="ex">\(f(x) = \cos x\)</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(1 - \frac12x^2 + \cdots\)　2次（偶数）で係数が負</p><p class="ans">極大値 1 <span class="tag max">極大</span></p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(2)</span><span class="ex">\(f(x) = x - \log(1+x)\)</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(x - \left(x - \frac{x^2}{2} + \frac{x^3}{3}\right) = \frac12x^2 - \frac13x^3 + \cdots\)　2次で係数が正</p><p class="ans">極小値 0 <span class="tag min">極小</span></p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(3)</span><span class="ex">\(f(x) = \sin x - x\)</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(-\frac16x^3 + \cdots\)　最初の項が3次（奇数）</p><p class="ans">極値をとらない <span class="tag none">なし</span></p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(4)</span><span class="ex">\(f(x) = (1+x)e^{-x}\)</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\((1+x)\left(1 - x + \frac{x^2}{2} - \frac{x^3}{6}\right) = 1 - \frac12x^2 + \frac13x^3 + \cdots\)</p><p>1次の項が消えて、2次の係数が負</p><p class="ans">極大値 1 <span class="tag max">極大</span></p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(5)</span><span class="ex">\(f(x) = e^x\cos x - x\)</span></div>
+      <details><summary>解答</summary><div class="sol"><p>第3週2(3)より \(e^x\cos x = 1 + x - \frac13x^3 + \cdots\)</p><p>\(f(x) = 1 - \frac13x^3 + \cdots\)　2次の項がなく3次（奇数）</p><p class="ans">極値をとらない <span class="tag none">なし</span></p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(6)</span><span class="ex">\(f(x) = \cos 2x + x\sin 2x\)</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(\cos 2x = 1 - 2x^2 + \frac23x^4\)、\(x\sin 2x = 2x^2 - \frac43x^4\)</p><p>和 \(= 1 + 0\cdot x^2 - \frac23x^4 + \cdots\)　4次（偶数）で係数が負</p><p class="ans">極大値 1 <span class="tag max">極大</span></p><p class="note">2次が消えるので4次まで展開しないと判定できない。ここで止まる人が多い。</p></div></details></div>
+  </div>
+
+  <div class="qhead"><span class="n">2.</span><span class="t">ロピタルの定理で極限を求めよ</span></div>
+  <div class="plist">
+    <div class="prob"><div class="q"><span class="no">(1)</span><span class="ex">\(\displaystyle\lim_{x\to0}\frac{\log(1+3x)}{x}\)</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(\frac00\) 型。\(\lim \dfrac{3/(1+3x)}{1} = 3\)</p><p class="ans">\(3\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(2)</span><span class="ex">\(\displaystyle\lim_{x\to0}\frac{\sin x}{\arctan x}\)</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(\frac00\) 型。\(\lim \dfrac{\cos x}{1/(1+x^2)} = \lim (1+x^2)\cos x = 1\)</p><p class="ans">\(1\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">(3)</span><span class="ex">\(\displaystyle\lim_{x\to\infty}\frac{\log x}{\sqrt x}\)</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(\frac\infty\infty\) 型。\(\lim \dfrac{1/x}{1/(2\sqrt x)} = \lim \dfrac{2}{\sqrt x} = 0\)</p><p class="ans">\(0\)</p></div></details></div>
+  </div>
+
+  <div class="qhead"><span class="n">3.</span><span class="t">\(y = \dfrac{\log x}{x^2}\)（\(x \gt 0\)）のグラフの概形</span></div>
+  <div class="plist">
+    <div class="prob"><div class="q"><span class="no">　</span><span class="ex">極限・増減・凹凸を調べて描く</span></div>
+      <details><summary>解答</summary><div class="sol">
+        <p><b>極限</b>：\(x\to\infty\)：ロピタルで \(\dfrac{1/x}{2x} = \dfrac{1}{2x^2} \to 0\)　／　\(x\to+0\)：\(\log x\to-\infty,\ \frac1{x^2}\to+\infty\) で \(-\infty\)</p>
+        <p><b>1階微分</b>：\(y' = \dfrac{\frac1x\cdot x^2 - 2x\log x}{x^4} = \dfrac{1 - 2\log x}{x^3}\)　→ \(x = \sqrt e\) で 0</p>
+        <p><b>2階微分</b>：\(y'' = \dfrac{6\log x - 5}{x^4}\)　→ \(x = e^{5/6}\) で変曲点</p>
+        <div class="tbl-scroll"><table class="zt"><tr><th>x</th><td>+0</td><td>…</td><td>1</td><td>…</td><td>√e</td><td>…</td><td>e^{5/6}</td><td>…</td><td>∞</td></tr><tr><th>y′</th><td></td><td>+</td><td>+</td><td>+</td><td>0</td><td>−</td><td>−</td><td>−</td><td></td></tr><tr><th>y″</th><td></td><td>−</td><td>−</td><td>−</td><td>−</td><td>−</td><td>0</td><td>+</td><td></td></tr><tr><th>y</th><td>−∞</td><td>↗</td><td>0</td><td>↗</td><td>1/(2e)</td><td>↘</td><td>5/(6e^{5/3})</td><td>↘</td><td>0</td></tr></table></div>
+        <p class="ans">極大値 \(\dfrac{1}{2e}\)（\(x = \sqrt e\)）、x軸と x=1 で交わる、\(x\to\infty\) で x軸に近づく</p>
+        <p class="note">赤＝極大、緑＝変曲点。y 軸方向を拡大して描いている（\(\frac1{2e}\approx0.18\)）。</p>
+        <div class="plot" data-plot="w5-3"></div></div></details></div>
+  </div>
+</section>
+
+<!-- ===================== 模試 ===================== -->
+<section id="mock">
+  <h2>模試</h2>
+  <p class="sec-lead">第1〜5週の範囲から作った本番形式の模試2回分。各回60分・100点。タイマーを動かして、解き終わってから解答を開いて採点しよう。</p>
+
+  <div class="exam" id="mock1">
+    <div class="exam-head">
+      <div>
+        <div class="exam-no">MOCK 01</div>
+        <div class="exam-title">模試 第1回</div>
+        <div class="note">試験時間 60分 ／ 100点満点 ／ 公式表の持ち込みなし想定</div>
+      </div>
+      <div class="timer" data-timer>
+        <span class="tm" aria-live="polite">60:00</span>
+        <button type="button" class="tm-start">スタート</button>
+        <button type="button" class="tm-reset">リセット</button>
+      </div>
+    </div>
+    <div class="toolbar"><button type="button" data-toggle="mock1">解答を全部開く</button></div>
+
+    <div class="qhead"><span class="n">1.</span><span class="t">\(y'\) と \(y''\) を求めよ。<span class="pts">各4点・計16点</span></span></div>
+    <div class="plist">
+      <div class="prob"><div class="q"><span class="no">(1)</span><span class="ex">\(y = x^2\log x\)</span></div>
+        <details><summary>解答</summary><div class="sol"><p>\(y' = 2x\log x + x\)</p><p class="ans">\(y'' = 2\log x + 3\)</p></div></details></div>
+      <div class="prob"><div class="q"><span class="no">(2)</span><span class="ex">\(y = e^{3x}\sin x\)</span></div>
+        <details><summary>解答</summary><div class="sol"><p>\(y' = e^{3x}(3\sin x + \cos x)\)</p><p>\(y'' = 3e^{3x}(3\sin x + \cos x) + e^{3x}(3\cos x - \sin x)\)</p><p class="ans">\(y'' = e^{3x}(8\sin x + 6\cos x)\)</p></div></details></div>
+      <div class="prob"><div class="q"><span class="no">(3)</span><span class="ex">\(y = \dfrac{1}{\sqrt{2x+1}}\)</span></div>
+        <details><summary>解答</summary><div class="sol"><p>\(y = (2x+1)^{-1/2}\)</p><p>\(y' = -\tfrac12(2x+1)^{-3/2}\cdot 2 = -(2x+1)^{-3/2}\)</p><p class="ans">\(y'' = 3(2x+1)^{-5/2} = \dfrac{3}{(2x+1)^{5/2}}\)</p></div></details></div>
+      <div class="prob"><div class="q"><span class="no">(4)</span><span class="ex">\(y = \log(x^2+1)\)</span></div>
+        <details><summary>解答</summary><div class="sol"><p>\(y' = \dfrac{2x}{x^2+1}\)</p><p>\(y'' = \dfrac{2(x^2+1) - 2x\cdot 2x}{(x^2+1)^2}\)</p><p class="ans">\(y'' = \dfrac{2 - 2x^2}{(x^2+1)^2}\)</p></div></details></div>
+    </div>
+
+    <div class="qhead"><span class="n">2.</span><span class="t">\(f(x) = \log(1-x)\) について \(f^{(n)}(x)\)（\(n \ge 1\)）を \(n\) の式で表せ。<span class="pts">6点</span></span></div>
+    <div class="plist">
+      <div class="prob"><div class="q"><span class="no">　</span><span class="ex">数回微分して規則を見つける</span></div>
+        <details><summary>解答</summary><div class="sol">
+          <p>\(f' = -(1-x)^{-1}\)、\(f'' = -(1-x)^{-2}\)、\(f''' = -2(1-x)^{-3}\)、\(f^{(4)} = -3!\,(1-x)^{-4}\)</p>
+          <p>中身の微分 \(-1\) が毎回掛かるので、\(\log(2x+1)\) と違って符号は交互にならない。</p>
+          <p class="ans">\(f^{(n)}(x) = -\dfrac{(n-1)!}{(1-x)^n}\)</p></div></details></div>
+    </div>
+
+    <div class="qhead"><span class="n">3.</span><span class="t">\(f(x) = \sqrt{1+2x}\) について \(f(0), f'(0), f''(0), f'''(0)\) を求め、x=0 のテイラー展開を3次の項まで求めよ。<span class="pts">8点</span></span></div>
+    <div class="plist">
+      <div class="prob"><div class="q"><span class="no">　</span><span class="ex">微分して代入する方法で</span></div>
+        <details><summary>解答</summary><div class="sol">
+          <p>\(f' = (1+2x)^{-1/2}\)、\(f'' = -(1+2x)^{-3/2}\)、\(f''' = 3(1+2x)^{-5/2}\)</p>
+          <p>\(f(0)=1,\ f'(0)=1,\ f''(0)=-1,\ f'''(0)=3\)</p>
+          <p class="ans">\(f(x) \approx 1 + x - \dfrac12x^2 + \dfrac12x^3\)</p>
+          <p class="note">3次の係数は \(3/3! = 1/2\)。</p></div></details></div>
+    </div>
+
+    <div class="qhead"><span class="n">4.</span><span class="t">テイラー展開の公式を利用して、x=0 におけるテイラー展開を指定の次数まで求めよ。<span class="pts">各6点・計18点</span></span></div>
+    <div class="plist">
+      <div class="prob"><div class="q"><span class="no">(1)</span><span class="ex">\(e^{x}\log(1+x)\)（3次）</span></div>
+        <details><summary>解答</summary><div class="sol"><p>\(\left(1 + x + \frac{x^2}{2}\right)\left(x - \frac{x^2}{2} + \frac{x^3}{3}\right)\)</p><p>\(x^2\)：\(-\frac12 + 1\)、\(x^3\)：\(\frac13 - \frac12 + \frac12\)</p><p class="ans">\(x + \dfrac12x^2 + \dfrac13x^3\)</p></div></details></div>
+      <div class="prob"><div class="q"><span class="no">(2)</span><span class="ex">\(\cos x\,\sin 2x\)（3次）</span></div>
+        <details><summary>解答</summary><div class="sol"><p>\(\left(1 - \frac{x^2}{2}\right)\left(2x - \frac43x^3\right) = 2x - \frac43x^3 - x^3\)</p><p class="ans">\(2x - \dfrac73x^3\)</p></div></details></div>
+      <div class="prob"><div class="q"><span class="no">(3)</span><span class="ex">\(e^{-x^2}\)（4次）</span></div>
+        <details><summary>解答</summary><div class="sol"><p>\(e^{t}\) に \(t = -x^2\)：\(1 - x^2 + \frac{x^4}{2}\)</p><p class="ans">\(1 - x^2 + \dfrac12x^4\)</p></div></details></div>
+    </div>
+
+    <div class="qhead"><span class="n">5.</span><span class="t">次の極限を求めよ。<span class="pts">各4点・計16点</span></span></div>
+    <div class="plist">
+      <div class="prob"><div class="q"><span class="no">(1)</span><span class="ex">\(\displaystyle\lim_{x\to0}\frac{e^{2x} - 1 - 2x}{x^2}\)</span></div>
+        <details><summary>解答</summary><div class="sol"><p>分子 \(= 2x^2 + \cdots\)</p><p class="ans">\(2\)</p></div></details></div>
+      <div class="prob"><div class="q"><span class="no">(2)</span><span class="ex">\(\displaystyle\lim_{x\to0}\frac{x - \log(1+x)}{x^2}\)</span></div>
+        <details><summary>解答</summary><div class="sol"><p>分子 \(= \frac{x^2}{2} - \cdots\)</p><p class="ans">\(\dfrac12\)</p></div></details></div>
+      <div class="prob"><div class="q"><span class="no">(3)</span><span class="ex">\(\displaystyle\lim_{x\to0}\frac{\sin x - x\cos x}{x^3}\)</span></div>
+        <details><summary>解答</summary><div class="sol"><p>\(\sin x = x - \frac{x^3}{6}\)、\(x\cos x = x - \frac{x^3}{2}\)</p><p>分子 \(= \left(-\frac16 + \frac12\right)x^3 = \frac13x^3\)</p><p class="ans">\(\dfrac13\)</p></div></details></div>
+      <div class="prob"><div class="q"><span class="no">(4)</span><span class="ex">\(\displaystyle\lim_{x\to\infty}\frac{(\log x)^2}{x}\)（ロピタルの定理を用いよ）</span></div>
+        <details><summary>解答</summary><div class="sol"><p>\(\frac\infty\infty\) 型。\(\lim \dfrac{2\log x\cdot\frac1x}{1} = \lim \dfrac{2\log x}{x}\)</p><p>もう一度：\(\lim \dfrac{2/x}{1} = 0\)</p><p class="ans">\(0\)</p></div></details></div>
+    </div>
+
+    <div class="qhead"><span class="n">6.</span><span class="t">増減表を書いて極値を求め、グラフの概形を描け。<span class="pts">各8点・計16点</span></span></div>
+    <div class="plist">
+      <div class="prob"><div class="q"><span class="no">(1)</span><span class="ex">\(f(x) = x^4 - 4x^3 + 4x^2\)</span></div>
+        <details><summary>解答</summary><div class="sol">
+          <p>\(f'(x) = 4x^3 - 12x^2 + 8x = 4x(x-1)(x-2)\)</p>
+          <div class="tbl-scroll"><table class="zt"><tr><th>x</th><td>…</td><td>0</td><td>…</td><td>1</td><td>…</td><td>2</td><td>…</td></tr><tr><th>f′</th><td>−</td><td>0</td><td>+</td><td>0</td><td>−</td><td>0</td><td>+</td></tr><tr><th>f</th><td>↘</td><td>0</td><td>↗</td><td>1</td><td>↘</td><td>0</td><td>↗</td></tr></table></div>
+          <p class="ans">極小値 0（x=0, 2）、極大値 1（x=1）</p>
+          <p class="note">\(f(x) = x^2(x-2)^2\) と因数分解できるので、x軸に x=0, 2 で接する。</p>
+          <div class="plot" data-plot="m1-6a"></div></div></details></div>
+      <div class="prob"><div class="q"><span class="no">(2)</span><span class="ex">\(f(x) = xe^{-x}\)（\(x\to\infty\) と \(x\to-\infty\) の極限も求めよ）</span></div>
+        <details><summary>解答</summary><div class="sol">
+          <p>\(f'(x) = (1-x)e^{-x}\)、\(e^{-x} \gt 0\) なので符号は \(1-x\) で決まる。</p>
+          <div class="tbl-scroll"><table class="zt"><tr><th>x</th><td>−∞</td><td>…</td><td>1</td><td>…</td><td>∞</td></tr><tr><th>f′</th><td></td><td>+</td><td>0</td><td>−</td><td></td></tr><tr><th>f</th><td>−∞</td><td>↗</td><td>1/e</td><td>↘</td><td>0</td></tr></table></div>
+          <p>\(x\to\infty\)：\(\dfrac{x}{e^x}\) にロピタルで \(\dfrac1{e^x}\to0\)　／　\(x\to-\infty\)：\(x\to-\infty,\ e^{-x}\to\infty\) で \(-\infty\)</p>
+          <p class="ans">極大値 \(\dfrac1e\)（x=1）、極小値なし</p>
+          <div class="plot" data-plot="m1-6b"></div></div></details></div>
+    </div>
+
+    <div class="qhead"><span class="n">7.</span><span class="t">テイラー展開を用いて、x=0 で極値をとるか判定せよ。とる場合は極大・極小とその値を答えよ。<span class="pts">各4点・計12点</span></span></div>
+    <div class="plist">
+      <div class="prob"><div class="q"><span class="no">(1)</span><span class="ex">\(f(x) = e^x - 1 - x - \dfrac{x^2}{2}\)</span></div>
+        <details><summary>解答</summary><div class="sol"><p>\(f(x) = \frac{x^3}{6} + \cdots\)　3次（奇数）</p><p class="ans">極値をとらない <span class="tag none">なし</span></p></div></details></div>
+      <div class="prob"><div class="q"><span class="no">(2)</span><span class="ex">\(f(x) = 2\cos x + x^2\)</span></div>
+        <details><summary>解答</summary><div class="sol"><p>\(2\left(1 - \frac{x^2}{2} + \frac{x^4}{24}\right) + x^2 = 2 + \frac{x^4}{12} + \cdots\)　4次・係数正</p><p class="ans">極小値 2 <span class="tag min">極小</span></p></div></details></div>
+      <div class="prob"><div class="q"><span class="no">(3)</span><span class="ex">\(f(x) = \log(1+x^2) - x^2\)</span></div>
+        <details><summary>解答</summary><div class="sol"><p>\(\log(1+t)\) に \(t = x^2\)：\(x^2 - \frac{x^4}{2} + \cdots\)</p><p>\(f(x) = -\frac12x^4 + \cdots\)　4次・係数負</p><p class="ans">極大値 0 <span class="tag max">極大</span></p></div></details></div>
+    </div>
+
+    <div class="qhead"><span class="n">8.</span><span class="t">\(f(x) = x^3 + ax^2 + bx\) が \(x = 1\) で極小値 \(-2\) をとるとき、定数 \(a, b\) の値と極大値を求めよ。<span class="pts">8点</span></span></div>
+    <div class="plist">
+      <div class="prob"><div class="q"><span class="no">　</span><span class="ex">必要条件 → 十分性の確認</span></div>
+        <details><summary>解答</summary><div class="sol">
+          <p>\(f'(x) = 3x^2 + 2ax + b\)</p>
+          <p>\(f'(1) = 3 + 2a + b = 0\)、\(f(1) = 1 + a + b = -2\)</p>
+          <p>これを解いて \(a = 0,\ b = -3\)</p>
+          <p><b>確認</b>：\(f(x) = x^3 - 3x\)、\(f'(x) = 3(x+1)(x-1)\)。x=1 で \(-\to+\) なので確かに極小。</p>
+          <p class="ans">\(a = 0,\ b = -3\)、極大値 \(f(-1) = 2\)</p>
+          <p class="note">確認を書かないと減点されやすい。第4週2(2)と同じ考え方。</p></div></details></div>
+    </div>
+  </div>
+
+  <div class="exam" id="mock2">
+    <div class="exam-head">
+      <div>
+        <div class="exam-no">MOCK 02</div>
+        <div class="exam-title">模試 第2回</div>
+        <div class="note">試験時間 60分 ／ 100点満点 ／ 第1回より少しひねった問題が多め</div>
+      </div>
+      <div class="timer" data-timer>
+        <span class="tm" aria-live="polite">60:00</span>
+        <button type="button" class="tm-start">スタート</button>
+        <button type="button" class="tm-reset">リセット</button>
+      </div>
+    </div>
+    <div class="toolbar"><button type="button" data-toggle="mock2">解答を全部開く</button></div>
+
+    <div class="qhead"><span class="n">1.</span><span class="t">\(y'\) と \(y''\) を求めよ。<span class="pts">各4点・計16点</span></span></div>
+    <div class="plist">
+      <div class="prob"><div class="q"><span class="no">(1)</span><span class="ex">\(y = xe^{-2x}\)</span></div>
+        <details><summary>解答</summary><div class="sol"><p>\(y' = e^{-2x} - 2xe^{-2x} = (1-2x)e^{-2x}\)</p><p>\(y'' = -2e^{-2x} - 2(1-2x)e^{-2x}\)</p><p class="ans">\(y'' = (4x - 4)e^{-2x}\)</p></div></details></div>
+      <div class="prob"><div class="q"><span class="no">(2)</span><span class="ex">\(y = \sin^2 x\)</span></div>
+        <details><summary>解答</summary><div class="sol"><p>\(y' = 2\sin x\cos x = \sin 2x\)</p><p class="ans">\(y'' = 2\cos 2x\)</p></div></details></div>
+      <div class="prob"><div class="q"><span class="no">(3)</span><span class="ex">\(y = \dfrac{x}{x+1}\)</span></div>
+        <details><summary>解答</summary><div class="sol"><p>\(y = 1 - \dfrac{1}{x+1}\) と変形すると楽（第1週3と同じ発想）。</p><p>\(y' = \dfrac{1}{(x+1)^2}\)</p><p class="ans">\(y'' = -\dfrac{2}{(x+1)^3}\)</p></div></details></div>
+      <div class="prob"><div class="q"><span class="no">(4)</span><span class="ex">\(y = \log(\cos x)\)　（\(-\frac\pi2 \lt x \lt \frac\pi2\)）</span></div>
+        <details><summary>解答</summary><div class="sol"><p>\(y' = \dfrac{-\sin x}{\cos x} = -\tan x\)</p><p class="ans">\(y'' = -\dfrac{1}{\cos^2 x}\)</p></div></details></div>
+    </div>
+
+    <div class="qhead"><span class="n">2.</span><span class="t">\(f(x) = \dfrac{1}{1-2x}\) について \(f^{(n)}(x)\) を \(n\) の式で表せ。<span class="pts">6点</span></span></div>
+    <div class="plist">
+      <div class="prob"><div class="q"><span class="no">　</span><span class="ex">\(f = (1-2x)^{-1}\) を数回微分</span></div>
+        <details><summary>解答</summary><div class="sol">
+          <p>\(f' = 2(1-2x)^{-2}\)、\(f'' = 2\cdot2^2(1-2x)^{-3}\)、\(f''' = 3!\cdot2^3(1-2x)^{-4}\)</p>
+          <p>指数の \(-k\) と中身の微分 \(-2\) で、マイナス同士が打ち消し合う。</p>
+          <p class="ans">\(f^{(n)}(x) = \dfrac{n!\,2^n}{(1-2x)^{n+1}}\)</p></div></details></div>
+    </div>
+
+    <div class="qhead"><span class="n">3.</span><span class="t">\(f(x) = \tan x\) について \(f(0), f'(0), f''(0), f'''(0)\) を求め、x=0 のテイラー展開を3次の項まで求めよ。<span class="pts">8点</span></span></div>
+    <div class="plist">
+      <div class="prob"><div class="q"><span class="no">　</span><span class="ex">ヒント：\(f'(x) = 1 + \tan^2 x\)</span></div>
+        <details><summary>解答</summary><div class="sol">
+          <p>\(t = \tan x\) とおくと \(f' = 1 + t^2\)</p>
+          <p>\(f'' = 2t\cdot(1+t^2)\)</p>
+          <p>\(f''' = 2(1+t^2)\cdot(1+t^2) + 2t\cdot2t(1+t^2) = 2(1+t^2)^2 + 4t^2(1+t^2)\)</p>
+          <p>\(x=0\)（\(t=0\)）：\(f(0)=0,\ f'(0)=1,\ f''(0)=0,\ f'''(0)=2\)</p>
+          <p class="ans">\(\tan x \approx x + \dfrac13x^3\)</p></div></details></div>
+    </div>
+
+    <div class="qhead"><span class="n">4.</span><span class="t">テイラー展開の公式を利用して、x=0 におけるテイラー展開を指定の次数まで求めよ。<span class="pts">各6点・計18点</span></span></div>
+    <div class="plist">
+      <div class="prob"><div class="q"><span class="no">(1)</span><span class="ex">\((1+x)\log(1+x)\)（3次）</span></div>
+        <details><summary>解答</summary><div class="sol"><p>\((1+x)\left(x - \frac{x^2}{2} + \frac{x^3}{3}\right)\)</p><p>\(x^2\)：\(-\frac12 + 1\)、\(x^3\)：\(\frac13 - \frac12\)</p><p class="ans">\(x + \dfrac12x^2 - \dfrac16x^3\)</p></div></details></div>
+      <div class="prob"><div class="q"><span class="no">(2)</span><span class="ex">\(e^{x}\cos 2x\)（3次）</span></div>
+        <details><summary>解答</summary><div class="sol"><p>\(\left(1 + x + \frac{x^2}{2} + \frac{x^3}{6}\right)(1 - 2x^2)\)</p><p>\(x^2\)：\(\frac12 - 2\)、\(x^3\)：\(\frac16 - 2\)</p><p class="ans">\(1 + x - \dfrac32x^2 - \dfrac{11}{6}x^3\)</p><p class="note">第3週(8) \(e^{-x}\cos 2x\) と符号を比べてみよう。</p></div></details></div>
+      <div class="prob"><div class="q"><span class="no">(3)</span><span class="ex">\(\sin x\cos x\)（3次）</span></div>
+        <details><summary>解答</summary><div class="sol"><p>\(\left(x - \frac{x^3}{6}\right)\left(1 - \frac{x^2}{2}\right) = x - \frac{x^3}{2} - \frac{x^3}{6}\)</p><p class="ans">\(x - \dfrac23x^3\)</p><p class="note">検算：\(\frac12\sin 2x = \frac12\left(2x - \frac43x^3\right)\)。</p></div></details></div>
+    </div>
+
+    <div class="qhead"><span class="n">5.</span><span class="t">次の極限を求めよ。<span class="pts">各4点・計16点</span></span></div>
+    <div class="plist">
+      <div class="prob"><div class="q"><span class="no">(1)</span><span class="ex">\(\displaystyle\lim_{x\to0}\frac{1 - \cos x}{x\sin x}\)</span></div>
+        <details><summary>解答</summary><div class="sol"><p>分子 \(\approx \frac{x^2}{2}\)、分母 \(\approx x\cdot x = x^2\)</p><p class="ans">\(\dfrac12\)</p></div></details></div>
+      <div class="prob"><div class="q"><span class="no">(2)</span><span class="ex">\(\displaystyle\lim_{x\to0}\frac{e^{x} - e^{-x}}{\sin x}\)</span></div>
+        <details><summary>解答</summary><div class="sol"><p>\(e^x - e^{-x} = 2x + \frac{x^3}{3} + \cdots\)、\(\sin x = x - \cdots\)</p><p class="ans">\(2\)</p></div></details></div>
+      <div class="prob"><div class="q"><span class="no">(3)</span><span class="ex">\(\displaystyle\lim_{x\to0}\frac{\log(1+x) - x + \frac{x^2}{2}}{x^3}\)</span></div>
+        <details><summary>解答</summary><div class="sol"><p>分子 \(= \frac{x^3}{3} - \cdots\)</p><p class="ans">\(\dfrac13\)</p></div></details></div>
+      <div class="prob"><div class="q"><span class="no">(4)</span><span class="ex">\(\displaystyle\lim_{x\to+0}x\log x\)（ロピタルの定理を用いよ）</span></div>
+        <details><summary>解答</summary><div class="sol"><p>\(0\cdot(-\infty)\) 型なので、分数に直して \(\dfrac{\log x}{1/x}\)（\(\frac{-\infty}{\infty}\) 型）にする。</p><p>\(\lim \dfrac{1/x}{-1/x^2} = \lim(-x) = 0\)</p><p class="ans">\(0\)</p><p class="note">「分数に直す」一手がこの問題のポイント。</p></div></details></div>
+    </div>
+
+    <div class="qhead"><span class="n">6.</span><span class="t">増減表を書いて極値を求め、グラフの概形を描け。<span class="pts">各8点・計16点</span></span></div>
+    <div class="plist">
+      <div class="prob"><div class="q"><span class="no">(1)</span><span class="ex">\(f(x) = x^3 - 6x^2 + 12x\)</span></div>
+        <details><summary>解答</summary><div class="sol">
+          <p>\(f'(x) = 3x^2 - 12x + 12 = 3(x-2)^2 \ge 0\)</p>
+          <div class="tbl-scroll"><table class="zt"><tr><th>x</th><td>…</td><td>2</td><td>…</td></tr><tr><th>f′</th><td>+</td><td>0</td><td>+</td></tr><tr><th>f</th><td>↗</td><td>8</td><td>↗</td></tr></table></div>
+          <p class="ans">極値なし（単調増加）</p>
+          <p class="note">x=2 で接線が水平になるだけ。\(f'' = 6(x-2)\) なので (2, 8) は変曲点。</p>
+          <div class="plot" data-plot="m2-6a"></div></div></details></div>
+      <div class="prob"><div class="q"><span class="no">(2)</span><span class="ex">\(f(x) = x^2e^{-x}\)（\(x\to\infty\) と \(x\to-\infty\) の極限も求めよ）</span></div>
+        <details><summary>解答</summary><div class="sol">
+          <p>\(f'(x) = (2x - x^2)e^{-x} = x(2-x)e^{-x}\)</p>
+          <div class="tbl-scroll"><table class="zt"><tr><th>x</th><td>−∞</td><td>…</td><td>0</td><td>…</td><td>2</td><td>…</td><td>∞</td></tr><tr><th>f′</th><td></td><td>−</td><td>0</td><td>+</td><td>0</td><td>−</td><td></td></tr><tr><th>f</th><td>∞</td><td>↘</td><td>0</td><td>↗</td><td>4/e²</td><td>↘</td><td>0</td></tr></table></div>
+          <p>\(x\to\infty\)：\(\dfrac{x^2}{e^x}\) にロピタル2回で \(\dfrac{2}{e^x}\to0\)　／　\(x\to-\infty\)：\(x^2\to\infty,\ e^{-x}\to\infty\) で \(\infty\)</p>
+          <p class="ans">極小値 0（x=0）、極大値 \(\dfrac4{e^2}\)（x=2）</p>
+          <div class="plot" data-plot="m2-6b"></div></div></details></div>
+    </div>
+
+    <div class="qhead"><span class="n">7.</span><span class="t">テイラー展開を用いて、x=0 で極値をとるか判定せよ。とる場合は極大・極小とその値を答えよ。<span class="pts">各4点・計12点</span></span></div>
+    <div class="plist">
+      <div class="prob"><div class="q"><span class="no">(1)</span><span class="ex">\(f(x) = x\sin x\)</span></div>
+        <details><summary>解答</summary><div class="sol"><p>\(x\left(x - \frac{x^3}{6}\right) = x^2 - \frac{x^4}{6}\)　2次・係数正</p><p class="ans">極小値 0 <span class="tag min">極小</span></p></div></details></div>
+      <div class="prob"><div class="q"><span class="no">(2)</span><span class="ex">\(f(x) = e^{x} + e^{-x} - 2 - x^2\)</span></div>
+        <details><summary>解答</summary><div class="sol"><p>\(e^x + e^{-x} = 2 + x^2 + \frac{x^4}{12} + \cdots\)（奇数次は打ち消し合う）</p><p>\(f(x) = \frac{x^4}{12} + \cdots\)　4次・係数正</p><p class="ans">極小値 0 <span class="tag min">極小</span></p></div></details></div>
+      <div class="prob"><div class="q"><span class="no">(3)</span><span class="ex">\(f(x) = \sin x - x\cos x\)</span></div>
+        <details><summary>解答</summary><div class="sol"><p>第1回 5(3) より \(f(x) = \frac13x^3 + \cdots\)　3次（奇数）</p><p class="ans">極値をとらない <span class="tag none">なし</span></p></div></details></div>
+    </div>
+
+    <div class="qhead"><span class="n">8.</span><span class="t">\(f(x) = x^3 + ax^2 + 3x\) が極値をもつような定数 \(a\) の範囲を求めよ。<span class="pts">8点</span></span></div>
+    <div class="plist">
+      <div class="prob"><div class="q"><span class="no">　</span><span class="ex">\(f'(x) = 0\) が「異なる2つの実数解」をもつ条件</span></div>
+        <details><summary>解答</summary><div class="sol">
+          <p>\(f'(x) = 3x^2 + 2ax + 3\)</p>
+          <p>極値をもつには \(f'\) の符号が変わる必要がある → \(f'=0\) が異なる2実数解をもつ。</p>
+          <p>判別式 \(\dfrac{D}{4} = a^2 - 9 \gt 0\)</p>
+          <p class="ans">\(a \lt -3,\ 3 \lt a\)</p>
+          <p class="note">\(D=0\)（\(a=\pm3\)）は重解で符号が変わらないので含めない。\(\ge\) にすると減点。</p></div></details></div>
+    </div>
+  </div>
+
+  <div class="box" style="margin-top:22px">
+    <h4>採点の目安</h4>
+    <table class="ft">
+      <tr><td>80点以上</td><td>本番も安定。落とした問題だけ該当週を復習</td></tr>
+      <tr><td>60〜79点</td><td>計算ミスか判定ミスかを分けて、頻出パターンを読み直す</td></tr>
+      <tr><td>60点未満</td><td>公式まとめ → 第3週 → 第5週 の順で解き直し</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ===================== パターン ===================== -->
+<section id="patterns">
+  <h2>頻出パターン</h2>
+  <p class="sec-lead">5回分の演習の作りから、テストに出やすい型を並べた。上から順に優先度が高い。</p>
+  <ol class="pat">
+    <li><b>公式に代入 → 掛け算 → 次数で切るテイラー展開</b>積の展開は、指定次数を超える組み合わせを最初から計算しないのがコツ。<br><span class="src">第3週1・第5週1</span></li>
+    <li><b>0/0 の極限は分子分母を展開して最低次を比べる</b>分子と分母の最低次が同じならその係数の比が答え。ロピタルでも解けるが、2回以上必要なら展開の方が速い。<br><span class="src">第3週2・第5週2</span></li>
+    <li><b>x = 0 の極値判定は「最初の非ゼロ項」の次数と符号</b>偶数次なら極値、符号で極大・極小。奇数次なら極値なし。項が打ち消し合う問題（第5週(5)(6)）が本命。<br><span class="src">第5週1</span></li>
+    <li><b>増減表：f′ を因数分解して符号を調べる</b>重解の点は極値にならない。三角関数は cos の2次方程式に直す。<br><span class="src">第4週1</span></li>
+    <li><b>「f′(a) = 0 ⇒ 極値」とは限らない</b>候補を出した後に、符号変化をチェックして絞る。<br><span class="src">第4週2(2)</span></li>
+    <li><b>微分して f(0), f′(0), … を代入するテイラー展開</b>係数を \(k!\) で割る。\(\sin(\cdot+\frac\pi6)\) など三角比の値も必要。<br><span class="src">第1週2・第2週</span></li>
+    <li><b>n 階導関数は3〜4回微分して規則を見つける</b>\(\log\) 系は \((-1)^{n-1}(n-1)!\)、一次式の中身から \(a^n\) が出る。<br><span class="src">第1週4</span></li>
+    <li><b>グラフの概形：極限 → y′ → y″ → 表 → 描画</b>端の極限（\(x\to+0\)、\(x\to\infty\)）を先に求めるのが指定されている。<br><span class="src">第5週3</span></li>
+  </ol>
+
+  <h3>落とし穴</h3>
+  <div class="box">
+    <ul class="trap">
+      <li><span class="x">✕</span> \((\sin 3x)' = \cos 3x\)　<span class="o">○</span> \(3\cos 3x\)。中身の微分を掛け忘れない。</li>
+      <li><span class="x">✕</span> \(f''(0)\) をそのまま \(x^2\) の係数にする　<span class="o">○</span> \(\frac{f''(0)}{2!}\)、3次は \(3!=6\) で割る。</li>
+      <li><span class="x">✕</span> \(\log(1-x) = -x + \frac{x^2}{2} - \cdots\)　<span class="o">○</span> \(-x - \frac{x^2}{2} - \frac{x^3}{3}\)。全部マイナスになる。</li>
+      <li><span class="x">✕</span> ロピタルで商の微分をする　<span class="o">○</span> 分子と分母を別々に微分。</li>
+      <li><span class="x">✕</span> 展開が2次で 0 になったのに「極値なし」と結論　<span class="o">○</span> 次の非ゼロ項まで展開を続ける。</li>
+      <li><span class="x">✕</span> \(\frac{1}{e^{2x}}\) を商の微分で処理して計算ミス　<span class="o">○</span> \(e^{-2x}\) に直してから微分。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== 練習 ===================== -->
+<section id="practice">
+  <h2>練習問題</h2>
+  <p class="sec-lead">演習と同じ型の新しい問題。時間を測って、解き方の流れがスムーズに出るか確認しよう。</p>
+  <div class="toolbar"><button type="button" data-toggle="practice">解答を全部開く</button></div>
+  <div class="plist">
+    <div class="prob"><div class="q"><span class="no">P1</span><span class="ex">\(y = x^2e^{x}\) の \(y''\)</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(y' = (x^2 + 2x)e^x\)</p><p class="ans">\(y'' = (x^2 + 4x + 2)e^x\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">P2</span><span class="ex">\(\dfrac{1}{1-x}\) を微分して3次までテイラー展開</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(f^{(k)}(x) = k!\,(1-x)^{-(k+1)}\) より \(f^{(k)}(0) = k!\)</p><p class="ans">\(1 + x + x^2 + x^3\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">P3</span><span class="ex">\(e^{x}\sin 2x\) を3次まで（公式を使って）</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(\left(1 + x + \frac{x^2}{2}\right)\left(2x - \frac43x^3\right)\) の3次まで</p><p class="ans">\(2x + 2x^2 - \dfrac13x^3\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">P4</span><span class="ex">\(\displaystyle\lim_{x\to0}\frac{1 - \cos 2x}{x^2}\)</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(1 - \cos 2x = 2x^2 - \cdots\)</p><p class="ans">\(2\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">P5</span><span class="ex">\(\displaystyle\lim_{x\to0}\frac{e^x - 1 - x}{x^2}\)</span></div>
+      <details><summary>解答</summary><div class="sol"><p>分子 \(= \frac{x^2}{2} + \cdots\)</p><p class="ans">\(\dfrac12\)</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">P6</span><span class="ex">\(f(x) = x^3 - 6x^2 + 9x + 1\) の極値</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(f' = 3(x-1)(x-3)\)</p><p class="ans">極大値 5（x=1）、極小値 1（x=3）</p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">P7</span><span class="ex">\(f(x) = \cos x + \dfrac{x^2}{2}\) は x=0 で極値をとるか</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(1 - \frac{x^2}{2} + \frac{x^4}{24} + \frac{x^2}{2} = 1 + \frac{x^4}{24} + \cdots\)　4次・係数正</p><p class="ans">極小値 1 <span class="tag min">極小</span></p></div></details></div>
+    <div class="prob"><div class="q"><span class="no">P8</span><span class="ex">\(\displaystyle\lim_{x\to\infty}\frac{x}{e^{x}}\)</span></div>
+      <details><summary>解答</summary><div class="sol"><p>\(\frac\infty\infty\) 型。ロピタルで \(\frac{1}{e^x} \to 0\)</p><p class="ans">\(0\)</p></div></details></div>
+  </div>
+</section>
+
+<!-- ===================== チェック ===================== -->
+<section id="checklist">
+  <h2>直前チェックリスト</h2>
+  <p class="sec-lead">できるようになった項目にチェック。この端末のブラウザに保存される。</p>
+  <div class="progress" id="prog">0 / 0</div>
+  <div class="check" id="checks">
+    <label><input type="checkbox" id="c1"><span>4本のテイラー展開（e^x, sin, cos, log(1+x)）を何も見ずに書ける</span></label>
+    <label><input type="checkbox" id="c2"><span>積・合成関数の微分を2回続けてミスなくできる</span></label>
+    <label><input type="checkbox" id="c3"><span>\(f^{(k)}(0)/k!\) でテイラー係数を出せる</span></label>
+    <label><input type="checkbox" id="c4"><span>2つの展開の積を指定次数まで計算できる</span></label>
+    <label><input type="checkbox" id="c5"><span>0/0 の極限を展開またはロピタルで求められる</span></label>
+    <label><input type="checkbox" id="c6"><span>増減表を書いて極大・極小を判定できる（重解に注意）</span></label>
+    <label><input type="checkbox" id="c7"><span>テイラー展開の最初の非ゼロ項で x=0 の極値を判定できる</span></label>
+    <label><input type="checkbox" id="c8"><span>n 階導関数の一般形を予想して書ける</span></label>
+    <label><input type="checkbox" id="c9"><span>log x / x² のグラフを極限・増減・凹凸から描ける</span></label>
+  </div>
+
+  <footer>演習問題（第1〜5週）の内容をもとに作成。解答は自作なので、授業で配られた解答と食い違ったら授業の方を優先してね。</footer>
+</section>
+
+</div>
+</main>
+
+<script>
+(function () {
+  // ---- toggle all answers per section ----
+  document.querySelectorAll('[data-toggle]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var sec = document.getElementById(btn.dataset.toggle);
+      var ds = sec.querySelectorAll('details');
+      var anyClosed = Array.prototype.some.call(ds, function (d) { return !d.open; });
+      ds.forEach(function (d) { d.open = anyClosed; });
+      btn.textContent = anyClosed ? '解答を全部閉じる' : (/^w\d/.test(btn.dataset.toggle) ? 'この週の解答を全部開く' : '解答を全部開く');
+    });
+  });
+
+  // ---- plots ----
+  var NS = 'http://www.w3.org/2000/svg';
+  function el(tag, attrs, parent) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function plot(host, cfg) {
+    var W = 380, H = 250, m = { l: 30, r: 14, t: 14, b: 24 };
+    var svg = el('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'aria-label': cfg.label });
+    var X = function (x) { return m.l + (x - cfg.x[0]) / (cfg.x[1] - cfg.x[0]) * (W - m.l - m.r); };
+    var Y = function (y) { return m.t + (cfg.y[1] - y) / (cfg.y[1] - cfg.y[0]) * (H - m.t - m.b); };
+    // grid
+    (cfg.gx || []).forEach(function (g) { el('line', { x1: X(g), x2: X(g), y1: m.t, y2: H - m.b, class: 'gridl' }, svg); });
+    (cfg.gy || []).forEach(function (g) { el('line', { x1: m.l, x2: W - m.r, y1: Y(g), y2: Y(g), class: 'gridl' }, svg); });
+    // axes
+    var y0 = Math.min(Math.max(0, cfg.y[0]), cfg.y[1]);
+    var x0 = Math.min(Math.max(0, cfg.x[0]), cfg.x[1]);
+    el('line', { x1: m.l, x2: W - m.r, y1: Y(y0), y2: Y(y0), class: 'axis' }, svg);
+    el('line', { x1: X(x0), x2: X(x0), y1: m.t, y2: H - m.b, class: 'axis' }, svg);
+    var tx = el('text', { x: W - m.r - 2, y: Y(y0) - 5, 'text-anchor': 'end', class: 'ax' }, svg); tx.textContent = 'x';
+    var ty = el('text', { x: X(x0) + 5, y: m.t + 9, class: 'ax' }, svg); ty.textContent = 'y';
+    // tick labels
+    (cfg.tx || []).forEach(function (t) {
+      el('line', { x1: X(t[0]), x2: X(t[0]), y1: Y(y0) - 3, y2: Y(y0) + 3, class: 'axis' }, svg);
+      var e = el('text', { x: X(t[0]), y: Y(y0) + 15, 'text-anchor': 'middle', class: 'ax' }, svg); e.textContent = t[1];
+    });
+    (cfg.ty || []).forEach(function (t) {
+      el('line', { x1: X(x0) - 3, x2: X(x0) + 3, y1: Y(t[0]), y2: Y(t[0]), class: 'axis' }, svg);
+      var e = el('text', { x: X(x0) - 6, y: Y(t[0]) + 4, 'text-anchor': 'end', class: 'ax' }, svg); e.textContent = t[1];
+    });
+    // curve (clipped)
+    var clipId = 'c' + Math.random().toString(36).slice(2);
+    var cp = el('clipPath', { id: clipId }, el('defs', {}, svg));
+    el('rect', { x: m.l, y: m.t, width: W - m.l - m.r, height: H - m.t - m.b }, cp);
+    var d = '', pen = false, N = 600, a = cfg.dom ? cfg.dom[0] : cfg.x[0], b = cfg.dom ? cfg.dom[1] : cfg.x[1];
+    var span = cfg.y[1] - cfg.y[0];
+    for (var i = 0; i <= N; i++) {
+      var x = a + (b - a) * i / N, y = cfg.f(x);
+      if (!isFinite(y) || y < cfg.y[0] - span * 2 || y > cfg.y[1] + span * 2) { pen = false; continue; }
+      d += (pen ? 'L' : 'M') + X(x).toFixed(2) + ' ' + Y(y).toFixed(2);
+      pen = true;
+    }
+    el('path', { d: d, class: 'curve', 'clip-path': 'url(#' + clipId + ')' }, svg);
+    // points
+    (cfg.pts || []).forEach(function (p) {
+      el('circle', { cx: X(p.x), cy: Y(p.y), r: 3.8, class: 'pt' + (p.ip ? ' ip' : '') }, svg);
+      var e = el('text', { x: X(p.x) + (p.dx || 0), y: Y(p.y) + (p.dy || -8), 'text-anchor': p.anchor || 'middle' }, svg);
+      e.textContent = p.t;
+    });
+    host.appendChild(svg);
+  }
+  var range = function (a, b, s) { var r = []; for (var v = a; v <= b + 1e-9; v += s) r.push(+v.toFixed(6)); return r; };
+  var PI = Math.PI, s3 = 3 * Math.sqrt(3) / 4;
+  var plots = {
+    'w4-1': { label: 'y=x^3-3x^2-9x+5', f: function (x) { return x*x*x - 3*x*x - 9*x + 5; }, x: [-3, 5], y: [-30, 20],
+      gx: range(-3, 5, 1), gy: range(-30, 20, 10), tx: [[-1, '−1'], [3, '3']], ty: [[10, '10'], [-20, '−20']],
+      pts: [{ x: -1, y: 10, t: '(−1, 10)' }, { x: 3, y: -22, t: '(3, −22)', dy: 16 }] },
+    'w4-2': { label: 'y=-x^3+3x^2', f: function (x) { return -x*x*x + 3*x*x; }, x: [-1.5, 3.5], y: [-3, 6],
+      gx: range(-1, 3, 1), gy: range(-2, 6, 2), tx: [[2, '2'], [3, '3']], ty: [[4, '4']],
+      pts: [{ x: 0, y: 0, t: '(0, 0)', dx: 4, dy: 16, anchor: 'start' }, { x: 2, y: 4, t: '(2, 4)' }] },
+    'w4-3': { label: 'y=x^4-2x^2', f: function (x) { return x*x*x*x - 2*x*x; }, x: [-1.8, 1.8], y: [-1.6, 2],
+      gx: range(-1.5, 1.5, 0.5), gy: range(-1.5, 2, 0.5), tx: [[-1, '−1'], [1, '1']], ty: [[-1, '−1'], [1, '1']],
+      pts: [{ x: -1, y: -1, t: '(−1, −1)', dy: 16 }, { x: 1, y: -1, t: '(1, −1)', dy: 16 }, { x: 0, y: 0, t: '(0, 0)', dx: 6, anchor: 'start' }] },
+    'w4-4': { label: 'y=3x^4+16x^3+24x^2-7', f: function (x) { return 3*x*x*x*x + 16*x*x*x + 24*x*x - 7; }, x: [-3.3, 1.1], y: [-10, 25],
+      gx: range(-3, 1, 1), gy: range(-10, 25, 5), tx: [[-3, '−3'], [-2, '−2'], [-1, '−1']], ty: [[-5, '−5'], [10, '10'], [20, '20']],
+      pts: [{ x: 0, y: -7, t: '極小 (0, −7)', dx: 6, dy: 4, anchor: 'start' }, { x: -2, y: 9, t: '(−2, 9) 極値でない', ip: true, dx: 6, dy: -6, anchor: 'start' }] },
+    'w4-5': { label: 'y=sin x (cos x + 1)', f: function (x) { return Math.sin(x) * (Math.cos(x) + 1); }, x: [0, 2 * PI], y: [-1.6, 1.6], dom: [0, 2 * PI],
+      gx: [PI / 3, 2 * PI / 3, PI, 4 * PI / 3, 5 * PI / 3], gy: [-1, -0.5, 0.5, 1], tx: [[PI / 3, 'π/3'], [PI, 'π'], [5 * PI / 3, '5π/3'], [2 * PI, '2π']], ty: [[1, '1'], [-1, '−1']],
+      pts: [{ x: PI / 3, y: s3, t: '3√3/4' }, { x: 5 * PI / 3, y: -s3, t: '−3√3/4', dy: 16 }, { x: PI, y: 0, t: '', ip: true }] },
+    'w5-3': { label: 'y=log x / x^2', f: function (x) { return Math.log(x) / (x * x); }, x: [0, 6], y: [-0.6, 0.26], dom: [0.05, 6],
+      gx: range(1, 6, 1), gy: [-0.5, -0.25, 0.25], tx: [[1, '1'], [Math.E, 'e'], [5, '5']], ty: [[0.25, '0.25'], [-0.25, '−0.25'], [-0.5, '−0.5']],
+      pts: [{ x: Math.sqrt(Math.E), y: 1 / (2 * Math.E), t: '極大 1/(2e)', dy: -8 }, { x: Math.exp(5 / 6), y: (5 / 6) / Math.exp(5 / 3), t: '変曲点', ip: true, dx: 6, dy: 14, anchor: 'start' }] },
+    'm1-6a': { label: 'y=x^4-4x^3+4x^2', f: function (x) { return x*x*(x-2)*(x-2); }, x: [-0.8, 2.8], y: [-0.5, 2.2],
+      gx: range(-0.5, 2.5, 0.5), gy: range(0.5, 2, 0.5), tx: [[1, '1'], [2, '2']], ty: [[1, '1'], [2, '2']],
+      pts: [{ x: 0, y: 0, t: '(0, 0)', dx: -4, dy: 16, anchor: 'end' }, { x: 1, y: 1, t: '(1, 1)' }, { x: 2, y: 0, t: '(2, 0)', dx: 4, dy: 16, anchor: 'start' }] },
+    'm1-6b': { label: 'y=x e^{-x}', f: function (x) { return x * Math.exp(-x); }, x: [-1.2, 6], y: [-1.5, 0.6],
+      gx: range(1, 6, 1), gy: [-1, -0.5, 0.5], tx: [[1, '1'], [3, '3'], [5, '5']], ty: [[0.5, '0.5'], [-1, '−1']],
+      pts: [{ x: 1, y: 1 / Math.E, t: '極大 1/e', dy: -8 }] },
+    'm2-6a': { label: 'y=x^3-6x^2+12x', f: function (x) { return x*x*x - 6*x*x + 12*x; }, x: [-0.6, 4.2], y: [-4, 18],
+      gx: range(1, 4, 1), gy: range(4, 16, 4), tx: [[2, '2'], [4, '4']], ty: [[8, '8'], [16, '16']],
+      pts: [{ x: 2, y: 8, t: '(2, 8) 極値でない', ip: true, dx: 8, dy: 14, anchor: 'start' }] },
+    'm2-6b': { label: 'y=x^2 e^{-x}', f: function (x) { return x * x * Math.exp(-x); }, x: [-1.3, 8], y: [-0.2, 1.3],
+      gx: range(1, 8, 1), gy: [0.25, 0.5, 0.75, 1], tx: [[2, '2'], [4, '4'], [6, '6']], ty: [[0.5, '0.5'], [1, '1']],
+      pts: [{ x: 0, y: 0, t: '(0, 0)', dx: 6, dy: -6, anchor: 'start' }, { x: 2, y: 4 / Math.E / Math.E, t: '極大 4/e²', dy: -8 }] }
+  };
+  document.querySelectorAll('[data-plot]').forEach(function (h) { plot(h, plots[h.dataset.plot]); });
+
+  // ---- exam timers ----
+  document.querySelectorAll('[data-timer]').forEach(function (t) {
+    var LIMIT = 60 * 60, left = LIMIT, id = null;
+    var out = t.querySelector('.tm'), start = t.querySelector('.tm-start'), reset = t.querySelector('.tm-reset');
+    function show() {
+      var a = Math.abs(left), m = Math.floor(a / 60), s = a % 60;
+      out.textContent = (left < 0 ? '+' : '') + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+      t.classList.toggle('over', left < 0);
+    }
+    start.addEventListener('click', function () {
+      if (id) { clearInterval(id); id = null; start.textContent = '再開'; return; }
+      id = setInterval(function () { left--; show(); }, 1000);
+      start.textContent = '一時停止';
+    });
+    reset.addEventListener('click', function () { clearInterval(id); id = null; left = LIMIT; start.textContent = 'スタート'; show(); });
+    show();
+  });
+
+  // ---- checklist (per-viewer convenience) ----
+  var KEY = 'bibun-checklist-v1', state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { state = {}; }
+  var boxes = document.querySelectorAll('#checks input');
+  function render() {
+    var n = 0;
+    boxes.forEach(function (b) { b.parentNode.classList.toggle('done', b.checked); if (b.checked) n++; });
+    document.getElementById('prog').textContent = n + ' / ' + boxes.length + ' できた';
+  }
+  boxes.forEach(function (b) {
+    b.checked = !!state[b.id];
+    b.addEventListener('change', function () {
+      state[b.id] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+
+</body></html>
