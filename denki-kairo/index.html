@@ -141,6 +141,8 @@ svg.wave .i { stroke: var(--accent); stroke-width: 2.4; fill: none; stroke-dasha
 #checks label.done span { color: var(--muted); text-decoration: line-through; }
 #checks input { margin-top: 6px; accent-color: var(--accent); }
 .prog { font-weight: 700; color: var(--accent); }
+table.sheet { table-layout: fixed; }
+table.sheet td:first-child, table.sheet th:first-child { width: 6.5em; }
 @media (max-width: 520px) { mjx-container[display="true"] { font-size: 86%; } .card, .ex > .q, .ex .a { padding-left: 12px; padding-right: 12px; } }
 @media print { nav.tabs, .pager { display: none; } section.tab[hidden] { display: block !important; } .ex details { display: block; } }
 </style>
@@ -150,7 +152,7 @@ svg.wave .i { stroke: var(--accent); stroke-width: 2.4; fill: none; stroke-dasha
   <div class="wrap">
     <a class="back" href="../">← 講義一覧</a>
     <h1>電気回路及び演習 Ⅰ<br><span>中間対策ノート</span></h1>
-    <p>講義スライド（第1〜12回分、ec7なし）と演習問題1〜5をまとめたノート。例題・演習の数値は全部計算し直して確認済み。</p>
+    <p>試験範囲の講義スライド ec1〜ec6 と演習問題1〜5をまとめたノート。例題・演習の数値は全部計算し直して確認済み。</p>
   </div>
 </header>
 
@@ -179,14 +181,14 @@ svg.wave .i { stroke: var(--accent); stroke-width: 2.4; fill: none; stroke-dasha
     <div class="card">
       <b>このノートの範囲</b>
       <ul>
-        <li><span class="pill">中間範囲（推定）</span>第1〜6回分のスライド（ec1〜ec6）と演習1〜5</li>
-        <li><span class="pill after">中間後</span>ec8〜ec12（複素数表示・電力・交流回路網・ブリッジ・回路網方程式）</li>
+        <li>スライド ec1〜ec6（回路素子と直流回路、正弦波交流、インピーダンスとアドミタンス、フェーザ）</li>
+        <li>演習問題 1〜5（全問解答つき）</li>
       </ul>
-      <p style="font-size:13.5px;color:var(--muted);margin:0">範囲は告知に書かれていないので、演習1〜5の内容とスライドの回数から推定してる。</p>
+      <p style="font-size:13.5px;color:var(--muted);margin:0">試験範囲は ec6 まで。複素数表示（ec8）以降は範囲外なので載せていない。</p>
     </div>
   </div>
 
-  <div class="warn"><b>ec7 について：</b>アップロードされた資料に ec7 のPDFは入ってなかった。ただ章番号は ec6 の「2.4 フェーザ」から ec8 の「2.5 複素数を用いる計算」へ切れ目なくつながってるから、抜けてる内容はなさそう（第7回が中間試験の回なので、その回のスライドがないだけかも）。手元に ec7 があれば追加する。</div>
+  
 
   <h3>演習1〜5の出題パターン（＝試験に出やすい型）</h3>
   <div class="tw"><table>
@@ -243,7 +245,7 @@ svg.wave .i { stroke: var(--accent); stroke-width: 2.4; fill: none; stroke-dasha
 <!-- ================= 第1章 ================= -->
 <section class="tab" id="c1" data-title="回路素子と直流回路" data-short="1. 素子と直流" data-src="ec1〜3">
   <h2>1. 回路素子と直流回路</h2>
-  <p class="srcline"><span class="pill">中間範囲</span>スライド ec1（1.1〜1.2）・ec2（1.3〜1.4.2）・ec3（1.4.3〜1.4.8）／演習1〜3、演習4 問4</p>
+  <p class="srcline">スライド ec1（1.1〜1.2）・ec2（1.3〜1.4.2）・ec3（1.4.3〜1.4.8）／演習1〜3、演習4 問4</p>
 
   <h3>1.1 電気回路と回路素子</h3>
   <div class="key"><b>用語の定義（演習1 問1 で出題）</b>
@@ -361,7 +363,7 @@ svg.wave .i { stroke: var(--accent); stroke-width: 2.4; fill: none; stroke-dasha
 <!-- ================= 第2章 正弦波交流 ================= -->
 <section class="tab" id="c2" data-title="正弦波交流と瞬時値計算" data-short="2. 正弦波交流" data-src="ec4">
   <h2>2. 正弦波交流と瞬時値による計算</h2>
-  <p class="srcline"><span class="pill">中間範囲</span>スライド ec4（1.5〜2.1）／演習4 問1〜3</p>
+  <p class="srcline">スライド ec4（1.5〜2.1）／演習4 問1〜3</p>
 
   <h3>1.5 正弦波と角周波数</h3>
   <p>電源としては、電圧の大きさを簡単に変えられる交流が現在よく使われる。正弦波は弧度法の角度 \(\theta\)［rad］で \(v(\theta)=V_m\sin\theta\) と表し、これを時間の関数にしたのが</p>
@@ -427,7 +429,7 @@ svg.wave .i { stroke: var(--accent); stroke-width: 2.4; fill: none; stroke-dasha
 <!-- ================= 第3章 インピーダンス ================= -->
 <section class="tab" id="c3" data-title="インピーダンスとアドミタンス" data-short="3. Z と Y" data-src="ec5">
   <h2>3. インピーダンスとアドミタンス</h2>
-  <p class="srcline"><span class="pill">中間範囲</span>スライド ec5（2.2〜2.3）／演習5</p>
+  <p class="srcline">スライド ec5（2.2〜2.3）／演習5</p>
 
   <h3>2.2.1 RLC直列回路のインピーダンス</h3>
   <p>\(v=\sqrt2V\sin\omega t\)、\(i=\sqrt2I\sin(\omega t+\phi)\) とおいて未定係数法で解くと</p>
@@ -473,7 +475,7 @@ svg.wave .i { stroke: var(--accent); stroke-width: 2.4; fill: none; stroke-dasha
 <!-- ================= 第4章 フェーザ ================= -->
 <section class="tab" id="c4" data-title="フェーザによる計算" data-short="4. フェーザ" data-src="ec6">
   <h2>4. フェーザを用いる計算</h2>
-  <p class="srcline"><span class="pill">中間範囲</span>スライド ec6（2.4）</p>
+  <p class="srcline">スライド ec6（2.4）</p>
 
   <h3>2.4.1 フェーザ表示</h3>
   <p>正弦波の<b>大きさ（実効値）と位相角だけ</b>で計算する方法。瞬時値の代わりに円周上の線分（ベクトル）を使う。</p>
@@ -512,282 +514,10 @@ svg.wave .i { stroke: var(--accent); stroke-width: 2.4; fill: none; stroke-dasha
   <p>各枝のフェーザ \(\dot I_1=I_1\angle\phi_1\)、\(\dot I_2=I_2\angle\phi_2\) を、横成分 \(I_k\cos\phi_k\) と縦成分 \(I_k\sin\phi_k\) に分けて足す。結果は <a href="#c3" data-go="c3">2.3 直並列回路</a> の式と一致する（教科書 p.51）。</p>
 </section>
 
-<!-- ================= 第5章 複素数 ================= -->
-<section class="tab" id="c5" data-title="複素数を用いる計算" data-short="5. 複素数表示" data-src="ec8">
-  <h2>5. 複素数を用いる計算</h2>
-  <p class="srcline"><span class="pill after">中間後</span>スライド ec8（2.5）</p>
-  <p>回路が複雑になるとフェーザ図を描くのが大変。フェーザ図の本質は「縦成分と横成分のベクトル和」なので、これを<b>複素数の和</b>に置き換える。</p>
-
-  <h3>2.5.1 複素数と複素平面</h3>
-  \[\dot A=a+jb=A\cos\phi+jA\sin\phi=Ae^{j\phi}=A\angle\phi\]
-  <ul>
-    <li>実部 \(a=\mathrm{Re}(\dot A)\)、虚部 \(b=\mathrm{Im}(\dot A)\)。虚数単位は \(i\) でなく \(j\)（\(i\) は電流に使うため）。</li>
-    <li>大きさ \(|\dot A|=A=\sqrt{a^2+b^2}\)、偏角 \(\phi=\arg\dot A=\tan^{-1}\frac ba\)</li>
-    <li>オイラーの公式 \(e^{\pm j\theta}=\cos\theta\pm j\sin\theta\)</li>
-  </ul>
-  <h3>2.5.2〜2.5.3 四則演算と j の意味</h3>
-  <div class="tw"><table>
-    <tr><th>演算</th><th>大きさ</th><th>偏角</th></tr>
-    <tr><td>積 \(\dot A\dot B\)</td><td>\(AB\)</td><td>\(\phi_A+\phi_B\)</td></tr>
-    <tr><td>商 \(\dot B/\dot A\)</td><td>\(B/A\)</td><td>\(\phi_B-\phi_A\)</td></tr>
-    <tr><td>逆数 \(1/\dot A\)</td><td>\(1/A\)</td><td>\(-\phi_A\)</td></tr>
-  </table></div>
-  <p>\(j\) を掛ける＝反時計回りに 90° 回転。\(a\to ja\to -a\to -ja\) と 90° ずつ回る。\(-j\) を掛けると 90° 遅らせる。</p>
-
-  <h3>2.5.4 素子の複素インピーダンス</h3>
-  <div class="tw"><table>
-    <tr><th>素子</th><th>\(\dot V\) と \(\dot I\)</th><th>\(\dot Z\)</th><th>\(Z=|\dot Z|\)</th></tr>
-    <tr><td>R</td><td>\(\dot V=R\dot I\)</td><td>\(R\)</td><td>\(R\)</td></tr>
-    <tr><td>L</td><td>\(\dot V=j\omega L\dot I\)</td><td>\(j\omega L\)</td><td>\(\omega L\)</td></tr>
-    <tr><td>C</td><td>\(\dot I=j\omega C\dot V\)</td><td>\(\frac1{j\omega C}=-j\frac1{\omega C}\)</td><td>\(\frac1{\omega C}\)</td></tr>
-  </table></div>
-  <p>\(\dot Z=\frac{\dot V}{\dot I}\)、\(\dot Y=\frac{\dot I}{\dot V}=\frac1{\dot Z}\)。</p>
-
-  <h3>2.5.5 直列回路と並列回路</h3>
-  <div class="grid2">
-    <div class="card"><b>RLC直列</b>
-      \[\dot Z=R+j\left(\omega L-\tfrac1{\omega C}\right),\quad \dot I=\frac{\dot V}{\dot Z}=\frac{R-j(\omega L-\frac1{\omega C})}{R^2+(\omega L-\frac1{\omega C})^2}\dot V\]
-    </div>
-    <div class="card"><b>RLC並列</b>
-      \[\dot Y=\frac1R+j\left(\omega C-\tfrac1{\omega L}\right),\quad \dot I=\dot Y\dot V\]
-    </div>
-  </div>
-  <p>RL直列（\(\dot V=V\angle0\)）：\(\dot I=\frac{V}{R+j\omega L}=\frac{R-j\omega L}{R^2+(\omega L)^2}V\)、\(\phi=-\tan^{-1}\frac{\omega L}{R}\)。別解として \(\dot Z=R+j\omega L=Ze^{j\theta}\)（\(\theta=\tan^{-1}\frac{\omega L}{R}\)）なら \(\dot I=\frac VZe^{-j\theta}\)。</p>
-
-  <div class="ex"><div class="q"><span class="no">例題2.4・2.5</span>RL直列、\(V=100\)［V］、\(R=40\)、\(\omega L=30\)［Ω］。\(\dot I\) と、\(\dot V_R,\dot V_L\) の位相は？</div>
-    <details><summary>解き方</summary><div class="a">
-      <p>\(\dot V=100\angle0\) を基準に \(\dot Z=40+j30=50e^{j\theta}\)、\(\theta=\tan^{-1}\frac34=36.9°\)。</p>
-      \[\dot I=\frac{100}{50e^{j\theta}}=2e^{-j\theta}\ \Rightarrow\ I=2\ [\mathrm A],\ \text{電流は電圧より }36.9°\text{ 遅れる}\]
-      <p>\(\dot V_R=40\dot I=80e^{-j\theta}\)：\(\dot V\) より 36.9° 遅れる。\(\dot V_L=j30\dot I=60e^{j(\frac{\pi}{2}-\theta)}\)：\(\dot V\) より \(90°-36.9°=53.1°\) 進む。</p>
-      <div class="warn"><b>スライドの誤植：</b>ec8 の例題2.5 に「\(\theta=36.4°\)」とあるけど、\(\tan^{-1}\frac34=36.87°\) なので正しくは <b>36.9°</b>（同じスライドの後半や例題2.4 では 36.9° になってる）。</div>
-    </div></details></div>
-
-  <h3>2.5.6 電圧方程式と複素数による解法</h3>
-  <p>電圧方程式 \(v(t)=Ri+L\frac{di}{dt}+\frac1C\int i\,dt\) は任意の \(v(t)\) で成り立つ。正弦波 \(v=\sqrt2V\sin\omega t=\sqrt2\,\mathrm{Im}(Ve^{j\omega t})\) のときは \(\dot I_t=\dot Ie^{j\omega t}\) とおくと</p>
-  \[\frac{d\dot I_t}{dt}=j\omega\dot Ie^{j\omega t},\qquad \int\dot I_t\,dt=\frac1{j\omega}\dot Ie^{j\omega t}\]
-  <p>つまり<b>微分は \(j\omega\) 倍、積分は \(\frac1{j\omega}\) 倍</b>に置き換わり、微分方程式を解かなくても \(\dot V=\left(R+j\omega L+\frac1{j\omega C}\right)\dot I\) という代数式になる。最後に \(i(t)=\sqrt2\,\mathrm{Im}(\dot Ie^{j\omega t})\) で瞬時値に戻す。</p>
-</section>
-
-<!-- ================= 第6章 電力 ================= -->
-<section class="tab" id="c6" data-title="交流回路の電力" data-short="6. 電力" data-src="ec9">
-  <h2>6. 交流回路の電力</h2>
-  <p class="srcline"><span class="pill after">中間後</span>スライド ec9（2.6）</p>
-
-  <h3>2.6.1 有効電力と力率</h3>
-  <p>\(v=\sqrt2V\sin(\omega t+\phi_V)\)、\(i=\sqrt2I\sin(\omega t+\phi_I)\) のとき、瞬時電力は \(\sin A\sin B=\frac12\{\cos(A-B)-\cos(A+B)\}\) を使って</p>
-  \[p(t)=v\,i=VI\{\cos(\phi_V-\phi_I)-\cos(2\omega t+\phi_V+\phi_I)\}\]
-  <p>第1項は時間で変わらない、第2項は正負を繰り返して平均ゼロ。1周期で積分して平均しても同じ結果。</p>
-  <div class="key"><b>電力の種類</b>（\(\phi=\phi_V-\phi_I\)）
-    <ul style="margin:0">
-      <li>有効電力（active power）\(P=VI\cos\phi\)［W］</li>
-      <li>力率（power factor）\(\cos\phi=\frac{P}{VI}\)：\(VI\) のうちどれだけが有効電力か</li>
-      <li>皮相電力（apparent power）\(H=VI\)［V·A］</li>
-      <li>無効電力（reactive power）\(Q=VI\sin\phi\)［var］</li>
-    </ul>
-  </div>
-
-  <h3>2.6.2 素子ごとの電力</h3>
-  <div class="tw"><table>
-    <tr><th>素子</th><th>電流 I</th><th>位相差 \(\phi\)</th><th>力率</th><th>電力 P</th></tr>
-    <tr><td>R</td><td>\(\frac VR\)</td><td>0</td><td>1</td><td>\(\frac{V^2}R=RI^2\)</td></tr>
-    <tr><td>L</td><td>\(\frac V{\omega L}\)</td><td>\(\frac{\pi}{2}\)</td><td>0</td><td>0</td></tr>
-    <tr><td>C</td><td>\(\omega CV\)</td><td>\(-\frac{\pi}{2}\)</td><td>0</td><td>0</td></tr>
-  </table></div>
-  <p>電力は<b>抵抗でのみ消費</b>される。L と C は電源からの供給と電源への返還を繰り返し、トータルの消費はゼロ。</p>
-
-  <h3>2.6.3 複素数表示と電力</h3>
-  <p>\(\dot V\dot I\) では電力にならない（偏角が \(\phi_V+\phi_I\) になってしまう）。共役 \(\bar{\dot I}=Ie^{-j\phi_I}\) を使うと</p>
-  \[P=VI\cos(\phi_V-\phi_I)=\mathrm{Re}(\dot V\bar{\dot I})=\mathrm{Re}(\bar{\dot V}\dot I),\qquad \dot V\bar{\dot I}=P+jQ,\quad \bar{\dot V}\dot I=P-jQ\]
-  <p>RL直列なら \(P=VI\cos\phi=\frac{R}{Z^2}V^2=\frac{RV^2}{R^2+(\omega L)^2}=RI^2\)。<b>交流でも電力は \(RI^2\)</b>（直流と同じ形）。</p>
-
-  <h3>2.6.4 計算例</h3>
-  <div class="ex"><div class="q"><span class="no">例題2.6</span>RC直列、\(R=30\)［Ω］、\(\frac1{\omega C}=40\)［Ω］、\(V=100\)［V］。電力と力率は？</div>
-    <details><summary>解き方</summary><div class="a">
-      <p>解法1：\(Z=\sqrt{900+1600}=50\)、\(I=2\)［A］、\(P=RI^2=30\times4=120\)［W］、\(\cos\phi=\frac{120}{100\times2}=0.6\)。</p>
-      <p>解法2：\(\dot I=\frac{100}{30-j40}=\frac25(3+j4)\)、\(\bar{\dot I}=\frac25(3-j4)\)、\(P=\mathrm{Re}\{100\cdot\frac25(3-j4)\}=120\)［W］。</p>
-      <p><span class="ans">P = 120 W、力率 0.6</span></p>
-    </div></details></div>
-  <div class="ex"><div class="q"><span class="no">例題2.7</span>(a) 15 Ω と 20 Ω のコイル（\(j20\)）の直列、(b) 25 Ω と 50 Ω のコイル（\(j50\)）の並列に 100 V。電力と力率は？</div>
-    <details><summary>解き方</summary><div class="a">
-      <p>(a) \(\dot I=\frac{100}{15+j20}=\frac45(3-j4)\)、\(I=4\)。\(P=\mathrm{Re}\{100\cdot\frac45(3+j4)\}=240\)［W］（＝\(15\times4^2\)）、\(\cos\phi=\frac{240}{400}=0.6\)。</p>
-      <p>(b) \(\dot I=\frac{100}{25}+\frac{100}{j50}=4-j2\)、\(I=2\sqrt5\)。\(P=\mathrm{Re}\{100(4+j2)\}=400\)［W］（＝\(\frac{100^2}{25}\)）、\(\cos\phi=\frac{400}{100\times2\sqrt5}=\frac{2}{\sqrt5}=\frac{2\sqrt5}5\)。</p>
-    </div></details></div>
-</section>
-
-<!-- ================= 第7章 交流回路網 ================= -->
-<section class="tab" id="c7" data-title="交流回路網の計算と諸定理" data-short="7. 交流回路網" data-src="ec10〜11">
-  <h2>7. 交流回路網の計算と諸定理</h2>
-  <p class="srcline"><span class="pill after">中間後</span>スライド ec10（3.1〜3.6）・ec11（3.7〜3.9）</p>
-  <div class="tip"><b>大事な考え方：</b>直流回路で使った法則・定理（キルヒホッフ、重ね合わせ、テブナン、分圧・分流）は、電圧・電流・抵抗を<b>複素電圧・複素電流・インピーダンス</b>に置き換えれば交流でもそのまま成り立つ。</div>
-
-  <h3>3.1 合成インピーダンス・合成アドミタンス</h3>
-  <div class="grid2">
-    <div class="card"><b>直列</b>\[\dot Z=\dot Z_1+\dot Z_2+\dot Z_3,\quad \dot Y=\frac1{\dot Z}\]</div>
-    <div class="card"><b>並列</b>\[\dot Y=\frac1{\dot Z_1}+\frac1{\dot Z_2}+\frac1{\dot Z_3},\quad \dot Z=\frac1{\dot Y}\]</div>
-  </div>
-  <p>\(\dot Z_1\) の先に \(\dot Z_2\parallel\dot Z_3\)：\(\dot Z=\dot Z_1+\dfrac{\dot Z_2\dot Z_3}{\dot Z_2+\dot Z_3}\)</p>
-
-  <div class="ex"><div class="q"><span class="no">例題3.1</span>(a) 5 Ω の先に「j3 Ω ∥ 4 Ω」、(b)「3 Ω＋j4 Ω」∥「−j5 Ω」の合成インピーダンス</div>
-    <details><summary>解き方</summary><div class="a">
-      \[\text{(a)}\ \dot Z=5+\frac{j12}{4+j3}=5+\frac{j12(4-j3)}{25}=\frac{161+j48}{25},\quad Z=\frac{\sqrt{161^2+48^2}}{25}=\frac{168}{25}=6.72\ [\Omega]\]
-      \[\text{(b)}\ \dot Z=\frac{-j5(3+j4)}{3-j}=\frac{-j5}{10}(3+j4)(3+j)=\frac52(3-j),\quad Z=\frac52\sqrt{10}\ [\Omega]\]
-      <p>（\(161^2+48^2=28225=168^2\) でちょうど割り切れる）</p>
-    </div></details></div>
-
-  <div class="ex"><div class="q"><span class="no">例題3.2</span>(a) R ＋（L ∥ C）、(b) L ＋（R ∥ C）、(c) C ＋（R ∥ L）の合成インピーダンス</div>
-    <details><summary>結果</summary><div class="a">
-      \[\text{(a)}\ \dot Z=R+\frac{j\omega L(-j\frac1{\omega C})}{j(\omega L-\frac1{\omega C})}=R-j\frac{L/C}{\omega L-\frac1{\omega C}}\]
-      \[\text{(b)}\ \dot Z=\frac{R/(\omega C)^2}{R^2+(\frac1{\omega C})^2}+j\left\{\omega L-\frac{R^2/(\omega C)}{R^2+(\frac1{\omega C})^2}\right\}\]
-      \[\text{(c)}\ \dot Z=\frac{R(\omega L)^2}{R^2+(\omega L)^2}+j\left\{\frac{R^2\omega L}{R^2+(\omega L)^2}-\frac1{\omega C}\right\}\]
-    </div></details></div>
-
-  <h3>3.2 分圧と分流</h3>
-  <div class="grid2">
-    <div class="card"><b>分圧（直列）</b>\[\dot V_1=\frac{\dot Z_1}{\dot Z_1+\dot Z_2}\dot V,\quad \dot V_2=\frac{\dot Z_2}{\dot Z_1+\dot Z_2}\dot V\]</div>
-    <div class="card"><b>分流（並列）</b>\[\dot I_1=\frac{\dot Z_2}{\dot Z_1+\dot Z_2}\dot I,\quad \dot I_2=\frac{\dot Z_1}{\dot Z_1+\dot Z_2}\dot I\]</div>
-  </div>
-  <p>直流の抵抗の場合と全く同じ形。</p>
-
-  <h3>3.3 回路計算例</h3>
-  <div class="ex"><div class="q"><span class="no">例題3.3</span>\(v=250\sqrt2\sin\omega t\)［V］に「30 Ω＋j40 Ω」と「80 Ω−j60 Ω」の2枝が並列。全電流 \(i\) は？</div>
-    <details><summary>解き方</summary><div class="a">
-      \[\dot I_1=\frac{250}{30+j40}=3-j4,\quad \dot I_2=\frac{250}{80-j60}=2+j\frac32,\quad \dot I=5\left(1-j\frac12\right)\ [\mathrm A]\]
-      <p>\(I=5\sqrt{1+\frac14}=\frac52\sqrt5\)、\(\phi=-\tan^{-1}\frac12=-26.6°\)。</p>
-      <p><span class="ans">\(i(t)=\frac52\sqrt5\cdot\sqrt2\sin(\omega t-26.6°)\)［A］</span>。合成インピーダンス \(\dot Z=\frac{20(24+j7)}{11-j2}\) から \(\dot I=\dot V/\dot Z\) としても同じ。</p>
-    </div></details></div>
-  <div class="ex"><div class="q"><span class="no">例題3.4</span>\(\dot Z_1\) の先に \(\dot Z_2\parallel\dot Z_3\)、\(\dot Z_3\) の電流 \(\dot I_0\) が与えられたときの \(\dot V\)</div>
-    <details><summary>結果</summary><div class="a">
-      <p>\(\dot V_2=\dot Z_3\dot I_0\)、\(\dot I_2=\frac{\dot Z_3}{\dot Z_2}\dot I_0\)、\(\dot I=\left(1+\frac{\dot Z_3}{\dot Z_2}\right)\dot I_0\)。</p>
-      \[\dot V=\left(\dot Z_1+\dot Z_3+\frac{\dot Z_1\dot Z_3}{\dot Z_2}\right)\dot I_0\]
-    </div></details></div>
-  <div class="ex"><div class="q"><span class="no">例題3.5</span>C の先に R ∥ L。\(\dot V\) と \(\dot I\) が同相になる条件と、そのときの \(\dot I\)</div>
-    <details><summary>解き方</summary><div class="a">
-      <p>例題3.2(c) の虚部をゼロにする：\(\frac{R^2\omega L}{R^2+(\omega L)^2}-\frac1{\omega C}=0\) → \(R^2+(\omega L)^2=R^2\omega^2LC\)、つまり \(R^2(\omega^2LC-1)=(\omega L)^2\)。</p>
-      \[\dot Z=\frac{R(\omega L)^2}{R^2+(\omega L)^2}=\frac{R(\omega L)^2}{R^2\omega^2LC}=\frac{L}{RC},\qquad \dot I=\frac{CR}{L}\dot V\]
-      <div class="warn"><b>スライドの誤植：</b>ec10 のこの式の最初の分数が \(\frac{R^2(\omega L)^2}{R^2+(\omega L)^2}\) になってるけど、実部は \(\frac{R(\omega L)^2}{R^2+(\omega L)^2}\)（R は1乗）。最終結果 \(\frac{L}{RC}\) は正しい。</div>
-      <p>一般に電流と電圧が同相になるには合成インピーダンスの虚部がゼロ（純抵抗）になればいい。周波数に無関係に純抵抗になる回路を<b>定抵抗回路</b>という（教科書 p.91）。</p>
-    </div></details></div>
-  <div class="key"><b>\(\dot Z=a+jb\) のときの位相条件</b>\(\dot I=\frac{a-jb}{a^2+b^2}\dot V\) なので<br>
-    ・電流と電圧が同相：\(b=0\)（虚部ゼロ）<br>・位相差 \(\frac{\pi}{2}\)：\(a=0\)（実部ゼロ）<br>・位相差 \(\frac{\pi}{4}\)：\(a=b\)</div>
-  <div class="ex"><div class="q"><span class="no">例題3.6</span>\(L_0\) の先に「C ∥（R＋L）」。\(\dot I\)（R・L の枝の電流）の位相が \(\dot V\) より \(\frac{\pi}{2}\) 遅れる条件</div>
-    <details><summary>解き方</summary><div class="a">
-      \[\dot I=\frac{\dot V}{R(1-\omega^2CL_0)+j\omega\{L+L_0(1-\omega^2CL)\}}\]
-      <p>分母の実部がゼロ → \(\omega^2CL_0=1\)。このとき分母は \(j\omega L_0\) になり \(\dot I=\frac{\dot V}{j\omega L_0}\)：<b>R に無関係</b>。</p>
-      <p>一般に「\(\dot Z_1\) の先に \(\dot Z_2\parallel\dot Z\)」で \(\dot Z_1=-\dot Z_2\) なら \(\dot I=\frac{\dot V}{\dot Z_1}\) となり負荷 \(\dot Z\) に無関係（<b>ブーシェロの回路</b>）。理由：\(\dot I=\frac{\dot Z_2\dot V}{\dot Z_1\dot Z_2+(\dot Z_1+\dot Z_2)\dot Z}\) の \(\dot Z\) の係数がゼロになるから。</p>
-    </div></details></div>
-
-  <h3>3.4 電位と電位差</h3>
-  <p>電源の \(\dot V\) は <b>b 点を基準にした a 点の電位</b>（複素数表示でも意味は同じ）。c 点から d 点へ電流 \(\dot I\) が流れるとき c 点の方が電位が高く、電圧降下 \(\dot V=\dot Z\dot I\) は電流と逆向きの矢印で描く。</p>
-
-  <h3>3.5 電圧源と電流源</h3>
-  <ul>
-    <li>理想的には、どんな素子をつないでも端子電圧（電流）が一定に保たれるもの。</li>
-    <li>定電圧源の直列：\(\dot V=\dot V_1+\dot V_2+\dot V_3\)。定電流源の並列：\(\dot I=\dot I_1+\dot I_2+\dot I_3\)。</li>
-    <li>現実の電圧源：\(\dot V=\dot V_0-\dot Z_0\dot I_V\)（理想なら \(\dot Z_0=0\)）。現実の電流源：\(\dot I_I=\dot I_0-\dot Y_0\dot V\)（理想なら \(\dot Y_0=0\)、内部インピーダンス無限大）。</li>
-  </ul>
-  <div class="key"><b>電源の等価変換</b>\[\dot Z_0=\frac1{\dot Y_0},\quad \dot V_0=\frac{\dot I_0}{\dot Y_0}\qquad\Longleftrightarrow\qquad \dot Y_0=\frac1{\dot Z_0},\quad \dot I_0=\frac{\dot V_0}{\dot Z_0}\]</div>
-  <div class="ex"><div class="q"><span class="no">例題3.7</span>起電力 \(\dot E=8+j6\)［V］と R＝5 Ω の直列に、C（−j10 Ω）が並列。等価な電流源・電圧源は？</div>
-    <details><summary>解き方</summary><div class="a">
-      <p>電流源へ：\(\dot I_0=\frac{\dot E}{R}=\frac25(4+j3)\)［A］、\(\dot Y_0=\frac15+\frac1{-j10}=\frac1{10}(2+j)\)［S］。</p>
-      <p>さらに電圧源へ：\(\dot Z_0=\frac{10}{2+j}=2(2-j)\)［Ω］、\(\dot V_0=\frac{\dot I_0}{\dot Y_0}=\frac25(4+j3)\cdot2(2-j)=\frac45(11+j2)\)［V］。</p>
-    </div></details></div>
-
-  <h3>3.6 キルヒホッフの法則（交流）</h3>
-  <p>電源が1個でも複数でも三相交流でも、どんな回路でも使える。<b>枝電流法</b>（各枝の電流を仮定）と<b>閉路電流法</b>（閉路ごとの電流を仮定）は本質的に同じで、結果も等しい。</p>
-  <div class="grid2">
-    <div class="card"><b>枝電流法</b>（2電源・3枝の例）<br>\(\dot I_1+\dot I_2=\dot I_3\)<br>\(\dot V_1-\dot V_2=\dot Z_1\dot I_1-\dot Z_2\dot I_2\)<br>\(\dot V_2=\dot Z_2\dot I_2+\dot Z_3\dot I_3\)<br>3式から \(\dot I_1,\dot I_2,\dot I_3\)</div>
-    <div class="card"><b>閉路電流法</b><br>\(\dot V_1-\dot V_2=\dot Z_1\dot I_a+\dot Z_2(\dot I_a-\dot I_b)\)<br>\(\dot V_2=\dot Z_2(\dot I_b-\dot I_a)+\dot Z_3\dot I_b\)<br>2式から \(\dot I_a,\dot I_b\)</div>
-  </div>
-
-  <h3>3.7〜3.8 重ね合わせの理とテブナンの定理（交流）</h3>
-  <p>重ね合わせ：電源ごとに回路を分けて電流を求め、<b>向きを考慮して</b>足す（例：\(\dot I_1=\dot I_1'-\dot I_1''\)）。</p>
-  <p>テブナン：\(\dot Z_3\) を切り離したときの端子 ab 間の電圧を \(\dot V_0\)、端子 ab から見た合成インピーダンスを \(\dot Z_0\)（電圧源は短絡）とすると</p>
-  \[\dot I_3=\frac{\dot V_0}{\dot Z_0+\dot Z_3}\]
-  <p>＝「\(\dot Z_3\) を切り離した回路を、電源 \(\dot V_0\)・内部インピーダンス \(\dot Z_0\) の等価電圧源に置き換えた」のと同じ。</p>
-
-  <div class="ex"><div class="q"><span class="no">例題3.8</span>中心の枝（2 Ω と −j Ω の直列）を流れる電流 \(\dot I\)（下向き）を3つの方法で求める。</div>
-    <figure><svg class="circ" viewBox="0 0 500 230" role="img" aria-label="例題3.8の回路"><defs><marker id="c7ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahp"/></marker><marker id="c7ahc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahcp"/></marker></defs><line x1="40" y1="40" x2="40" y2="101.0"/><line x1="40" y1="129.0" x2="40" y2="190"/><circle cx="40" cy="115.0" r="14" class="part"/><path d="M32,115.0 q4,-8 8,0 t8,0" fill="none"/><line x1="64" y1="127.0" x2="64" y2="103.0" marker-end="url(#c7ah)"/><text x="72" y="120.0" text-anchor="start">V̇₁=j30 V</text><polyline points="40,40 60,40" fill="none"/><line x1="60" y1="40" x2="120.0" y2="40"/><line x1="160.0" y1="40" x2="220" y2="40"/><rect x="120.0" y="32" width="40" height="16" class="part"/><text x="140.0" y="26" text-anchor="middle">3 Ω</text><line x1="220" y1="40" x2="290.0" y2="40"/><line x1="330.0" y1="40" x2="400" y2="40"/><path d="M290.0,40 a5,5 0 0 1 10,0 a5,5 0 0 1 10,0 a5,5 0 0 1 10,0 a5,5 0 0 1 10,0" fill="none"/><text x="310.0" y="26" text-anchor="middle">j3 Ω</text><polyline points="400,40 440,40" fill="none"/><line x1="220" y1="40" x2="220" y2="57.5"/><line x1="220" y1="97.5" x2="220" y2="115"/><rect x="212" y="57.5" width="16" height="40" class="part"/><text x="234" y="82.5" text-anchor="start">2 Ω</text><line x1="220" y1="115" x2="220" y2="147.5"/><line x1="220" y1="157.5" x2="220" y2="190"/><line x1="206" y1="147.5" x2="234" y2="147.5" class="thick"/><line x1="206" y1="157.5" x2="234" y2="157.5" class="thick"/><text x="240" y="157.5" text-anchor="start">−j Ω</text><line x1="440" y1="40" x2="440" y2="101.0"/><line x1="440" y1="129.0" x2="440" y2="190"/><circle cx="440" cy="115.0" r="14" class="part"/><path d="M432,115.0 q4,-8 8,0 t8,0" fill="none"/><line x1="416" y1="103.0" x2="416" y2="127.0" marker-end="url(#c7ah)"/><text x="408" y="120.0" text-anchor="end">V̇₂=30 V</text><polyline points="40,190 440,190" fill="none"/><circle cx="220" cy="40" r="3.2" class="dot"/><circle cx="220" cy="190" r="3.2" class="dot"/><line x1="204" y1="62" x2="204" y2="96" class="cur" marker-end="url(#c7ahc)"/><text x="196.0" y="83.0" text-anchor="end" class="curl">İ</text></svg><figcaption>電源の矢印は電位の高い側を指す（V̇₁ は上が高い、V̇₂ は下が高い）</figcaption></figure>
-    <details><summary>解き方</summary><div class="a">
-      <p><b>(1) キルヒホッフ（閉路電流法）</b>：\(j30=3\dot I_a+(2-j)(\dot I_a-\dot I_b)\)、\(30=(2-j)(\dot I_b-\dot I_a)+j3\dot I_b\)。解くと \(\dot I_b=\frac{10(6+j)}{3+j4}\)、\(\dot I=\dot I_a-\dot I_b=-\frac{12}5(3-j4)\)（大変な計算）。</p>
-      <p><b>(2) 重ね合わせ</b>：\(\dot V_1\) だけのとき \(\dot Z_a=3+\frac{j3(2-j)}{2(1+j)}=\frac{9+j12}{2(1+j)}\)、\(\dot I_{0a}=\frac{j20(1+j)}{3+j4}\)、分流して \(\dot I'=\frac{j3}{2(1+j)}\dot I_{0a}=-\frac{30}{3+j4}\)。\(\dot V_2\) だけのとき \(\dot Z_b=\frac{9+j12}{5-j}\)、\(\dot I_{0b}=\frac{10(5-j)}{3+j4}\)、\(\dot I''=\frac3{5-j}\dot I_{0b}=\frac{30}{3+j4}\)。\(\dot I=\dot I'-\dot I''=\frac{-60}{3+j4}=-\frac{12}5(3-j4)\)。</p>
-      <p><b>(3) テブナン</b>：中心の枝を外すと \(\dot I_0=\frac{\dot V_1+\dot V_2}{3+j3}=10\)、\(\dot V_0=\dot V_1-3\dot I_0=-30(1-j)\)。\(\dot Z_0=\frac{3\cdot j3}{3+j3}=\frac{j3}{1+j}\)。</p>
-      \[\dot I=\frac{\dot V_0}{\dot Z_0+2-j}=\frac{-30(1-j)(1+j)}{j3+(2-j)(1+j)}=\frac{-60}{3+j4}=-\frac{12}5(3-j4)\ [\mathrm A]\]
-      <p><span class="ans">\(\dot I=-\frac{12}5(3-j4)=-7.2+j9.6\)［A］、大きさ 12 A</span>。テブナンが一番ラク。</p>
-    </div></details></div>
-
-  <h3>3.9 その他の定理</h3>
-  <div class="grid2">
-    <div class="card"><b>ミルマンの定理</b>（電圧源＋インピーダンスの枝が n 本並列）
-      \[\dot V=\frac{\frac{\dot V_1}{\dot Z_1}+\frac{\dot V_2}{\dot Z_2}+\cdots+\frac{\dot V_n}{\dot Z_n}}{\frac1{\dot Z_1}+\frac1{\dot Z_2}+\cdots+\frac1{\dot Z_n}}\]
-      各枝を電流源に変換して並列に足したもの。
-    </div>
-    <div class="card"><b>ノートンの定理</b>
-      ab を短絡したとき流れる電流 \(\dot I_0\)、ab から見た回路網のアドミタンス \(\dot Y_0\) とすると、負荷 \(\dot Y\) の電圧は
-      \[\dot V=\frac{\dot I_0}{\dot Y_0+\dot Y}\]
-      ab から見た回路網を等価な電流源に変換している。
-    </div>
-  </div>
-  <div class="ex"><div class="q"><span class="no">例題3.9</span>\(\dot V_1\)—L—（C ∥ R）。R の両端の電圧 \(\dot V\) は？</div>
-    <details><summary>解き方</summary><div class="a">
-      <p>R を外して ab を短絡：\(\dot I_0=\frac{\dot V_1}{j\omega L}\)。ab から見た LC 並列：\(\dot Y_0=\frac1{j\omega L}+j\omega C\)。</p>
-      \[\dot V=\frac{\dot I_0}{\dot Y_0+\frac1R}=\frac{\dot V_1}{1-\omega^2LC+\frac{j\omega L}R}=\frac{R\dot V_1}{R(1-\omega^2LC)+j\omega L}\]
-    </div></details></div>
-</section>
-
-<!-- ================= 第8章 ブリッジ・回路網方程式 ================= -->
-<section class="tab" id="c8" data-title="交流ブリッジと回路網方程式" data-short="8. ブリッジ・回路網方程式" data-src="ec12">
-  <h2>8. 交流ブリッジと回路網方程式</h2>
-  <p class="srcline"><span class="pill after">中間後</span>スライド ec12（3.10、4.1〜4.4）</p>
-
-  <h3>3.10 交流ブリッジ</h3>
-  <p>a-b に \(\dot Z_1\)、b-d に \(\dot Z_3\)、a-c に \(\dot Z_2\)、c-d に \(\dot Z_4\)、b-c に \(\dot Z_5\)、a-d に電源 \(\dot V\)。\(\dot Z_5\) の電流をテブナンで求める。</p>
-  <p>\(\dot Z_5\) を外すと \(\dot I_1=\frac{\dot V}{\dot Z_1+\dot Z_3}\)、\(\dot I_2=\frac{\dot V}{\dot Z_2+\dot Z_4}\)、d を基準に</p>
-  \[\dot V_0=\dot V_b-\dot V_c=\dot Z_3\dot I_1-\dot Z_4\dot I_2=\frac{\dot Z_2\dot Z_3-\dot Z_1\dot Z_4}{(\dot Z_1+\dot Z_3)(\dot Z_2+\dot Z_4)}\dot V,\qquad \dot Z_0=\frac{\dot Z_1\dot Z_3}{\dot Z_1+\dot Z_3}+\frac{\dot Z_2\dot Z_4}{\dot Z_2+\dot Z_4}\]
-  \[\dot I_g=\frac{\dot V_0}{\dot Z_0+\dot Z_5}=\frac{\dot Z_2\dot Z_3-\dot Z_1\dot Z_4}{\dot Z_1\dot Z_3(\dot Z_2+\dot Z_4)+\dot Z_2\dot Z_4(\dot Z_1+\dot Z_3)+\dot Z_5(\dot Z_1+\dot Z_3)(\dot Z_2+\dot Z_4)}\dot V\]
-  <div class="key"><b>交流ブリッジの平衡条件（\(\dot I_g=0\)）</b>\[\dot Z_2\dot Z_3=\dot Z_1\dot Z_4\]
-  抵抗・インダクタンス・静電容量の測定に使う。複素数なので \(a+jb=c+jd\) の形にして <b>実部同士・虚部同士</b>を等しくおく（条件が2つ出る）。</div>
-  <div class="ex"><div class="q"><span class="no">例題3.10</span>平衡条件が \(R_1R_3=(R_2+j\omega L)\cdot(R_4\parallel C)\) となるブリッジで、\(R_1,R_3,R_4,C\) が既知のとき \(R_2\) と \(L\) は？</div>
-    <details><summary>解き方</summary><div class="a">
-      \[R_1R_3=(R_2+j\omega L)\frac{R_4}{1+j\omega CR_4}=\frac{R_4(R_2+\omega^2LCR_4)+j\omega R_4(L-CR_2R_4)}{1+\omega^2C^2R_4^2}\]
-      <p>虚部ゼロ：\(L=CR_2R_4\)。実部に代入：\(R_1R_3=\frac{R_4R_2(1+\omega^2C^2R_4^2)}{1+\omega^2C^2R_4^2}=R_2R_4\)。</p>
-      <p><span class="ans">\(R_2=\dfrac{R_1R_3}{R_4}\)、\(L=CR_1R_3\)</span>（周波数に無関係）</p>
-    </div></details></div>
-
-  <h3>4.1〜4.2 節点・枝・閉路・木・補木</h3>
-  <ul>
-    <li><b>節点</b>（node）：回路素子の接続点。<b>枝</b>（branch）：隣接する節点間の線路。<b>閉路</b>（loop）：同じ枝を通らずに元の接点へ戻る経路。</li>
-    <li><b>木</b>（tree）：閉路を含まずにすべての節点を結ぶ最小限の枝の集合。<b>補木</b>（co-tree）：木に属さない枝の集合。</li>
-    <li>節点数 n、枝数 b のとき、木の枝数 \(n-1\)、補木の枝数 \(b-(n-1)\)。</li>
-    <li>補木の枝を木に1本ずつ足すたびに独立な閉路が1つできる → <b>独立な閉路の数 ＝ \(b-(n-1)\)</b>。</li>
-  </ul>
-
-  <h3>4.3 回路網方程式の立て方</h3>
-  <h4>4.3.1 枝電流法</h4>
-  <p>枝の電流を未知数にするので必要な式は b 本：第1法則で独立な式 \(n-1\) 本＋第2法則で \(b-(n-1)\) 本。わかりやすい反面、式が多くて複雑な回路には不向き。</p>
-  <h4>4.3.2 閉路電流法</h4>
-  <p>第2法則だけを使い、式の数は独立な閉路の数。整理すると \([\text{電源電圧}]=[\dot Z_{ij}][\text{閉路電流}]\) の行列になる。</p>
-  \[\begin{bmatrix}\dot V_1-\dot V_2\\ \dot V_2\\ 0\end{bmatrix}=\begin{bmatrix}\dot Z_0+\dot Z_3+\dot Z_4&-\dot Z_3&-\dot Z_4\\-\dot Z_3&\dot Z_1+\dot Z_3+\dot Z_5&-\dot Z_5\\-\dot Z_4&-\dot Z_5&\dot Z_2+\dot Z_4+\dot Z_5\end{bmatrix}\begin{bmatrix}\dot I_a\\ \dot I_b\\ \dot I_c\end{bmatrix}\]
-  <div class="key"><b>インピーダンス行列のチェック</b>
-    ① 対角要素 \(\dot Z_{ii}\) は常に正で、i 番目の閉路に含まれるインピーダンスの総和<br>
-    ② 非対角 \(\dot Z_{ij}\) は i と j の閉路に共通なインピーダンスの代数和。符号は閉路電流の向きが同じなら正、逆なら負（全部同じ回転向きに仮定すると共通素子では必ず逆向き → 常にゼロか負）。共通素子がなければ 0<br>
-    ③ \(\dot Z_{ij}=\dot Z_{ji}\)（対称行列）<br>
-    閉路電流法を使うには電源を<b>電圧源</b>にする（電流源は等価な電圧源に変換）。
-  </div>
-  <h3>4.4 節点電位法</h3>
-  <p>n 個の節点のうち1つを基準（0）にとり、残り \(n-1\) 個の節点電位を未知数として第1法則を立てる。電源は<b>電流源</b>にする（電圧源は等価な電流源に変換）。流出を正、流入を負として整理すると</p>
-  \[\begin{bmatrix}\dot I_1+\dot I_2\\0\\-\dot I_2\end{bmatrix}=\begin{bmatrix}\dot Y_0+\dot Y_1+\dot Y_3&-\dot Y_1&-\dot Y_3\\-\dot Y_1&\dot Y_1+\dot Y_2+\dot Y_5&-\dot Y_5\\-\dot Y_3&-\dot Y_5&\dot Y_3+\dot Y_4+\dot Y_5\end{bmatrix}\begin{bmatrix}\dot V_1\\ \dot V_2\\ \dot V_3\end{bmatrix}\]
-  <div class="key"><b>アドミタンス行列のチェック</b>
-    ① 対角 \(\dot Y_{ii}\)：i 番目の節点につながるアドミタンスの総和（常に正）<br>
-    ② 非対角 \(\dot Y_{ij}\)：i と j の節点をつなぐアドミタンスにマイナスを付けたもの（つながってなければ 0）<br>
-    ③ \(\dot Y_{ij}=\dot Y_{ji}\)（対称行列）
-  </div>
-  <p>閉路電流法と節点電位法は回路によって便利な方を使う。行列表現はクラーメルの方法（教科書 p.123）で解くことにつながる。</p>
-</section>
-
 <!-- ================= 演習 ================= -->
 <section class="tab" id="ex" data-title="演習問題1〜5 解答" data-short="演習1〜5 解答" data-src="演習">
   <h2>演習問題 1〜5 の解答</h2>
-  <p class="srcline"><span class="pill">中間範囲</span>「演習問題と同様の記述式を4題」なので最重要。まず自分で解いてから解答を開く。数値は全部計算し直して確認済み。</p>
+  <p class="srcline">「演習問題と同様の記述式を4題」なので最重要。まず自分で解いてから解答を開く。数値は全部計算し直して確認済み。</p>
 
   <h3>演習問題 1（回路素子）</h3>
   <div class="ex"><div class="q"><span class="no">問1</span>以下の語について説明せよ。(a) 電気回路 (b) 線形素子 (c) 受動素子 (d) 直流 (e) 交流</div>
@@ -940,7 +670,6 @@ svg.wave .i { stroke: var(--accent); stroke-width: 2.4; fill: none; stroke-dasha
       \[X_L=\omega L=2\pi\times10^5\times10^{-3}=200\pi\approx628.3\ \Omega,\qquad X_C=\frac1{2\pi\times10^5\times10^{-8}}=\frac{500}{\pi}\approx159.2\ \Omega\]
       <p>\(X=X_L-X_C=200\pi-\frac{500}\pi\approx469.2\) Ω（誘導性）</p>
       \[Z=\sqrt{200^2+469.2^2}\approx510\ \Omega,\qquad Y=\frac1Z\approx1.96\times10^{-3}\ \mathrm S\]
-      <p>複素数で書くなら \(\dot Z=200+j469.2\) Ω、\(\dot Y=\frac{200-j469.2}{200^2+469.2^2}\approx(0.769-j1.804)\times10^{-3}\) S。</p>
       <p>\(\phi=\tan^{-1}\frac{469.2}{200}\approx66.9°\)。</p>
       <p><span class="ans">X ≈ 469 Ω、Z ≈ 510 Ω、Y ≈ 1.96×10⁻³ S、電圧が電流より約 66.9° 進む</span></p>
       <div class="tip"><b>電卓なしなら：</b>\(\pi\approx3.14\) で \(628-159=469\)。\(469^2\approx2.2\times10^5\) に \(4\times10^4\) を足して \(\sqrt{2.6\times10^5}\approx510\)。</div>
@@ -952,13 +681,14 @@ svg.wave .i { stroke: var(--accent); stroke-width: 2.4; fill: none; stroke-dasha
     </div></details></div>
   <div class="ex"><div class="q"><span class="no">問4</span>角周波数 ω の交流電圧源に、R＝10 Ω、ωL＝30 Ω、1/ωC＝15 Ω の3素子を並列に接続した回路のアドミタンス Y を求めよ。また、周波数 f が2倍になったとき Y は何倍になるか。</div>
     <details><summary>解答</summary><div class="a">
-      \[\dot Y=\frac1{10}+\frac1{j30}+\frac1{-j15}=\frac1{10}-j\frac1{30}+j\frac1{15}=\frac1{10}+j\frac1{30}\ [\mathrm S]\]
-      \[Y=|\dot Y|=\sqrt{\frac1{100}+\frac1{900}}=\frac{\sqrt{10}}{30}\approx0.105\ \mathrm S\]
-      <p>f が2倍 → ωL＝60 Ω、1/ωC＝7.5 Ω（半分）：</p>
-      \[\dot Y'=\frac1{10}-j\frac1{60}+j\frac1{7.5}=\frac1{10}+j\frac7{60},\qquad Y'=\frac{\sqrt{36+49}}{60}=\frac{\sqrt{85}}{60}\approx0.154\ \mathrm S\]
+      <p>RLC並列のアドミタンスの式（ec5）に \(\frac1R=\frac1{10}\)、\(\omega C=\frac1{15}\)、\(\frac1{\omega L}=\frac1{30}\) を入れる。</p>
+      \[Y=\sqrt{\frac1{R^2}+\left(\omega C-\frac1{\omega L}\right)^2}=\sqrt{\frac1{100}+\left(\frac1{15}-\frac1{30}\right)^2}=\sqrt{\frac1{100}+\frac1{900}}=\frac{\sqrt{10}}{30}\approx0.105\ \mathrm S\]
+      <p>\(\omega C>\frac1{\omega L}\) なので容量性で、電流は電圧より \(\tan^{-1}R(\omega C-\frac1{\omega L})=\tan^{-1}\frac13\approx18.4°\) 進む。</p>
+      <p>f が2倍 → ωL＝60 Ω（2倍）、1/ωC＝7.5 Ω（半分）なので \(\omega C=\frac2{15}\)、\(\frac1{\omega L}=\frac1{60}\)：</p>
+      \[Y'=\sqrt{\frac1{100}+\left(\frac2{15}-\frac1{60}\right)^2}=\sqrt{\frac1{100}+\left(\frac7{60}\right)^2}=\frac{\sqrt{36+49}}{60}=\frac{\sqrt{85}}{60}\approx0.154\ \mathrm S\]
       \[\frac{Y'}{Y}=\frac{\sqrt{85}/60}{\sqrt{10}/30}=\frac{\sqrt{85}}{2\sqrt{10}}=\frac{\sqrt{8.5}}{2}\approx1.46\]
-      <p><span class="ans">\(\dot Y=0.1+j0.033\) S（大きさ \(\frac{\sqrt{10}}{30}\approx0.105\) S）、周波数2倍で大きさは約 1.46 倍</span></p>
-      <div class="warn"><b>符号の注意：</b>\(\frac1{j30}=-j\frac1{30}\)（コイルは負のサセプタンス）、\(\frac1{-j15}=+j\frac1{15}\)（コンデンサは正）。</div>
+      <p><span class="ans">\(Y=\frac{\sqrt{10}}{30}\approx0.105\) S、周波数2倍で約 1.46 倍（\(\frac{\sqrt{8.5}}{2}\) 倍）</span></p>
+      <div class="warn"><b>よくあるミス：</b>\(\frac1{\omega C}=15\) Ω を \(\omega C=15\) と取り違えない。並列では \(\omega C=\frac1{15}\) S、\(\frac1{\omega L}=\frac1{30}\) S のように<b>逆数</b>で足し引きする。</div>
     </div></details></div>
 </section>
 
@@ -991,20 +721,21 @@ svg.wave .i { stroke: var(--accent); stroke-width: 2.4; fill: none; stroke-dasha
       <p>(2) \(|v|=L\left|\frac{\Delta i}{\Delta t}\right|=2\times10^{-3}\times\frac{0.2}{0.01}=4\times10^{-2}\) V。<span class="ans">40 mV</span></p>
     </div></details></div>
 
-  <div class="ex"><div class="q"><span class="no">問4</span>R＝20 Ω、ωL＝10 Ω、1/ωC＝20 Ω の3素子を並列に接続し、実効値 100 V の交流電圧を加えた。(1) アドミタンス \(\dot Y\) とその大きさ (2) 全電流の実効値と電圧との位相差 (3) 周波数を2倍にしたときのアドミタンスと位相差 (4) この3素子を直列にしたときの共振角周波数は元の ω の何倍か。</div>
+  <div class="ex"><div class="q"><span class="no">問4</span>R＝20 Ω、ωL＝10 Ω、1/ωC＝20 Ω の3素子を並列に接続し、実効値 100 V の交流電圧を加えた。(1) アドミタンス Y (2) 全電流の実効値と電圧との位相差 (3) 周波数を2倍にしたときのアドミタンスと位相差 (4) この3素子を直列にしたときの共振角周波数は元の ω の何倍か。</div>
     <details><summary>解答</summary><div class="a">
-      <p>(1) \(\dot Y=\frac1{20}+\frac1{j10}+\frac1{-j20}=0.05-j0.1+j0.05=0.05-j0.05\) S、\(Y=0.05\sqrt2\approx0.0707\) S</p>
-      <p>(2) \(I=YV=5\sqrt2\approx7.07\) A、\(\phi=\tan^{-1}\frac{-0.05}{0.05}=-45°\)：<span class="ans">電流が電圧より 45° 遅れる</span></p>
-      <p>(3) ωL＝20 Ω、1/ωC＝10 Ω になり \(\dot Y'=0.05-j0.05+j0.1=0.05+j0.05\) S。大きさは<b>同じ</b> \(0.05\sqrt2\) S（1倍）だが、今度は<b>電流が 45° 進む</b>。</p>
+      <p>(1) \(\frac1R=0.05\)、\(\omega C=\frac1{20}=0.05\)、\(\frac1{\omega L}=\frac1{10}=0.1\)［S］。</p>
+      \[Y=\sqrt{0.05^2+(0.05-0.1)^2}=0.05\sqrt2\approx0.0707\ \mathrm S\]
+      <p>(2) \(I=YV=5\sqrt2\approx7.07\) A、\(\phi=\tan^{-1}R\left(\omega C-\frac1{\omega L}\right)=\tan^{-1}\{20\times(-0.05)\}=\tan^{-1}(-1)=-45°\)：<span class="ans">電流が電圧より 45° 遅れる</span></p>
+      <p>(3) ωL＝20 Ω、1/ωC＝10 Ω になり \(\omega C=0.1\)、\(\frac1{\omega L}=0.05\)。\(Y'=\sqrt{0.05^2+0.05^2}=0.05\sqrt2\) S で大きさは<b>同じ</b>（1倍）だが、\(\phi=\tan^{-1}(+1)=+45°\) で今度は<b>電流が 45° 進む</b>。</p>
       <p>(4) \(L=\frac{10}{\omega}\)、\(C=\frac1{20\omega}\) より \(LC=\frac{1}{2\omega^2}\)、\(\omega_0=\frac1{\sqrt{LC}}=\sqrt2\,\omega\)。<span class="ans">√2 倍（約1.41倍）</span></p>
     </div></details></div>
 </section>
 
 <!-- ================= 公式シート ================= -->
-<section class="tab" id="sheet" data-title="公式シート" data-short="公式シート" data-src="全範囲">
+<section class="tab" id="sheet" data-title="公式シート" data-short="公式シート" data-src="ec1〜6">
   <h2>公式シート（直前見直し用）</h2>
-  <p class="srcline">試験は資料持ち込み不可なので、ここにある式は全部頭に入れておく。</p>
-  <div class="tw"><table>
+  <p class="srcline">試験範囲（ec1〜ec6）の式。資料持ち込み不可なので全部頭に入れておく。</p>
+  <div class="tw"><table class="sheet">
     <tr><th>項目</th><th>式</th></tr>
     <tr><td>R・L・C</td><td>\(v=Ri\)、\(v=L\frac{di}{dt}\)、\(i=C\frac{dv}{dt}\)、\(v=\frac1C\int i\,dt\)</td></tr>
     <tr><td>L・C の定義</td><td>\(L=\frac{N\Phi}{i}\)［H=Wb/A］、\(C=\frac QV\)［F=C/V］</td></tr>
@@ -1016,19 +747,17 @@ svg.wave .i { stroke: var(--accent); stroke-width: 2.4; fill: none; stroke-dasha
     <tr><td>キルヒホッフ</td><td>\(\sum I_k=0\)、閉路で（起電力の和）＝（電圧降下の和）</td></tr>
     <tr><td>重ね合わせ</td><td>電圧源→短絡、電流源→開放して、各電源の結果を向きを考えて足す</td></tr>
     <tr><td>テブナン</td><td>\(I=\frac{V_0}{R_0+R_L}\)（\(R_0\)：電源を除いて端子から見た抵抗）</td></tr>
-    <tr><td>ブリッジ平衡</td><td>\(R_1R_4=R_2R_3\)（向かい合う辺の積）、交流 \(\dot Z_2\dot Z_3=\dot Z_1\dot Z_4\)</td></tr>
+    <tr><td>ブリッジ平衡</td><td>\(R_1R_4=R_2R_3\)（向かい合う辺の積）</td></tr>
     <tr><td>電力（直流）</td><td>\(P=VI=RI^2=\frac{V^2}R\)、\(W=VIt\)、\(Q=RI^2t\)</td></tr>
     <tr><td>正弦波</td><td>\(\omega=2\pi f=\frac{2\pi}T\)、\(V_m=\sqrt2V\)、\(+\phi\) は進み（左シフト）</td></tr>
     <tr><td>位相（素子）</td><td>R：同相、L：電圧が \(\frac\pi2\) 進む（\(X_L=\omega L\)）、C：電流が \(\frac\pi2\) 進む（\(X_C=\frac1{\omega C}\)）</td></tr>
     <tr><td>RLC直列</td><td>\(Z=\sqrt{R^2+(\omega L-\frac1{\omega C})^2}\)、\(\phi=-\tan^{-1}\frac{\omega L-\frac1{\omega C}}{R}\)（電流の進み）</td></tr>
     <tr><td>RLC並列</td><td>\(Y=\sqrt{\frac1{R^2}+(\omega C-\frac1{\omega L})^2}\)、\(\phi=\tan^{-1}R(\omega C-\frac1{\omega L})\)</td></tr>
     <tr><td>直列共振</td><td>\(\omega_0=\frac1{\sqrt{LC}}\)、\(f_0=\frac1{2\pi\sqrt{LC}}\)、\(Z=R\)、\(\phi=0\)</td></tr>
-    <tr><td>複素数表示</td><td>\(\dot Z_R=R\)、\(\dot Z_L=j\omega L\)、\(\dot Z_C=-j\frac1{\omega C}\)、\(\dot Y=\frac1{\dot Z}\)</td></tr>
-    <tr><td>交流電力</td><td>\(P=VI\cos\phi=\mathrm{Re}(\dot V\bar{\dot I})=RI^2\)、\(Q=VI\sin\phi\)、皮相 \(VI\)［V·A］</td></tr>
-    <tr><td>電源変換</td><td>\(\dot Z_0=\frac1{\dot Y_0}\)、\(\dot V_0=\frac{\dot I_0}{\dot Y_0}\)、\(\dot I_0=\frac{\dot V_0}{\dot Z_0}\)</td></tr>
-    <tr><td>ミルマン</td><td>\(\dot V=\frac{\sum\dot V_k/\dot Z_k}{\sum1/\dot Z_k}\)</td></tr>
-    <tr><td>ノートン</td><td>\(\dot V=\frac{\dot I_0}{\dot Y_0+\dot Y}\)</td></tr>
-    <tr><td>回路網</td><td>独立な閉路の数 \(b-(n-1)\)、節点電位法の式の数 \(n-1\)</td></tr>
+    <tr><td>未定係数法</td><td>\(\sqrt2I\sin(\omega t+\phi)=\sqrt2I(\sin\omega t\cos\phi+\cos\omega t\sin\phi)\) と係数比較 → 二乗して足すと \(I\)、割ると \(\tan\phi\)</td></tr>
+    <tr><td>直並列</td><td>\(I=\sqrt{(\sum I_k\cos\phi_k)^2+(\sum I_k\sin\phi_k)^2}\)、\(\tan\phi=\frac{\sum I_k\sin\phi_k}{\sum I_k\cos\phi_k}\)</td></tr>
+    <tr><td>フェーザ</td><td>直列は電流基準 \(V=\sqrt{V_R^2+(V_L-V_C)^2}\)、並列は電圧基準 \(I=\sqrt{I_R^2+(I_C-I_L)^2}\)</td></tr>
+    <tr><td>名前</td><td>Z：インピーダンス［Ω］（R レジスタンス、X リアクタンス）、Y：アドミタンス［S］（G コンダクタンス、B サセプタンス）、\(Y=\frac1Z\)</td></tr>
   </table></div>
 </section>
 
