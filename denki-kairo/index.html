@@ -152,7 +152,7 @@ table.sheet td:first-child, table.sheet th:first-child { width: 6.5em; }
   <div class="wrap">
     <a class="back" href="../">← 講義一覧</a>
     <h1>電気回路及び演習 Ⅰ<br><span>中間対策ノート</span></h1>
-    <p>試験範囲の講義スライド ec1〜ec6 と演習問題1〜5をまとめたノート。例題・演習の数値は全部計算し直して確認済み。</p>
+    <p>試験範囲の講義スライド ec1〜ec6 と演習問題1〜6をまとめたノート。例題・演習の数値は全部計算し直して確認済み。</p>
   </div>
 </header>
 
@@ -182,7 +182,7 @@ table.sheet td:first-child, table.sheet th:first-child { width: 6.5em; }
       <b>このノートの範囲</b>
       <ul>
         <li>スライド ec1〜ec6（回路素子と直流回路、正弦波交流、インピーダンスとアドミタンス、フェーザ）</li>
-        <li>演習問題 1〜5（全問解答つき）</li>
+        <li>演習問題 1〜6（全問解答つき）</li>
       </ul>
       <p style="font-size:13.5px;color:var(--muted);margin:0">試験範囲は ec6 まで。複素数表示（ec8）以降は範囲外なので載せていない。</p>
     </div>
@@ -190,7 +190,7 @@ table.sheet td:first-child, table.sheet th:first-child { width: 6.5em; }
 
   
 
-  <h3>演習1〜5の出題パターン（＝試験に出やすい型）</h3>
+  <h3>演習1〜6の出題パターン（＝試験に出やすい型）</h3>
   <div class="tw"><table>
     <tr><th>型</th><th>演習での出題</th><th>押さえる道具</th></tr>
     <tr><td>用語の説明</td><td>演習1 問1・問2</td><td>電気回路・線形素子・受動素子・直流・交流の定義（<a href="#c1" data-go="c1">回路素子と直流</a>）</td></tr>
@@ -199,6 +199,7 @@ table.sheet td:first-child, table.sheet th:first-child { width: 6.5em; }
     <tr><td>直流回路の定理</td><td>演習3 全問、演習4 問4</td><td>キルヒホッフ、ブリッジの平衡、重ね合わせ、テブナン</td></tr>
     <tr><td>瞬時値の計算</td><td>演習4 問1〜3</td><td>\(v_L=L\frac{di}{dt}\)、\(i_C=C\frac{dv}{dt}\)、位相 \(\pm\frac{\pi}{2}\)、波形を描く</td></tr>
     <tr><td>インピーダンス・アドミタンス</td><td>演習5 全問</td><td>\(Z=\sqrt{R^2+X^2}\)、\(\phi=\tan^{-1}\frac{X}{R}\)、直列共振 \(f_0=\frac{1}{2\pi\sqrt{LC}}\)、並列のアドミタンス</td></tr>
+    <tr><td>フェーザ図で I と φ</td><td>演習6 全問</td><td>直列は \(\dot I\) 基準・並列は \(\dot V\) 基準、\(V=\sqrt{V_R^2+(V_L-V_C)^2}\)、\(I=\sqrt{I_R^2+(I_C-I_L)^2}\)、φ の符号（<a href="#c4" data-go="c4">フェーザ</a>）</td></tr>
   </table></div>
 
   <h3>電卓なしで解くための数値</h3>
@@ -238,6 +239,7 @@ table.sheet td:first-child, table.sheet th:first-child { width: 6.5em; }
     <label><input type="checkbox" id="k12"><span>RLC直列の \(Z\) と位相差、RLC並列の \(Y\) を出せる</span></label>
     <label><input type="checkbox" id="k13"><span>直列共振周波数 \(f_0=\frac{1}{2\pi\sqrt{LC}}\) を電卓なしで計算できる</span></label>
     <label><input type="checkbox" id="k14"><span>周波数が2倍になると \(\omega L\) は2倍、\(\frac{1}{\omega C}\) は半分になる</span></label>
+    <label><input type="checkbox" id="k16"><span>RLC直列・並列のフェーザ図を描いて、I と φ を文字式で出せる</span></label>
     <label><input type="checkbox" id="k15"><span>模擬試験を60分で解いた</span></label>
   </div>
 </section>
@@ -515,8 +517,8 @@ table.sheet td:first-child, table.sheet th:first-child { width: 6.5em; }
 </section>
 
 <!-- ================= 演習 ================= -->
-<section class="tab" id="ex" data-title="演習問題1〜5 解答" data-short="演習1〜5 解答" data-src="演習">
-  <h2>演習問題 1〜5 の解答</h2>
+<section class="tab" id="ex" data-title="演習問題1〜6 解答" data-short="演習1〜6 解答" data-src="演習">
+  <h2>演習問題 1〜6 の解答</h2>
   <p class="srcline">「演習問題と同様の記述式を4題」なので最重要。まず自分で解いてから解答を開く。数値は全部計算し直して確認済み。</p>
 
   <h3>演習問題 1（回路素子）</h3>
@@ -690,12 +692,76 @@ table.sheet td:first-child, table.sheet th:first-child { width: 6.5em; }
       <p><span class="ans">\(Y=\frac{\sqrt{10}}{30}\approx0.105\) S、周波数2倍で約 1.46 倍（\(\frac{\sqrt{8.5}}{2}\) 倍）</span></p>
       <div class="warn"><b>よくあるミス：</b>\(\frac1{\omega C}=15\) Ω を \(\omega C=15\) と取り違えない。並列では \(\omega C=\frac1{15}\) S、\(\frac1{\omega L}=\frac1{30}\) S のように<b>逆数</b>で足し引きする。</div>
     </div></details></div>
+  <h3>演習問題 6（フェーザ図で解く RL・RC・RLC）</h3>
+  <div class="tip"><b>この回の型：</b>直列は<b>電流が共通</b>なので \(\dot I\) を基準（横軸）に、並列は<b>電圧が共通</b>なので \(\dot V\) を基準にとる。あとは各素子の大きさと向き（同相・90°進み・90°遅れ）を矢印で描いて、直角三角形で合成する。くわしくは <a href="#c4" data-go="c4">フェーザ</a> の章。</div>
+  <div class="ex"><div class="q"><span class="no">問1</span>図の R-L 直列回路で、電圧源の電圧 v(t) の実効値を V、角周波数を ω として、(1) 回路を流れる電流 \(\dot I\) を基準にとり、抵抗の電圧 \(\dot V_R\)、コイルの電圧 \(\dot V_L\)、電源電圧 \(\dot V\) をフェーザで表せ。(2) V＝100 V、R＝4 Ω、ωL＝3 Ω として電流の実効値 I と位相 φ をフェーザ図から求めよ。(3) \(v(t)=\sqrt2V\sin\omega t\) のときの電流の瞬時値 i(t) を書け。
+    <figure><svg class="circ" viewBox="0 0 400 200" role="img" aria-label="演習6 問1のRL直列回路"><defs><marker id="c10ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahp"/></marker><marker id="c10ahc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahcp"/></marker></defs><line x1="80" y1="40" x2="80" y2="91.0"/><line x1="80" y1="119.0" x2="80" y2="170"/><circle cx="80" cy="105.0" r="14" class="part"/><path d="M72,105.0 q4,-8 8,0 t8,0" fill="none"/><line x1="56" y1="117.0" x2="56" y2="93.0" marker-end="url(#c10ah)"/><text x="48" y="110.0" text-anchor="end">v(t)</text><polyline points="80,40 100,40" fill="none"/><line x1="100" y1="40" x2="150.0" y2="40"/><line x1="190.0" y1="40" x2="240" y2="40"/><rect x="150.0" y="32" width="40" height="16" class="part"/><text x="170.0" y="26" text-anchor="middle">R</text><polyline points="240,40 330,40" fill="none"/><line x1="330" y1="40" x2="330" y2="85.0"/><line x1="330" y1="125.0" x2="330" y2="170"/><path d="M330,85.0 a5,5 0 0 1 0,10 a5,5 0 0 1 0,10 a5,5 0 0 1 0,10 a5,5 0 0 1 0,10" fill="none"/><text x="344" y="110.0" text-anchor="start">L</text><polyline points="330,170 80,170" fill="none"/><line x1="100" y1="22" x2="140" y2="22" class="cur" marker-end="url(#c10ahc)"/><text x="120.0" y="16.0" text-anchor="middle" class="curl">i(t)</text></svg></figure></div>
+    <details><summary>解答</summary><div class="a">
+      <p>(1) 直列なので電流 \(\dot I=I\angle0\) を基準にする。抵抗の電圧は電流と同相、コイルの電圧は電流より 90° 進む。</p>
+      \[\dot V_R=RI\angle0,\qquad \dot V_L=\omega LI\angle90°\]
+      \[\begin{aligned}\dot V&=\dot V_R+\dot V_L\\&=\sqrt{R^2+(\omega L)^2}\,I\ \angle\tan^{-1}\frac{\omega L}{R}\end{aligned}\]
+      <p>(2) フェーザ図は 3:4:5 の直角三角形になる。</p>
+      <figure><svg class="circ" viewBox="0 0 360 210" role="img" aria-label="演習6 問1のフェーザ図"><defs><marker id="c12ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahp"/></marker><marker id="c12ahc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahcp"/></marker></defs><line x1="50" y1="26" x2="242" y2="26" style="stroke-dasharray:4 4;stroke-width:1.4"/><line x1="242" y1="170" x2="242" y2="26" style="stroke-dasharray:4 4;stroke-width:1.4"/><path d="M110.0,170.0 A60,60 0 0 0 98.0,134.0" style="stroke-width:1.4"/><text x="120" y="152" text-anchor="middle">φ</text><line x1="50" y1="170" x2="330" y2="170" class="cur" marker-end="url(#c12ahc)"/><text x="342" y="175" text-anchor="middle" class="curl">İ</text><line x1="50" y1="170" x2="242" y2="170" marker-end="url(#c12ah)"/><text x="242" y="192" text-anchor="middle">V̇<tspan dy="4" font-size="11">R</tspan><tspan dy="-4">​</tspan>=80</text><line x1="50" y1="170" x2="50" y2="26" marker-end="url(#c12ah)"/><text x="50" y="18" text-anchor="middle">V̇<tspan dy="4" font-size="11">L</tspan><tspan dy="-4">​</tspan>=60</text><line x1="50" y1="170" x2="242" y2="26" marker-end="url(#c12ah)"/><text x="252" y="18" text-anchor="middle">V̇=100</text></svg><figcaption>電流 \(\dot I\) を基準。\(\dot V\) は \(\dot I\) より φ だけ進む</figcaption></figure>
+      \[I=\frac{V}{\sqrt{R^2+(\omega L)^2}}=\frac{100}{\sqrt{4^2+3^2}}=\frac{100}{5}=20\ \mathrm A\]
+      <p>\(V_R=4\times20=80\) V、\(V_L=3\times20=60\) V（\(\sqrt{80^2+60^2}=100\) ✓）。電圧が電流より \(\tan^{-1}\frac34\approx36.9°\) 進んでいるので、電圧から見た電流の位相は</p>
+      \[\phi=-\tan^{-1}\frac{\omega L}{R}=-\tan^{-1}\frac34\approx-36.9°\]
+      <p>(3) 振幅は \(\sqrt2I=20\sqrt2\) A。</p>
+      \[i(t)=20\sqrt2\sin\left(\omega t-\tan^{-1}\frac34\right)\ [\mathrm A]\]
+      <p>（\(20\sqrt2\approx28.3\)、\(\tan^{-1}\frac34\approx36.9°\approx0.64\) rad）</p>
+      <p><span class="ans">I＝20 A、φ ≈ −36.9°（電流が電圧より遅れる）、\(i(t)=20\sqrt2\sin(\omega t-36.9°)\) A</span></p>
+    </div></details></div>
+  <div class="ex"><div class="q"><span class="no">問2</span>図の R-C 並列回路で、電圧源の電圧 \(\dot V\) の実効値を V、角周波数を ω として、(1) \(\dot V\) を基準にとり、抵抗の電流 \(\dot I_R\)、コンデンサの電流 \(\dot I_C\)、全電流 \(\dot I\) をフェーザで表せ。(2) V＝120 V、R＝20 Ω、1/ωC＝20 Ω のとき電流の実効値 I と位相 φ を求めよ。(3) \(v(t)=\sqrt2V\sin\omega t\) のときの電流の瞬時値 i(t) を書け。
+    <figure><svg class="circ" viewBox="0 0 400 210" role="img" aria-label="演習6 問2のRC並列回路"><defs><marker id="c11ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahp"/></marker><marker id="c11ahc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahcp"/></marker></defs><line x1="70" y1="40" x2="70" y2="96.0"/><line x1="70" y1="124.0" x2="70" y2="180"/><circle cx="70" cy="110.0" r="14" class="part"/><path d="M62,110.0 q4,-8 8,0 t8,0" fill="none"/><line x1="46" y1="122.0" x2="46" y2="98.0" marker-end="url(#c11ah)"/><text x="38" y="115.0" text-anchor="end">V̇</text><polyline points="70,40 340,40" fill="none"/><polyline points="70,180 340,180" fill="none"/><line x1="200" y1="40" x2="200" y2="105.0"/><line x1="200" y1="115.0" x2="200" y2="180"/><line x1="186" y1="105.0" x2="214" y2="105.0" class="thick"/><line x1="186" y1="115.0" x2="214" y2="115.0" class="thick"/><text x="180" y="115.0" text-anchor="end">C</text><line x1="340" y1="40" x2="340" y2="90.0"/><line x1="340" y1="130.0" x2="340" y2="180"/><rect x="332" y="90.0" width="16" height="40" class="part"/><text x="326" y="115.0" text-anchor="end">R</text><circle cx="200" cy="40" r="3.2" class="dot"/><circle cx="200" cy="180" r="3.2" class="dot"/><line x1="90" y1="22" x2="140" y2="22" class="cur" marker-end="url(#c11ahc)"/><text x="115.0" y="16.0" text-anchor="middle" class="curl">İ</text><line x1="216" y1="56" x2="216" y2="90" class="cur" marker-end="url(#c11ahc)"/><text x="224.0" y="77.0" text-anchor="start" class="curl">İ<tspan dy="4" font-size="11">C</tspan><tspan dy="-4">​</tspan></text><line x1="356" y1="56" x2="356" y2="90" class="cur" marker-end="url(#c11ahc)"/><text x="364.0" y="77.0" text-anchor="start" class="curl">İ<tspan dy="4" font-size="11">R</tspan><tspan dy="-4">​</tspan></text></svg></figure></div>
+    <details><summary>解答</summary><div class="a">
+      <p>(1) 並列なので電圧 \(\dot V=V\angle0\) を基準にする。抵抗の電流は電圧と同相、コンデンサの電流は電圧より 90° 進む。</p>
+      \[\dot I_R=\frac VR\angle0,\qquad \dot I_C=\omega CV\angle90°\]
+      \[\begin{aligned}\dot I&=\dot I_R+\dot I_C\\&=\sqrt{\frac1{R^2}+(\omega C)^2}\,V\ \angle\tan^{-1}\omega CR\end{aligned}\]
+      <p>(2) \(I_R=\frac{120}{20}=6\) A、\(I_C=\frac{120}{20}=6\) A（1/ωC＝20 Ω なので \(\omega CV=\frac{V}{20}\)）。</p>
+      <figure><svg class="circ" viewBox="0 0 360 210" role="img" aria-label="演習6 問2のフェーザ図"><defs><marker id="c13ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahp"/></marker><marker id="c13ahc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahcp"/></marker></defs><line x1="50" y1="38" x2="182" y2="38" style="stroke-dasharray:4 4;stroke-width:1.4"/><line x1="182" y1="170" x2="182" y2="38" style="stroke-dasharray:4 4;stroke-width:1.4"/><path d="M105.0,170.0 A55,55 0 0 0 88.9,131.1" style="stroke-width:1.4"/><text x="118" y="150" text-anchor="middle">φ</text><line x1="50" y1="170" x2="330" y2="170" marker-end="url(#c13ah)"/><text x="342" y="175" text-anchor="middle">V̇</text><line x1="50" y1="170" x2="182" y2="170" class="cur" marker-end="url(#c13ahc)"/><text x="182" y="192" text-anchor="middle" class="curl">İ<tspan dy="4" font-size="11">R</tspan><tspan dy="-4">​</tspan>=6</text><line x1="50" y1="170" x2="50" y2="38" class="cur" marker-end="url(#c13ahc)"/><text x="50" y="30" text-anchor="middle" class="curl">İ<tspan dy="4" font-size="11">C</tspan><tspan dy="-4">​</tspan>=6</text><line x1="50" y1="170" x2="182" y2="38" class="cur" marker-end="url(#c13ahc)"/><text x="194" y="30" text-anchor="middle" class="curl">İ=6√2</text></svg><figcaption>電圧 \(\dot V\) を基準。\(\dot I\) は \(\dot V\) より 45° 進む</figcaption></figure>
+      \[I=\sqrt{6^2+6^2}=6\sqrt2\approx8.49\ \mathrm A\]
+      \[\phi=\tan^{-1}\frac{I_C}{I_R}=\tan^{-1}1=45°\ \left(\frac{\pi}{4}\right)\]
+      <p>(3) 振幅は \(\sqrt2\times6\sqrt2=12\) A。</p>
+      \[i(t)=12\sin\left(\omega t+\frac{\pi}{4}\right)\ [\mathrm A]\]
+      <p><span class="ans">I＝6√2 ≈ 8.49 A、φ＝+45°（電流が電圧より進む）、\(i(t)=12\sin(\omega t+\frac{\pi}{4})\) A</span></p>
+      <div class="warn"><b>よくあるミス：</b>1/ωC＝20 Ω はリアクタンス。電流は \(I_C=\frac{V}{1/\omega C}=\frac{120}{20}\) で、\(120\times20\) ではない。</div>
+    </div></details></div>
+  <div class="ex"><div class="q"><span class="no">問3</span>R、L、C の3素子を直列に接続して電圧源をつないだ回路で、電圧源の電圧の実効値を V、角周波数を ω として、(1) 電流 \(\dot I\) を基準にとり、\(\dot V_R\)、\(\dot V_L\)、\(\dot V_C\)、電源電圧 \(\dot V\) をフェーザで表せ。(2) 電流の実効値 I と位相 φ を V、ω、R、L、C で表せ。</div>
+    <details><summary>解答</summary><div class="a">
+      <p>(1) 電流 \(\dot I=I\angle0\) を基準。R は同相、L は 90° 進み、C は 90° 遅れ。</p>
+      \[\dot V_R=RI\angle0,\qquad \dot V_L=\omega LI\angle90°\]
+      \[\dot V_C=\frac{I}{\omega C}\angle-90°\]
+      <p>\(\dot V_L\) と \(\dot V_C\) は真逆を向くので、縦方向は<b>引き算</b> \(V_L-V_C\) になる。</p>
+      \[\begin{aligned}\dot V&=\dot V_R+\dot V_L+\dot V_C\\&=\sqrt{R^2+\left(\omega L-\frac1{\omega C}\right)^2}\,I\\&\qquad\angle\tan^{-1}\frac{\omega L-\frac1{\omega C}}{R}\end{aligned}\]
+      <figure><svg class="circ" viewBox="0 0 380 280" role="img" aria-label="演習6 問3のフェーザ図（ωL＞1/ωC の場合）"><defs><marker id="c14ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahp"/></marker><marker id="c14ahc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahcp"/></marker></defs><line x1="50" y1="80" x2="230" y2="80" style="stroke-dasharray:4 4;stroke-width:1.4"/><line x1="230" y1="160" x2="230" y2="80" style="stroke-dasharray:4 4;stroke-width:1.4"/><path d="M110.0,160.0 A60,60 0 0 0 104.8,135.6" style="stroke-width:1.4"/><text x="128" y="148" text-anchor="middle">φ</text><line x1="50" y1="160" x2="350" y2="160" class="cur" marker-end="url(#c14ahc)"/><text x="362" y="165" text-anchor="middle" class="curl">İ</text><line x1="50" y1="160" x2="230" y2="160" marker-end="url(#c14ah)"/><text x="230" y="182" text-anchor="middle">V̇<tspan dy="4" font-size="11">R</tspan><tspan dy="-4">​</tspan></text><line x1="50" y1="160" x2="50" y2="30" marker-end="url(#c14ah)"/><text x="28" y="35" text-anchor="middle">V̇<tspan dy="4" font-size="11">L</tspan><tspan dy="-4">​</tspan></text><line x1="50" y1="160" x2="50" y2="250" marker-end="url(#c14ah)"/><text x="28" y="255" text-anchor="middle">V̇<tspan dy="4" font-size="11">C</tspan><tspan dy="-4">​</tspan></text><line x1="50" y1="160" x2="230" y2="80" marker-end="url(#c14ah)"/><text x="244" y="76" text-anchor="middle">V̇</text><text x="60" y="72" text-anchor="start">V<tspan dy="4" font-size="11">L</tspan><tspan dy="-4">​</tspan>−V<tspan dy="4" font-size="11">C</tspan><tspan dy="-4">​</tspan></text></svg><figcaption>ωL＞1/ωC のとき。逆なら \(\dot V\) は横軸の下側に来る</figcaption></figure>
+      <p>(2) 三平方の定理で</p>
+      \[\begin{aligned}V^2&=V_R^2+(V_L-V_C)^2\\&=(RI)^2+\left(\omega LI-\frac{I}{\omega C}\right)^2\\&=\left\{R^2+\left(\omega L-\frac1{\omega C}\right)^2\right\}I^2\end{aligned}\]
+      \[I=\frac{V}{\sqrt{R^2+\left(\omega L-\frac1{\omega C}\right)^2}}\]
+      \[\phi=-\tan^{-1}\frac{V_L-V_C}{V_R}=-\tan^{-1}\frac{\omega L-\frac1{\omega C}}{R}\]
+      <p><span class="ans">\(I=\dfrac{V}{\sqrt{R^2+(\omega L-\frac1{\omega C})^2}}\)、\(\phi=-\tan^{-1}\dfrac{\omega L-\frac1{\omega C}}{R}\)</span></p>
+      <p>φ は電圧から見た電流の位相。ωL＞1/ωC なら φ＜0（電流が遅れる・誘導性）、ωL＜1/ωC なら φ＞0（電流が進む・容量性）、等しければ φ＝0 で直列共振。参考に \(v(t)=\sqrt2V\sin\omega t\) なら \(i(t)=\sqrt2I\sin(\omega t+\phi)\)。</p>
+      <div class="warn"><b>よくあるミス：</b>\(V_C=\frac{I}{\omega C}\) の <b>I を落とさない</b>（\(\omega LI-\frac1{\omega C}\) は単位がそろってない）。図の縦の長さは \(V_L+V_C\) ではなく \(V_L-V_C\)。I の分母の2乗は根号の<b>中</b>の \((\omega L-\frac1{\omega C})^2\) だけにつく（根号全体を2乗しない）。</div>
+    </div></details></div>
+  <div class="ex"><div class="q"><span class="no">問4</span>R、L、C の3素子を並列に接続して電圧源をつないだ回路で、電圧源の電圧の実効値を V、角周波数を ω として、(1) 電圧 \(\dot V\) を基準にとり、\(\dot I_R\)、\(\dot I_L\)、\(\dot I_C\)、全電流 \(\dot I\) をフェーザで表せ。(2) 電流の実効値 I と位相 φ を V、ω、R、L、C で表せ。</div>
+    <details><summary>解答</summary><div class="a">
+      <p>(1) 電圧 \(\dot V=V\angle0\) を基準。R の電流は同相、L の電流は 90° 遅れ、C の電流は 90° 進み。</p>
+      \[\dot I_R=\frac VR\angle0,\qquad \dot I_L=\frac{V}{\omega L}\angle-90°\]
+      \[\dot I_C=\omega CV\angle90°\]
+      \[\begin{aligned}\dot I&=\dot I_R+\dot I_L+\dot I_C\\&=\sqrt{\frac1{R^2}+\left(\omega C-\frac1{\omega L}\right)^2}\,V\\&\qquad\angle\tan^{-1}R\left(\omega C-\frac1{\omega L}\right)\end{aligned}\]
+      <figure><svg class="circ" viewBox="0 0 380 280" role="img" aria-label="演習6 問4のフェーザ図（ωC＞1/ωL の場合）"><defs><marker id="c15ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahp"/></marker><marker id="c15ahc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahcp"/></marker></defs><line x1="50" y1="80" x2="230" y2="80" style="stroke-dasharray:4 4;stroke-width:1.4"/><line x1="230" y1="160" x2="230" y2="80" style="stroke-dasharray:4 4;stroke-width:1.4"/><path d="M110.0,160.0 A60,60 0 0 0 104.8,135.6" style="stroke-width:1.4"/><text x="128" y="148" text-anchor="middle">φ</text><line x1="50" y1="160" x2="350" y2="160" marker-end="url(#c15ah)"/><text x="362" y="165" text-anchor="middle">V̇</text><line x1="50" y1="160" x2="230" y2="160" class="cur" marker-end="url(#c15ahc)"/><text x="230" y="182" text-anchor="middle" class="curl">İ<tspan dy="4" font-size="11">R</tspan><tspan dy="-4">​</tspan></text><line x1="50" y1="160" x2="50" y2="30" class="cur" marker-end="url(#c15ahc)"/><text x="28" y="35" text-anchor="middle" class="curl">İ<tspan dy="4" font-size="11">C</tspan><tspan dy="-4">​</tspan></text><line x1="50" y1="160" x2="50" y2="250" class="cur" marker-end="url(#c15ahc)"/><text x="28" y="255" text-anchor="middle" class="curl">İ<tspan dy="4" font-size="11">L</tspan><tspan dy="-4">​</tspan></text><line x1="50" y1="160" x2="230" y2="80" class="cur" marker-end="url(#c15ahc)"/><text x="244" y="76" text-anchor="middle" class="curl">İ</text><text x="60" y="72" text-anchor="start">I<tspan dy="4" font-size="11">C</tspan><tspan dy="-4">​</tspan>−I<tspan dy="4" font-size="11">L</tspan><tspan dy="-4">​</tspan></text></svg><figcaption>ωC＞1/ωL のとき。逆なら \(\dot I\) は横軸の下側に来る</figcaption></figure>
+      <p>(2) 三平方の定理で</p>
+      \[\begin{aligned}I&=\sqrt{I_R^2+(I_C-I_L)^2}\\&=\sqrt{\left(\frac VR\right)^2+\left(\omega CV-\frac{V}{\omega L}\right)^2}\\&=V\sqrt{\frac1{R^2}+\left(\omega C-\frac1{\omega L}\right)^2}\end{aligned}\]
+      \[\begin{aligned}\phi&=\tan^{-1}\frac{I_C-I_L}{I_R}=\tan^{-1}\frac{\omega CV-\frac V{\omega L}}{\frac VR}\\&=\tan^{-1}R\left(\omega C-\frac1{\omega L}\right)\end{aligned}\]
+      <p><span class="ans">\(I=V\sqrt{\frac1{R^2}+(\omega C-\frac1{\omega L})^2}\)、\(\phi=\tan^{-1}R(\omega C-\frac1{\omega L})\)</span></p>
+      <p>このときのアドミタンスは \(Y=\frac IV=\sqrt{\frac1{R^2}+(\omega C-\frac1{\omega L})^2}\)（<a href="#c3" data-go="c3">Z と Y</a> の式と一致）。ωC＞1/ωL なら φ＞0（電流が進む）、ωC＜1/ωL なら φ＜0（電流が遅れる）。式はどちらの場合でもそのまま使えるので、大小を仮定しなくていい。参考に \(v(t)=\sqrt2V\sin\omega t\) なら</p>
+      \[\begin{aligned}i(t)&=\sqrt2V\sqrt{\frac1{R^2}+\left(\omega C-\frac1{\omega L}\right)^2}\\&\qquad\times\sin\left\{\omega t+\tan^{-1}R\left(\omega C-\frac1{\omega L}\right)\right\}\end{aligned}\]
+      <div class="warn"><b>よくあるミス：</b>V はくくり出して<b>根号の外</b>に出す（\(\sqrt{V^2(\cdots)}=V\sqrt{\cdots}\)）。アドミタンスは \(Y=\frac IV\)（\(\frac1V\) ではない）。図の縦の長さは \(I_C+I_L\) ではなく \(I_C-I_L\)。</div>
+    </div></details></div>
 </section>
 
 <!-- ================= 模擬試験 ================= -->
 <section class="tab" id="mock" data-title="模擬試験" data-short="模擬試験" data-src="オリジナル">
   <h2>模擬試験（4題・60分）</h2>
-  <p class="srcline">演習1〜5の出題パターンに合わせたオリジナル問題。資料・電卓なしで解いてみて。数値はすべて検算済み。</p>
+  <p class="srcline">演習1〜6の出題パターンに合わせたオリジナル問題。資料・電卓なしで解いてみて。数値はすべて検算済み。</p>
   <div class="card timer" data-timer><span class="tm">60:00</span><button type="button" class="tm-start">スタート</button><button type="button" class="tm-reset">リセット</button></div>
 
   <div class="ex"><div class="q"><span class="no">問1</span>図の RLC 直列回路に \(v(t)=100\sqrt2\sin\omega t\)［V］を加えた。R＝30 Ω、ωL＝60 Ω、1/ωC＝20 Ω のとき、(1) 合成インピーダンスの大きさ Z (2) 電流 \(i(t)\) (3) R, L, C それぞれの両端電圧の実効値 (4) 消費電力と力率 を求めよ。</div>
