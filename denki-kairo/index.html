@@ -182,7 +182,7 @@ table.sheet td:first-child, table.sheet th:first-child { width: 6.5em; }
       <b>このノートの範囲</b>
       <ul>
         <li>スライド ec1〜ec6（回路素子と直流回路、正弦波交流、インピーダンスとアドミタンス、フェーザ）</li>
-        <li>演習問題 1〜6（全問解答つき）</li>
+        <li>演習問題 1〜6（全問解答つき）と、その類題の演習問題2（18問）</li>
       </ul>
       <p style="font-size:13.5px;color:var(--muted);margin:0">試験範囲は ec6 まで。複素数表示（ec8）以降は範囲外なので載せていない。</p>
     </div>
@@ -240,7 +240,9 @@ table.sheet td:first-child, table.sheet th:first-child { width: 6.5em; }
     <label><input type="checkbox" id="k13"><span>直列共振周波数 \(f_0=\frac{1}{2\pi\sqrt{LC}}\) を電卓なしで計算できる</span></label>
     <label><input type="checkbox" id="k14"><span>周波数が2倍になると \(\omega L\) は2倍、\(\frac{1}{\omega C}\) は半分になる</span></label>
     <label><input type="checkbox" id="k16"><span>RLC直列・並列のフェーザ図を描いて、I と φ を文字式で出せる</span></label>
-    <label><input type="checkbox" id="k15"><span>模擬試験を60分で解いた</span></label>
+    <label><input type="checkbox" id="k15"><span>模擬試験 第1回を60分で解いた</span></label>
+    <label><input type="checkbox" id="k17"><span>演習問題2（類題）を解答を見ずに解いた</span></label>
+    <label><input type="checkbox" id="k18"><span>模擬試験 第2回を60分で解いた</span></label>
   </div>
 </section>
 
@@ -758,9 +760,156 @@ table.sheet td:first-child, table.sheet th:first-child { width: 6.5em; }
     </div></details></div>
 </section>
 
+<!-- ================= 演習問題2（類題） ================= -->
+<section class="tab" id="ex2" data-title="演習問題2（類題）" data-short="演習問題2（類題）" data-src="オリジナル">
+  <h2>演習問題2（類題）</h2>
+  <p class="srcline">演習1〜6と同じ型で数値や回路を変えたオリジナル問題（範囲は ec1〜ec6）。各問に「元の問題」を書いてあるので、解けなかったら元の解答も見直す。数値はすべて検算済み。</p>
+
+  <h3>類題1（演習1型：回路素子）</h3>
+  <div class="ex"><div class="q"><span class="no">問1</span>基本回路素子のひとつであるコンデンサについて、講義内容に即して説明せよ。<span class="pill">元：演習1 問2</span></div>
+    <details><summary>解答例</summary><div class="a">
+      <p>コンデンサ（静電容量 C、単位 F）は電荷を蓄える線形・受動の二端子素子。蓄えた電荷 \(Q\) と電圧 \(v\) の間に \(Q=Cv\)（\(C=\frac QV\)、F＝C/V）が成り立ち、電流は電荷の時間変化なので \(i=C\frac{dv}{dt}\)、逆に \(v=\frac1C\int i\,dt\)。電圧が一定の直流では電流が流れない（開放とみなせる）。交流では電流が電圧より \(\frac{\pi}{2}\) 進み、リアクタンスは \(X_C=\frac1{\omega C}\)。直列では \(\frac1C=\sum\frac1{C_k}\)、並列では \(C=\sum C_k\) と、抵抗と逆の合成になる。</p>
+    </div></details></div>
+  <div class="ex"><div class="q"><span class="no">問2</span>インダクタンス 20 mH のコイルの電流を 0.02 s 間に 0.5 A から 0.2 A へ一定の割合で変化させた。コイルの両端に発生する電圧の大きさを求めよ。<span class="pill">元：演習1 問3</span></div>
+    <details><summary>解答</summary><div class="a">
+      \[\begin{aligned}|v|&=L\left|\frac{\Delta i}{\Delta t}\right|=20\times10^{-3}\times\frac{0.3}{0.02}\\&=20\times10^{-3}\times15=0.3\ [\mathrm V]\end{aligned}\]
+      <p><span class="ans">0.3 V（300 mV）</span></p>
+    </div></details></div>
+  <div class="ex"><div class="q"><span class="no">問3</span>静電容量 50 μF のコンデンサの電圧を 0.5 s 間に 20 V から 60 V へ一定の割合で変化させた。電圧の高い側から低い側への向きを正としたとき、コンデンサにはどちらの向きに、どれだけの電流が流れるか。<span class="pill">元：演習1 問4</span></div>
+    <details><summary>解答</summary><div class="a">
+      \[\begin{aligned}i&=C\frac{\Delta v}{\Delta t}=50\times10^{-6}\times\frac{60-20}{0.5}\\&=50\times10^{-6}\times80=4\times10^{-3}\ [\mathrm A]\end{aligned}\]
+      <p><span class="ans">正の向き（高い側から低い側へ、つまり充電する向き）に 4 mA</span>。演習1 問4 と違って電圧が<b>上がる</b>ので、今回は正。</p>
+    </div></details></div>
+
+  <h3>類題2（演習2型：合成と分流）</h3>
+  <div class="ex"><div class="q"><span class="no">問4</span>C₁＝2.0 F と C₂＝4.0 F を並列に接続したものに、C₃＝3.0 F を直列に接続した。全体の合成静電容量を求めよ。<span class="pill">元：演習2 問1</span></div>
+    <details><summary>解答</summary><div class="a">
+      <p>並列は足し算：\(C_{12}=2.0+4.0=6.0\) F。これと C₃ の直列は逆数の和：</p>
+      \[\frac1C=\frac1{6.0}+\frac1{3.0}=\frac{1+2}{6}=\frac12\]
+      <p>よって \(C=2.0\) F。</p>
+      <p><span class="ans">C＝2.0 F</span>（抵抗とは直列・並列の計算が逆になる）</p>
+    </div></details></div>
+  <div class="ex"><div class="q"><span class="no">問5</span>図の回路で R₁〜R₄ に流れる電流 i₁〜i₄ と両端の電圧 v₁〜v₄ を求めよ。<span class="pill">元：演習2 問2</span></div>
+    <figure><svg class="circ" viewBox="0 0 440 220" role="img" aria-label="類題 問5の回路"><defs><marker id="c16ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahp"/></marker><marker id="c16ahc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahcp"/></marker></defs><line x1="40" y1="30" x2="40" y2="106.0"/><line x1="40" y1="114.0" x2="40" y2="190"/><line x1="24" y1="106.0" x2="56" y2="106.0"/><line x1="32" y1="114.0" x2="48" y2="114.0" class="thick"/><text x="20" y="104.0" text-anchor="end" class="pm">+</text><text x="62" y="115.0" text-anchor="start">30 V</text><polyline points="40,30 60,30" fill="none"/><line x1="60" y1="30" x2="110.0" y2="30"/><line x1="150.0" y1="30" x2="200" y2="30"/><rect x="110.0" y="22" width="40" height="16" class="part"/><text x="130.0" y="16" text-anchor="middle">R₁ 6 Ω</text><polyline points="200,30 380,30" fill="none"/><line x1="240" y1="30" x2="240" y2="50.0"/><line x1="240" y1="90.0" x2="240" y2="110"/><rect x="232" y="50.0" width="16" height="40" class="part"/><text x="254" y="75.0" text-anchor="start">R₂ 2 Ω</text><line x1="240" y1="110" x2="240" y2="130.0"/><line x1="240" y1="170.0" x2="240" y2="190"/><rect x="232" y="130.0" width="16" height="40" class="part"/><text x="254" y="155.0" text-anchor="start">R₃ 4 Ω</text><line x1="380" y1="30" x2="380" y2="90.0"/><line x1="380" y1="130.0" x2="380" y2="190"/><rect x="372" y="90.0" width="16" height="40" class="part"/><text x="366" y="115.0" text-anchor="end">R₄ 12 Ω</text><polyline points="40,190 380,190" fill="none"/><circle cx="240" cy="30" r="3.2" class="dot"/><circle cx="240" cy="190" r="3.2" class="dot"/></svg><figcaption>電池は上側が＋</figcaption></figure>
+    <details><summary>解答</summary><div class="a">
+      <p>R₂＋R₃＝6 Ω、これと R₄＝12 Ω の並列：\(\frac{6\times12}{6+12}=4\) Ω。全体 \(6+4=10\) Ω で \(i_1=\frac{30}{10}=3\) A。</p>
+      <p>\(v_1=6\times3=18\) V、並列部分の電圧は \(30-18=12\) V。\(i_2=i_3=\frac{12}{6}=2\) A、\(i_4=\frac{12}{12}=1\) A。</p>
+      <div class="tw"><table>
+        <tr><th></th><th>R₁</th><th>R₂</th><th>R₃</th><th>R₄</th></tr>
+        <tr><td>電流 [A]</td><td>3</td><td>2</td><td>2</td><td>1</td></tr>
+        <tr><td>電圧 [V]</td><td>18</td><td>4</td><td>8</td><td>12</td></tr>
+      </table></div>
+      <p>チェック：\(v_2+v_3=v_4=12\)、\(i_2+i_4=i_1=3\)。</p>
+    </div></details></div>
+  <div class="ex"><div class="q"><span class="no">問6</span>2個のコンデンサ C₁, C₂ を直列に接続した場合の合成静電容量 \(\frac1C=\frac1{C_1}+\frac1{C_2}\) を導け。<span class="pill">元：演習2 問3</span></div>
+    <details><summary>解答</summary><div class="a">
+      <p>直列では電流が共通なので、どちらのコンデンサにも同じ電荷 \(Q\) が蓄えられる。各電圧は \(v_1=\frac{Q}{C_1}\)、\(v_2=\frac{Q}{C_2}\) で、全体の電圧はその和：</p>
+      \[v=v_1+v_2=\left(\frac1{C_1}+\frac1{C_2}\right)Q\]
+      <p>全体をひとつのコンデンサ C とみなすと \(v=\frac QC\) なので <span class="ans">\(\frac1C=\frac1{C_1}+\frac1{C_2}\)</span>。</p>
+      <div class="warn"><b>減点ポイント：</b>「直列だから電荷が等しい」の理由（同じ電流が同じ時間流れる）と、\(v=v_1+v_2\) を書いてから比べること。</div>
+    </div></details></div>
+
+  <h3>類題3（演習3型：キルヒホッフ・ブリッジ・重ね合わせ）</h3>
+  <div class="ex"><div class="q"><span class="no">問7</span>図の回路で (a) 接続点 a における I₁, I₂, I₃ の関係式 (b) 閉路 X と Y の電圧平衡式 (c) V＝60 V、R₁＝6 Ω、R₂＝12 Ω、R₃＝6 Ω のときの I₁, I₂, I₃ を求めよ。<span class="pill">元：演習3 問1</span></div>
+    <figure><svg class="circ" viewBox="0 0 440 220" role="img" aria-label="類題 問7の回路"><defs><marker id="c17ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahp"/></marker><marker id="c17ahc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahcp"/></marker></defs><line x1="40" y1="40" x2="40" y2="111.0"/><line x1="40" y1="119.0" x2="40" y2="190"/><line x1="24" y1="111.0" x2="56" y2="111.0"/><line x1="32" y1="119.0" x2="48" y2="119.0" class="thick"/><text x="20" y="109.0" text-anchor="end" class="pm">+</text><text x="18" y="120.0" text-anchor="end">V</text><polyline points="40,40 70,40" fill="none"/><line x1="70" y1="40" x2="110.0" y2="40"/><line x1="150.0" y1="40" x2="190" y2="40"/><rect x="110.0" y="32" width="40" height="16" class="part"/><text x="130.0" y="26" text-anchor="middle">R₁</text><polyline points="190,40 380,40" fill="none"/><line x1="240" y1="40" x2="240" y2="95.0"/><line x1="240" y1="135.0" x2="240" y2="190"/><rect x="232" y="95.0" width="16" height="40" class="part"/><text x="254" y="120.0" text-anchor="start">R₂</text><line x1="380" y1="40" x2="380" y2="95.0"/><line x1="380" y1="135.0" x2="380" y2="190"/><rect x="372" y="95.0" width="16" height="40" class="part"/><text x="366" y="120.0" text-anchor="end">R₃</text><polyline points="40,190 380,190" fill="none"/><circle cx="240" cy="40" r="3.2" class="dot"/><circle cx="240" cy="190" r="3.2" class="dot"/><text x="240" y="30" text-anchor="middle">a</text><line x1="80" y1="62" x2="120" y2="62" class="cur" marker-end="url(#c17ahc)"/><text x="100.0" y="78.0" text-anchor="middle" class="curl">I₁</text><line x1="256" y1="60" x2="256" y2="90" class="cur" marker-end="url(#c17ahc)"/><text x="270.0" y="79.0" text-anchor="start" class="curl">I₂</text><line x1="396" y1="60" x2="396" y2="90" class="cur" marker-end="url(#c17ahc)"/><text x="406.0" y="79.0" text-anchor="start" class="curl">I₃</text><text x="140" y="125" text-anchor="middle" class="loop">X</text><text x="310" y="125" text-anchor="middle" class="loop">Y</text></svg><figcaption>電池は上側が＋</figcaption></figure>
+    <details><summary>解答</summary><div class="a">
+      <p>(a) <span class="ans">\(I_1-I_2-I_3=0\)</span>　(b) X：<span class="ans">\(V-R_1I_1-R_2I_2=0\)</span>、Y：<span class="ans">\(R_2I_2-R_3I_3=0\)</span></p>
+      <p>(c) Y より \(12I_2=6I_3\)、\(I_3=2I_2\)。(a) より \(I_1=3I_2\)。X に代入：\(60=6\times3I_2+12I_2=30I_2\)、\(I_2=2\) A。</p>
+      <p><span class="ans">I₁＝6 A、I₂＝2 A、I₃＝4 A</span>（検算：R₂∥R₃＝4 Ω、全体 10 Ω、\(\frac{60}{10}=6\) A ✓）</p>
+    </div></details></div>
+  <div class="ex"><div class="q"><span class="no">問8</span>図の回路で (a) B点を基準にしたA点の電位 (b) 合成抵抗 (c) 消費電力 (d) B側の 30 Ω を変えて AB 間の電位差をゼロにしたい。抵抗をいくらにすればよいか。<span class="pill">元：演習3 問2</span></div>
+    <figure><svg class="circ" viewBox="0 0 420 230" role="img" aria-label="類題 問8のブリッジ形の回路"><defs><marker id="c18ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahp"/></marker><marker id="c18ahc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahcp"/></marker></defs><line x1="40" y1="30" x2="40" y2="111.0"/><line x1="40" y1="119.0" x2="40" y2="200"/><line x1="24" y1="111.0" x2="56" y2="111.0"/><line x1="32" y1="119.0" x2="48" y2="119.0" class="thick"/><text x="20" y="109.0" text-anchor="end" class="pm">+</text><text x="62" y="120.0" text-anchor="start">V=60 V</text><polyline points="40,30 380,30" fill="none"/><polyline points="40,200 380,200" fill="none"/><line x1="220" y1="30" x2="220" y2="52.5"/><line x1="220" y1="92.5" x2="220" y2="115"/><rect x="212" y="52.5" width="16" height="40" class="part"/><text x="206" y="77.5" text-anchor="end">10 Ω</text><line x1="220" y1="115" x2="220" y2="137.5"/><line x1="220" y1="177.5" x2="220" y2="200"/><rect x="212" y="137.5" width="16" height="40" class="part"/><text x="206" y="162.5" text-anchor="end">40 Ω</text><line x1="380" y1="30" x2="380" y2="52.5"/><line x1="380" y1="92.5" x2="380" y2="115"/><rect x="372" y="52.5" width="16" height="40" class="part"/><text x="366" y="77.5" text-anchor="end">20 Ω</text><line x1="380" y1="115" x2="380" y2="137.5"/><line x1="380" y1="177.5" x2="380" y2="200"/><rect x="372" y="137.5" width="16" height="40" class="part"/><text x="366" y="162.5" text-anchor="end">30 Ω</text><circle cx="220" cy="115" r="3.2" class="dot"/><text x="232" y="120" text-anchor="start">A</text><circle cx="380" cy="115" r="3.2" class="dot"/><text x="392" y="120" text-anchor="start">B</text><circle cx="220" cy="30" r="3.2" class="dot"/><circle cx="220" cy="200" r="3.2" class="dot"/></svg><figcaption>電源は上側が＋</figcaption></figure>
+    <details><summary>解答</summary><div class="a">
+      <p>各枝は 50 Ω で、電流はどちらも \(\frac{60}{50}=1.2\) A。下の導線を 0 V とすると A点 \(=40\times1.2=48\) V、B点 \(=30\times1.2=36\) V。</p>
+      <p>(a) <span class="ans">\(V_A-V_B=48-36=12\) V</span>　(b) 50 Ω ∥ 50 Ω：<span class="ans">25 Ω</span>　(c) \(\frac{60^2}{25}=\) <span class="ans">144 W</span></p>
+      <p>(d) B点も 48 V にする：\(60\times\frac{R}{20+R}=48\) → \(60R=48(20+R)\) → \(12R=960\) → <span class="ans">R＝80 Ω</span>。平衡条件 \(10\times R=20\times40\) からも 80 Ω。</p>
+    </div></details></div>
+  <div class="ex"><div class="q"><span class="no">問9</span>図の回路で、重ね合わせの理を用いて R₁, R₂, R₃ に流れる電流を求めよ。I₁ は左→右、I₂ は下向き、I₃ は P→Q を正とする。<span class="pill">元：演習3 問3</span></div>
+    <figure><svg class="circ" viewBox="0 0 500 220" role="img" aria-label="類題 問9の重ね合わせの回路"><defs><marker id="c19ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahp"/></marker><marker id="c19ahc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahcp"/></marker></defs><line x1="40" y1="40" x2="40" y2="111.0"/><line x1="40" y1="119.0" x2="40" y2="190"/><line x1="24" y1="111.0" x2="56" y2="111.0"/><line x1="32" y1="119.0" x2="48" y2="119.0" class="thick"/><text x="20" y="109.0" text-anchor="end" class="pm">+</text><text x="62" y="120.0" text-anchor="start">E=12 V</text><polyline points="40,40 60,40" fill="none"/><line x1="60" y1="40" x2="110.0" y2="40"/><line x1="150.0" y1="40" x2="200" y2="40"/><rect x="110.0" y="32" width="40" height="16" class="part"/><text x="130.0" y="26" text-anchor="middle">R₁=2 Ω</text><line x1="200" y1="40" x2="260.0" y2="40"/><line x1="300.0" y1="40" x2="360" y2="40"/><rect x="260.0" y="32" width="40" height="16" class="part"/><text x="280.0" y="26" text-anchor="middle">R₃=4 Ω</text><polyline points="360,40 420,40" fill="none"/><line x1="200" y1="40" x2="200" y2="95.0"/><line x1="200" y1="135.0" x2="200" y2="190"/><rect x="192" y="95.0" width="16" height="40" class="part"/><text x="214" y="120.0" text-anchor="start">R₂=4 Ω</text><line x1="420" y1="40" x2="420" y2="101.0"/><line x1="420" y1="129.0" x2="420" y2="190"/><circle cx="420" cy="115.0" r="14" class="part"/><line x1="420" y1="123.0" x2="420" y2="109.0" marker-end="url(#c19ah)"/><text x="442" y="120.0" text-anchor="start">I₀=3 A</text><polyline points="40,190 420,190" fill="none"/><circle cx="200" cy="40" r="3.2" class="dot"/><circle cx="200" cy="190" r="3.2" class="dot"/><text x="200" y="28" text-anchor="middle">P</text><text x="360" y="28" text-anchor="middle">Q</text></svg><figcaption>電池は上側が＋、電流源は上向き（Q に流れ込む向き）</figcaption></figure>
+    <details><summary>解答</summary><div class="a">
+      <p><b>① 電池だけ（電流源は開放）</b>：R₃ の先が切れるので R₃ には流れない。\(I_1'=I_2'=\frac{12}{2+4}=2\) A、\(I_3'=0\)。</p>
+      <p><b>② 電流源だけ（電池は短絡）</b>：3 A が Q→P と R₃ を流れ（\(I_3''=-3\) A）、P で R₁(2 Ω) と R₂(4 Ω) に分流。R₂ へ \(3\times\frac{2}{2+4}=1\) A（下向き）、R₁ へ \(3\times\frac{4}{2+4}=2\) A（P→左なので \(I_1''=-2\) A）。</p>
+      <div class="tw"><table>
+        <tr><th></th><th>① 電池のみ</th><th>② 電流源のみ</th><th>合計</th></tr>
+        <tr><td>I₁（左→右）</td><td>2</td><td>−2</td><td><b>0 A</b></td></tr>
+        <tr><td>I₂（下向き）</td><td>2</td><td>1</td><td><b>3 A</b></td></tr>
+        <tr><td>I₃（P→Q）</td><td>0</td><td>−3</td><td><b>−3 A（Q→P に 3 A）</b></td></tr>
+      </table></div>
+      <p>チェック：P の電位は \(4\times3=12\) V で電池と同じなので R₁ に電流は流れない ✓。節点 P で \(I_1-I_2-I_3=0-3+3=0\) ✓。</p>
+    </div></details></div>
+
+  <h3>類題4（演習4型：瞬時値・波形・テブナン）</h3>
+  <div class="ex"><div class="q"><span class="no">問10</span>R-C 直列回路に電流 \(i(t)=\sqrt2I\sin\omega t\) が流れているとき、抵抗の電圧 \(v_R(t)\) とコンデンサの電圧 \(v_C(t)\) を正弦関数で表せ。また、回路のインピーダンス \(\frac VI\) を R と ωC で表せ。<span class="pill">元：演習4 問1</span></div>
+    <details><summary>解答</summary><div class="a">
+      <p>\(v_R=Ri=\sqrt2RI\sin\omega t\)。\(v_C=\frac1C\int i\,dt=-\frac{\sqrt2I}{\omega C}\cos\omega t\) なので</p>
+      \[v_R(t)=\sqrt2RI\sin\omega t\]
+      \[v_C(t)=\frac{\sqrt2I}{\omega C}\sin\left(\omega t-\frac{\pi}{2}\right)\]
+      <p>全体 \(v=v_R+v_C=\sqrt2I\left(R\sin\omega t-\frac1{\omega C}\cos\omega t\right)\)。\(\sqrt2V\sin(\omega t+\theta)\) と係数比較して二乗して足すと</p>
+      \[\frac VI=\sqrt{R^2+\left(\frac1{\omega C}\right)^2},\qquad \tan\theta=-\frac{1}{\omega CR}\]
+      <p><span class="ans">\(v_C\) は電流より \(\frac{\pi}{2}\) 遅れる。\(\frac VI=\sqrt{R^2+\frac1{(\omega C)^2}}\)</span>（電圧は電流より遅れる＝電流が進む）</p>
+    </div></details></div>
+  <div class="ex"><div class="q"><span class="no">問11</span>電圧 \(v(t)=10\sin\omega t\)［V］を加えた回路の電流が、電圧より位相にして \(\frac{\pi}{3}\) 遅れ、振幅が 2 A であった。(1) 電流 \(i(t)\) を式で表せ。(2) \(\omega t=0\) と \(\omega t=\frac{\pi}{2}\) のときの電流の値を求めよ。(3) 電流の波形は電圧の波形をどちらにどれだけずらしたものか。<span class="pill">元：演習4 問2</span></div>
+    <details><summary>解答</summary><div class="a">
+      <p>(1) 遅れは \(-\)：<span class="ans">\(i(t)=2\sin\left(\omega t-\frac{\pi}{3}\right)\)［A］</span></p>
+      <p>(2) \(i(0)=2\sin\left(-\frac{\pi}{3}\right)=-\sqrt3\approx-1.73\) A、\(i\left(\frac{\pi}{2}\right)=2\sin\frac{\pi}{6}=1\) A</p>
+      <p>(3) <span class="ans">右（ωt の正の向き）に \(\frac{\pi}{3}\)</span> ずらしたもの。電流は ωt＝π/3 で 0 から増え始める。</p>
+      <div class="warn"><b>よくあるミス：</b>「遅れ」を左にずらして描く。遅れ＝同じ値になるのが<b>後</b>（右側）。進み（\(+\phi\)）が左シフト。</div>
+    </div></details></div>
+  <div class="ex"><div class="q"><span class="no">問12</span>図の回路で負荷 R_L＝4 Ω を流れる電流を、テブナンの定理を用いて求めよ。<span class="pill">元：演習4 問4</span></div>
+    <figure><svg class="circ" viewBox="0 0 480 220" role="img" aria-label="類題 問12のテブナンの回路"><defs><marker id="c20ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahp"/></marker><marker id="c20ahc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahcp"/></marker></defs><line x1="40" y1="30" x2="40" y2="101.0"/><line x1="40" y1="109.0" x2="40" y2="180"/><line x1="24" y1="101.0" x2="56" y2="101.0"/><line x1="32" y1="109.0" x2="48" y2="109.0" class="thick"/><text x="20" y="99.0" text-anchor="end" class="pm">+</text><text x="62" y="110.0" text-anchor="start">E=18 V</text><polyline points="40,30 60,30" fill="none"/><line x1="60" y1="30" x2="110.0" y2="30"/><line x1="150.0" y1="30" x2="200" y2="30"/><rect x="110.0" y="22" width="40" height="16" class="part"/><text x="130.0" y="16" text-anchor="middle">R₁=6 Ω</text><line x1="200" y1="30" x2="250.0" y2="30"/><line x1="290.0" y1="30" x2="340" y2="30"/><rect x="250.0" y="22" width="40" height="16" class="part"/><text x="270.0" y="16" text-anchor="middle">R₄=2 Ω</text><polyline points="340,30 400,30" fill="none"/><line x1="200" y1="30" x2="200" y2="85.0"/><line x1="200" y1="125.0" x2="200" y2="180"/><rect x="192" y="85.0" width="16" height="40" class="part"/><text x="214" y="110.0" text-anchor="start">R₂=3 Ω</text><line x1="400" y1="30" x2="400" y2="85.0"/><line x1="400" y1="125.0" x2="400" y2="180"/><rect x="392" y="85.0" width="16" height="40" class="part"/><text x="386" y="110.0" text-anchor="end">R<tspan dy="4" font-size="11">L</tspan><tspan dy="-4">​</tspan>=4 Ω</text><polyline points="40,180 400,180" fill="none"/><circle cx="200" cy="30" r="3.2" class="dot"/><circle cx="200" cy="180" r="3.2" class="dot"/><text x="412" y="34" text-anchor="start">a</text><text x="412" y="190" text-anchor="start">b</text></svg><figcaption>電池は上側が＋</figcaption></figure>
+    <details><summary>解答</summary><div class="a">
+      <p>R_L を外すと R₄ には電流が流れないので、ab 間の電圧は R₂ の電圧と同じ：\(V_0=18\times\frac{3}{6+3}=6\) V（a が高い）。</p>
+      <p>電池を短絡して ab から見ると、R₁ と R₂ の並列に R₄ が直列：\(R_0=\frac{6\times3}{6+3}+2=4\) Ω。</p>
+      <p><span class="ans">\(I=\frac{V_0}{R_0+R_L}=\frac{6}{4+4}=0.75\) A、R_L を a から b（上から下）へ</span></p>
+      <div class="warn"><b>よくあるミス：</b>R₀ に R₄ を足し忘れる。R₄ は R_L を外すと電流 0 なので \(V_0\) には効かないが、端子から見た抵抗には入る。</div>
+    </div></details></div>
+
+  <h3>類題5（演習5型：インピーダンス・共振・アドミタンス）</h3>
+  <div class="tip"><b>φ の符号：</b>問13・問14 は元の演習5と同じく「電圧と電流の位相差」を \(\phi=\tan^{-1}\frac XR\)（電流から見た電圧の進み）で答えている。問16〜18 や演習6 のように「電圧から見た電流の位相」で書くと符号が逆になり、問13 は −53.1°、問14 は −36.9° になる。答案ではどちらの意味か（進む・遅れる）を必ず言葉で添える。</div>
+  <div class="ex"><div class="q"><span class="no">問13</span>30 Ω の抵抗と 40 mH のコイルを直列接続し、角周波数 1000 rad/s の交流電圧を加えたときのインピーダンス Z と、電圧と電流の位相差 φ を求めよ。<span class="pill">元：演習5 問1</span></div>
+    <details><summary>解答</summary><div class="a">
+      <p>\(\omega L=1000\times40\times10^{-3}=40\) Ω。\(Z=\sqrt{30^2+40^2}=50\) Ω、\(\phi=\tan^{-1}\frac{40}{30}=\tan^{-1}\frac43\approx53.1°\)。</p>
+      <p><span class="ans">Z＝50 Ω、電圧が電流より約 53.1° 進む（電流が遅れる）</span></p>
+    </div></details></div>
+  <div class="ex"><div class="q"><span class="no">問14</span>R＝8 Ω、ωL＝10 Ω、1/ωC＝4 Ω の RLC 直列回路の合成インピーダンス Z、アドミタンス Y、リアクタンス X、位相差 φ を求めよ。<span class="pill">元：演習5 問2</span></div>
+    <details><summary>解答</summary><div class="a">
+      <p>\(X=10-4=6\) Ω（誘導性）、\(Z=\sqrt{8^2+6^2}=10\) Ω、\(Y=\frac1Z=0.1\) S、\(\phi=\tan^{-1}\frac68=\tan^{-1}\frac34\approx36.9°\)。</p>
+      <p><span class="ans">X＝6 Ω、Z＝10 Ω、Y＝0.1 S、電圧が電流より約 36.9° 進む</span></p>
+    </div></details></div>
+  <div class="ex"><div class="q"><span class="no">問15</span>R＝5 Ω、L＝4 mH、C＝0.1 μF の RLC 直列回路の共振角周波数 ω₀ と共振周波数 f₀、そのときのインピーダンスを求めよ。<span class="pill">元：演習5 問3</span></div>
+    <details><summary>解答</summary><div class="a">
+      \[\begin{aligned}\omega_0&=\frac1{\sqrt{LC}}=\frac1{\sqrt{4\times10^{-3}\times10^{-7}}}\\&=\frac1{\sqrt{4\times10^{-10}}}=\frac1{2\times10^{-5}}=5\times10^4\ \mathrm{rad/s}\end{aligned}\]
+      \[f_0=\frac{\omega_0}{2\pi}=\frac{5\times10^4}{2\pi}\approx\frac{5\times10^4}{6.28}\approx7.96\times10^3\ \mathrm{Hz}\]
+      <p><span class="ans">ω₀＝5×10⁴ rad/s、f₀ ≈ 7.96 kHz、Z＝R＝5 Ω（電圧と電流は同相）</span></p>
+    </div></details></div>
+  <div class="ex"><div class="q"><span class="no">問16</span>R＝20 Ω、ωL＝10 Ω、1/ωC＝5 Ω の3素子を並列に接続した。(1) アドミタンス Y を求めよ。(2) 実効値 10 V の電圧を加えたときの全電流と、電圧との位相差を求めよ。(3) 全電流が最小になる角周波数は元の ω の何倍か。<span class="pill">元：演習5 問4</span></div>
+    <details><summary>解答</summary><div class="a">
+      <p>(1) \(\frac1R=0.05\)、\(\omega C=\frac15=0.2\)、\(\frac1{\omega L}=\frac1{10}=0.1\)［S］。</p>
+      \[\begin{aligned}Y&=\sqrt{0.05^2+(0.2-0.1)^2}=\sqrt{0.0025+0.01}\\&=\sqrt{0.0125}=0.05\sqrt5\approx0.112\ \mathrm S\end{aligned}\]
+      <p>(2) \(I=YV=0.5\sqrt5\approx1.12\) A。</p>
+      \[\begin{aligned}\phi&=\tan^{-1}R\left(\omega C-\frac1{\omega L}\right)\\&=\tan^{-1}(20\times0.1)=\tan^{-1}2\approx63.4°\end{aligned}\]
+      <p><span class="ans">電流が電圧より約 63.4° 進む</span></p>
+      <p>(3) \(\omega C=\frac1{\omega L}\)（並列共振）で Y＝1/R が最小。\(L=\frac{10}{\omega}\)、\(C=\frac{0.2}{\omega}\) より \(LC=\frac{2}{\omega^2}\)、\(\omega_0=\frac1{\sqrt{LC}}=\frac{\omega}{\sqrt2}\)。<span class="ans">\(\frac1{\sqrt2}\) 倍（約 0.71 倍）</span></p>
+    </div></details></div>
+
+  <h3>類題6（演習6型：フェーザ図）</h3>
+  <div class="ex"><div class="q"><span class="no">問17</span>R-C 直列回路で V＝100 V、R＝6 Ω、1/ωC＝8 Ω とする。(1) 電流 \(\dot I\) を基準にとり \(\dot V_R\)、\(\dot V_C\)、\(\dot V\) をフェーザで表せ。(2) 電流の実効値 I と位相 φ を求めよ。(3) \(v(t)=\sqrt2V\sin\omega t\) のときの \(i(t)\) を書け。<span class="pill">元：演習6 問1</span></div>
+    <details><summary>解答</summary><div class="a">
+      <p>(1) \(\dot V_R=RI\angle0\)、\(\dot V_C=\frac{I}{\omega C}\angle-90°\)、\(\dot V=\sqrt{R^2+\left(\frac1{\omega C}\right)^2}\,I\angle-\tan^{-1}\frac{1}{\omega CR}\)</p>
+      <p>(2) \(Z=\sqrt{6^2+8^2}=10\) Ω で \(I=10\) A（\(V_R=60\) V、\(V_C=80\) V）。電圧は電流より \(\tan^{-1}\frac86\approx53.1°\) 遅れるので、電流は電圧より進む：\(\phi=+\tan^{-1}\frac43\approx+53.1°\)。</p>
+      <p>(3) <span class="ans">\(i(t)=10\sqrt2\sin(\omega t+53.1°)\)［A］</span></p>
+    </div></details></div>
+  <div class="ex"><div class="q"><span class="no">問18</span>R-L 並列回路で V＝60 V、R＝15 Ω、ωL＝20 Ω とする。(1) \(\dot V\) を基準にとり \(\dot I_R\)、\(\dot I_L\)、\(\dot I\) をフェーザで表せ。(2) 全電流の実効値 I と位相 φ を求めよ。(3) \(v(t)=\sqrt2V\sin\omega t\) のときの \(i(t)\) を書け。<span class="pill">元：演習6 問2</span></div>
+    <details><summary>解答</summary><div class="a">
+      <p>(1) \(\dot I_R=\frac VR\angle0\)、\(\dot I_L=\frac V{\omega L}\angle-90°\)、\(\dot I=\sqrt{\frac1{R^2}+\frac1{(\omega L)^2}}\,V\angle-\tan^{-1}\frac{R}{\omega L}\)</p>
+      <p>(2) \(I_R=\frac{60}{15}=4\) A、\(I_L=\frac{60}{20}=3\) A。\(I=\sqrt{4^2+3^2}=5\) A、\(\phi=-\tan^{-1}\frac34\approx-36.9°\)（電流が遅れる）。</p>
+      <p>(3) <span class="ans">\(i(t)=5\sqrt2\sin(\omega t-36.9°)\)［A］</span></p>
+    </div></details></div>
+</section>
+
 <!-- ================= 模擬試験 ================= -->
-<section class="tab" id="mock" data-title="模擬試験" data-short="模擬試験" data-src="オリジナル">
-  <h2>模擬試験（4題・60分）</h2>
+<section class="tab" id="mock" data-title="模擬試験1" data-short="模擬試験1" data-src="オリジナル">
+  <h2>模擬試験 第1回（4題・60分）</h2>
   <p class="srcline">演習1〜6の出題パターンに合わせたオリジナル問題。資料・電卓なしで解いてみて。数値はすべて検算済み。</p>
   <div class="card timer" data-timer><span class="tm">60:00</span><button type="button" class="tm-start">スタート</button><button type="button" class="tm-reset">リセット</button></div>
 
@@ -794,6 +943,51 @@ table.sheet td:first-child, table.sheet th:first-child { width: 6.5em; }
       <p>(2) \(I=YV=5\sqrt2\approx7.07\) A、\(\phi=\tan^{-1}R\left(\omega C-\frac1{\omega L}\right)=\tan^{-1}\{20\times(-0.05)\}=\tan^{-1}(-1)=-45°\)：<span class="ans">電流が電圧より 45° 遅れる</span></p>
       <p>(3) ωL＝20 Ω、1/ωC＝10 Ω になり \(\omega C=0.1\)、\(\frac1{\omega L}=0.05\)。\(Y'=\sqrt{0.05^2+0.05^2}=0.05\sqrt2\) S で大きさは<b>同じ</b>（1倍）だが、\(\phi=\tan^{-1}(+1)=+45°\) で今度は<b>電流が 45° 進む</b>。</p>
       <p>(4) \(L=\frac{10}{\omega}\)、\(C=\frac1{20\omega}\) より \(LC=\frac{1}{2\omega^2}\)、\(\omega_0=\frac1{\sqrt{LC}}=\sqrt2\,\omega\)。<span class="ans">√2 倍（約1.41倍）</span></p>
+    </div></details></div>
+</section>
+
+<!-- ================= 模擬試験2 ================= -->
+<section class="tab" id="mock2" data-title="模擬試験2" data-short="模擬試験2" data-src="オリジナル">
+  <h2>模擬試験 第2回（4題・60分）</h2>
+  <p class="srcline">第1回とは別の型（2電源のキルヒホッフ、正弦波の読み取り、直列共振、並列のフェーザ図）を中心にしたオリジナル問題。資料・電卓なしで解いてみて。数値はすべて検算済み。</p>
+  <div class="card timer" data-timer><span class="tm">60:00</span><button type="button" class="tm-start">スタート</button><button type="button" class="tm-reset">リセット</button></div>
+
+  <div class="ex"><div class="q"><span class="no">問1</span>図の回路で、電流 I₁, I₂, I₃ を図の向きに定める。(1) 節点 P における電流の関係式 (2) 左の閉路と右の閉路の電圧平衡式 (3) I₁, I₂, I₃ の値（向きも答えよ） (4) R₃ の消費電力 を求めよ。</div>
+    <figure><svg class="circ" viewBox="0 0 480 220" role="img" aria-label="模試2 問1の2電源の回路"><defs><marker id="c21ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahp"/></marker><marker id="c21ahc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="ahcp"/></marker></defs><line x1="40" y1="40" x2="40" y2="111.0"/><line x1="40" y1="119.0" x2="40" y2="190"/><line x1="24" y1="111.0" x2="56" y2="111.0"/><line x1="32" y1="119.0" x2="48" y2="119.0" class="thick"/><text x="20" y="109.0" text-anchor="end" class="pm">+</text><text x="62" y="120.0" text-anchor="start">E₁=10 V</text><polyline points="40,40 60,40" fill="none"/><line x1="60" y1="40" x2="110.0" y2="40"/><line x1="150.0" y1="40" x2="200" y2="40"/><rect x="110.0" y="32" width="40" height="16" class="part"/><text x="130.0" y="26" text-anchor="middle">R₁=2 Ω</text><line x1="200" y1="40" x2="250.0" y2="40"/><line x1="290.0" y1="40" x2="340" y2="40"/><rect x="250.0" y="32" width="40" height="16" class="part"/><text x="270.0" y="26" text-anchor="middle">R₂=2 Ω</text><polyline points="340,40 400,40" fill="none"/><line x1="200" y1="40" x2="200" y2="95.0"/><line x1="200" y1="135.0" x2="200" y2="190"/><rect x="192" y="95.0" width="16" height="40" class="part"/><text x="214" y="120.0" text-anchor="start">R₃=4 Ω</text><line x1="400" y1="40" x2="400" y2="111.0"/><line x1="400" y1="119.0" x2="400" y2="190"/><line x1="384" y1="111.0" x2="416" y2="111.0"/><line x1="392" y1="119.0" x2="408" y2="119.0" class="thick"/><text x="380" y="109.0" text-anchor="end" class="pm">+</text><text x="422" y="120.0" text-anchor="start">E₂=5 V</text><polyline points="40,190 400,190" fill="none"/><circle cx="200" cy="40" r="3.2" class="dot"/><circle cx="200" cy="190" r="3.2" class="dot"/><text x="200" y="28" text-anchor="middle">P</text><line x1="80" y1="62" x2="120" y2="62" class="cur" marker-end="url(#c21ahc)"/><text x="100.0" y="78.0" text-anchor="middle" class="curl">I₁</text><line x1="320" y1="62" x2="280" y2="62" class="cur" marker-end="url(#c21ahc)"/><text x="300.0" y="78.0" text-anchor="middle" class="curl">I₂</text><line x1="182" y1="70" x2="182" y2="100" class="cur" marker-end="url(#c21ahc)"/><text x="174.0" y="89.0" text-anchor="end" class="curl">I₃</text></svg><figcaption>電池はどちらも上側が＋</figcaption></figure>
+    <details><summary>解答</summary><div class="a">
+      <p>(1) P に I₁, I₂ が流れ込み I₃ が流れ出る：<span class="ans">\(I_1+I_2-I_3=0\)</span></p>
+      <p>(2) 左（E₁→R₁→R₃）：<span class="ans">\(E_1=R_1I_1+R_3I_3\)</span>、右（E₂→R₂→R₃）：<span class="ans">\(E_2=R_2I_2+R_3I_3\)</span></p>
+      <p>(3) 数値を入れると \(10=2I_1+4I_3\)、\(5=2I_2+4I_3\)。辺々足して \(15=2(I_1+I_2)+8I_3=10I_3\)（(1) より \(I_1+I_2=I_3\)）、\(I_3=1.5\) A。</p>
+      <p>\(I_1=\frac{10-6}{2}=2\) A、\(I_2=\frac{5-6}{2}=-0.5\) A。</p>
+      <p><span class="ans">I₁＝2 A、I₂＝−0.5 A（実際は P から E₂ へ 0.5 A＝E₂ は充電される向き）、I₃＝1.5 A（下向き）</span></p>
+      <p>(4) \(P=R_3I_3^2=4\times1.5^2=\) <span class="ans">9 W</span></p>
+      <div class="tip"><b>検算：</b>P の電位は \(R_3I_3=6\) V。E₂＝5 V より高いので、右側では電流が P から E₂ へ流れる。符号が負になっても、それは「仮定と逆向き」というだけで計算は合っている。</div>
+    </div></details></div>
+
+  <div class="ex"><div class="q"><span class="no">問2</span>電圧 \(v(t)=100\sqrt2\sin\left(100\pi t+\frac{\pi}{6}\right)\)［V］について、(1) 実効値、周波数、周期 (2) t＝0 での瞬時値 を求めよ。(3) この電圧を \(L=\frac1\pi\) H のコイルに加えたときの電流 \(i_L(t)\)、(4) \(C=\frac{100}{\pi}\) μF のコンデンサに加えたときの電流 \(i_C(t)\) を求めよ。</div>
+    <details><summary>解答</summary><div class="a">
+      <p>(1) 振幅 \(100\sqrt2\) なので<span class="ans">実効値 100 V</span>。\(\omega=100\pi=2\pi f\) より <span class="ans">f＝50 Hz、T＝0.02 s</span>。</p>
+      <p>(2) \(v(0)=100\sqrt2\sin\frac{\pi}{6}=50\sqrt2\approx\) <span class="ans">70.7 V</span></p>
+      <p>(3) \(\omega L=100\pi\times\frac1\pi=100\) Ω で \(I=1\) A。コイルは電流が \(\frac{\pi}{2}\) 遅れる：</p>
+      \[\begin{aligned}i_L(t)&=\sqrt2\sin\left(100\pi t+\frac{\pi}{6}-\frac{\pi}{2}\right)\\&=\sqrt2\sin\left(100\pi t-\frac{\pi}{3}\right)\ [\mathrm A]\end{aligned}\]
+      <p>(4) \(\omega C=100\pi\times\frac{100}{\pi}\times10^{-6}=10^{-2}\)、\(\frac1{\omega C}=100\) Ω で \(I=1\) A。コンデンサは電流が \(\frac{\pi}{2}\) 進む：</p>
+      \[\begin{aligned}i_C(t)&=\sqrt2\sin\left(100\pi t+\frac{\pi}{6}+\frac{\pi}{2}\right)\\&=\sqrt2\sin\left(100\pi t+\frac{2\pi}{3}\right)\ [\mathrm A]\end{aligned}\]
+      <div class="warn"><b>よくあるミス：</b>\(\frac{\pi}{6}\) の初期位相を忘れて \(\pm\frac{\pi}{2}\) だけ書く。元の位相に足し引きすること。</div>
+    </div></details></div>
+
+  <div class="ex"><div class="q"><span class="no">問3</span>R＝40 Ω、ωL＝50 Ω、1/ωC＝20 Ω の RLC 直列回路に実効値 100 V の電圧を加えた。(1) 電流 \(\dot I\) を基準にしたフェーザ図を描き、電流の実効値 I と電圧に対する位相 φ を求めよ。(2) R, L, C それぞれの電圧の実効値を求めよ。(3) 角周波数はそのままで C だけを変えて直列共振させたい。C を元の何倍にすればよいか。また、そのときの電流と L の電圧を求めよ。</div>
+    <details><summary>解答</summary><div class="a">
+      <p>(1) フェーザ図は \(\dot V_R\) が横、\(\dot V_L\) が上、\(\dot V_C\) が下。縦の合計は \(V_L-V_C\)。\(Z=\sqrt{40^2+(50-20)^2}=50\) Ω、<span class="ans">I＝2 A</span>。\(\phi=-\tan^{-1}\frac{30}{40}=-\tan^{-1}\frac34\approx\) <span class="ans">−36.9°（電流が遅れる）</span></p>
+      <p>(2) <span class="ans">\(V_R=80\) V、\(V_L=100\) V、\(V_C=40\) V</span>（\(\sqrt{80^2+(100-40)^2}=100\) ✓。\(V_L\) が電源と同じ 100 V になるが、位相がずれているので矛盾しない）</p>
+      <p>(3) 共振は \(\frac1{\omega C'}=\omega L=50\) Ω。\(\frac1{\omega C}\) を 20→50 Ω（2.5倍）にするので、C は <span class="ans">\(\frac{20}{50}=0.4\) 倍</span>。そのとき Z＝R＝40 Ω、<span class="ans">I＝2.5 A</span>、<span class="ans">\(V_L=50\times2.5=125\) V</span>（電源電圧より大きい）。</p>
+    </div></details></div>
+
+  <div class="ex"><div class="q"><span class="no">問4</span>R＝6 Ω、ωL＝8 Ω、1/ωC＝4 Ω の3素子を並列に接続し、実効値 48 V の電圧を加えた。(1) 電圧 \(\dot V\) を基準にして \(\dot I_R\)、\(\dot I_L\)、\(\dot I_C\) の大きさと向きを答え、フェーザ図を描け。(2) 全電流の実効値 I と位相 φ を求めよ。(3) アドミタンス Y を求めよ。(4) 全電流が最小になる角周波数は元の ω の何倍か。そのときの全電流も求めよ。</div>
+    <details><summary>解答</summary><div class="a">
+      <p>(1) <span class="ans">\(I_R=\frac{48}{6}=8\) A（同相）、\(I_L=\frac{48}{8}=6\) A（90° 遅れ＝下向き）、\(I_C=\frac{48}{4}=12\) A（90° 進み＝上向き）</span></p>
+      <p>(2) 縦の合計は \(I_C-I_L=6\) A（上向き）。\(I=\sqrt{8^2+6^2}=\) <span class="ans">10 A</span>、\(\phi=\tan^{-1}\frac68=\tan^{-1}\frac34\approx\) <span class="ans">+36.9°（電流が進む）</span></p>
+      <p>(3) \(Y=\frac IV=\frac{10}{48}=\) <span class="ans">\(\frac{5}{24}\approx0.208\) S</span>（式でも \(\sqrt{\frac1{36}+\left(\frac14-\frac18\right)^2}=\sqrt{\frac{1}{36}+\frac1{64}}=\frac{10}{48}\) ✓）</p>
+      <p>(4) \(\omega C=\frac1{\omega L}\) で \(I_C=I_L\) となり、I は最小の \(I_R\) だけになる。\(L=\frac{8}{\omega}\)、\(C=\frac1{4\omega}\) より \(LC=\frac2{\omega^2}\)、\(\omega_0=\frac{\omega}{\sqrt2}\)。<span class="ans">\(\frac1{\sqrt2}\) 倍（約 0.71 倍）、そのとき I＝I_R＝8 A</span></p>
     </div></details></div>
 </section>
 
